@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "vegehenna",
+  "version": "${version}",
+  "name": "vegehenna",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/ivangeevo/vegehenna"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/vegehenna/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "org.ivangeevo.vegehenna.client.VegehennaModClient"
+    ],
+    "main": [
+      "org.ivangeevo.vegehenna.VegehennaMod"
+    ],
+    "fabric-datagen": [
+      "org.ivangeevo.vegehenna.VegehennaDataGenerator"
+    ]
+  },
+  "mixins": [
+    "vegehenna.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
