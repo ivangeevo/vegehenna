@@ -6,5 +6,6 @@
   "ingredient": {
     "item": "vegehenna:pastry_uncooked_cookies"
   },
-  "result": "minecraft:cookie"
+  "result": "minecraft:cookie",
+  "count": 8
 }
