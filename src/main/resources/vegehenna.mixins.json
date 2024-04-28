@@ -9,6 +9,7 @@
     "BoneMealItemMixin",
     "CarrotsBlockMixin",
     "CropBlockMixin",
+    "FarmlandBlockMixin",
     "PotatoesBlockMixin"
   ],
   "client": [

@@ -30,7 +30,6 @@ public class ModTags
 
     public static class Blocks
     {
-        public static final TagKey<Block> FERTILIZED_FARMLAND_BLOCKS =  createTag("fertilized_farmland_blocks");
 
 
         private static TagKey<Block> createTag (String name) {
