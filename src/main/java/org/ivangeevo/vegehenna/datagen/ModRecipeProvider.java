@@ -6,6 +6,7 @@ import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.AbstractCookingRecipe;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.book.RecipeCategory;
 import org.ivangeevo.vegehenna.item.ModItems;
@@ -34,23 +35,7 @@ public class ModRecipeProvider extends FabricRecipeProvider
 
         // Generation for all non separated into a category cooking recipes is generalized.
         // By default the cook time for all items is 1100 for smoker, 6000 for campfire.
-        generateFoodCookingRecipes(exporter,"smoking", RecipeSerializer.SMOKING, 1200);
-        generateFoodCookingRecipes(exporter,"campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, 6000);
         generateOnlySmokingCookingRecipes(exporter, 1200 );
-        
-        generateSmeltingAndBlastingRecipes(exporter);
-
-    }
-
-
-
-    public static void generateFoodCookingRecipes(Consumer<RecipeJsonProvider> exporter, String cooker, RecipeSerializer<? extends AbstractCookingRecipe> serializer, int cookingTime)
-    {
-
-        //RecipeProvider.offerFoodCookingRecipe(exporter, cooker, serializer, cookingTime, ModItems.BREAD_DOUGH, Items.BREAD, 0.15f);
-        //RecipeProvider.offerFoodCookingRecipe(exporter, cooker, serializer, cookingTime, ModItems.PASTRY_UNCOOKED_COOKIES, Items.COOKIE, 0.15f);
-        //RecipeProvider.offerFoodCookingRecipe(exporter, cooker, serializer, cookingTime, ModItems.PASTRY_UNCOOKED_CAKE, Items.CAKE, 0.15f);
-        //RecipeProvider.offerFoodCookingRecipe(exporter, cooker, serializer, cookingTime, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE, Items.PUMPKIN_PIE, 0.15f);
 
     }
 
@@ -63,15 +48,6 @@ public class ModRecipeProvider extends FabricRecipeProvider
 
     }
 
-    private static void generateSmeltingAndBlastingRecipes(Consumer<RecipeJsonProvider> exporter)
-    {
-        //offerSmelting(exporter, List.of(ModItems.BREAD_DOUGH), RecipeCategory.MISC, Items.COAL_ORE 0.15f, 2000, "group_btwr" );
-        //offerBlasting(exporter, List.of(ModItems.BREAD_DOUGH), RecipeCategory.MISC, Items.COPPER_ORE, 0.15f, 2000, "group_btwr" );
-
-    }
-
-
-
     public static void generateShapelessRecipes(Consumer<RecipeJsonProvider> exporter)
     {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_COOKIES).input(Items.COCOA_BEANS).input(ModItems.FLOUR).input(ModItems.FLOUR).input(ModItems.FLOUR).input(ModItems.FLOUR).criterion("has_cocoa_beans", RecipeProvider.conditionsFromItem(Items.COCOA_BEANS)).offerTo(exporter);
@@ -81,9 +57,7 @@ public class ModRecipeProvider extends FabricRecipeProvider
     {
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.FLOUR,3).input('#', Items.WHEAT).pattern("###").criterion("has_wheat", RecipeProvider.conditionsFromItem(Items.WHEAT)).offerTo(exporter);
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.BREAD_DOUGH).input('#', ModItems.FLOUR).pattern("# ").pattern("##").criterion("has_flour", RecipeProvider.conditionsFromItem(ModItems.FLOUR)).offerTo(exporter);
-
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_CAKE).input('E', Items.EGG).input('F', ModItems.FLOUR).input('M', Items.MILK_BUCKET).input('S', Items.SUGAR).pattern("SSS").pattern("MEM").pattern("FFF").criterion("has_egg", RecipeProvider.conditionsFromItem(Items.EGG)).offerTo(exporter);
-
     }
 
 

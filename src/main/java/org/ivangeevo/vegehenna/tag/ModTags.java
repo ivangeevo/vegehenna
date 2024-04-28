@@ -1,5 +1,6 @@
 package org.ivangeevo.vegehenna.tag;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -29,6 +30,11 @@ public class ModTags
 
     public static class Blocks
     {
+        public static final TagKey<Block> FERTILIZED_FARMLAND_BLOCKS =  createTag("fertilized_farmland_blocks");
 
+
+        private static TagKey<Block> createTag (String name) {
+            return TagKey.of(RegistryKeys.BLOCK, new Identifier(VegehennaMod.MOD_ID, name));
+        }
     }
 }
