@@ -3,6 +3,7 @@ package org.ivangeevo.vegehenna.mixin;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -24,6 +25,15 @@ public abstract class BlockMixin implements BlockAdded
     public boolean isBlockHydratedForPlantGrowthOn(World world, BlockPos pos)
     {
         return false;
+    }
+    @Override
+    public int getWeedsGrowthLevel(WorldAccess blockAccess, BlockPos pos)
+    {
+        return 0;
+    }
+    @Override
+    public void removeWeeds(World world, BlockPos pos)
+    {
     }
 
 

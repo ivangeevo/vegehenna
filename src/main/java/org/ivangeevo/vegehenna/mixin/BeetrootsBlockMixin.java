@@ -13,7 +13,6 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
 import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
-import org.ivangeevo.vegehenna.tag.ModTags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,30 +22,21 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.minecraft.block.FarmlandBlock.MOISTURE;
 
-
-@Mixin(CropBlock.class)
-public abstract class CropBlockMixin extends PlantBlock implements Fertilizable {
+@Mixin(BeetrootsBlock.class)
+public abstract class BeetrootsBlockMixin extends CropBlock {
 
     @Shadow @Final public static IntProperty AGE;
-
-    @Shadow public abstract int getAge(BlockState state);
-
-
 
     @Unique
     private static final VoxelShape[] BTWR_AGE_TO_SHAPE = new VoxelShape[]{
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 2.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 4.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 5.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 6.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 7.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 8.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 9.0, 14.0)};
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 8.0, 14.0)};
 
-    public CropBlockMixin(Settings settings) {
+
+    public BeetrootsBlockMixin(Settings settings) {
         super(settings);
     }
 
@@ -56,14 +46,10 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
         cir.setReturnValue( BTWR_AGE_TO_SHAPE[this.getAge(state)] );
     }
 
-    @Inject(method = "canPlantOnTop", at = @At("RETURN"), cancellable = true)
-    private void injectedCanPlantOnTop(BlockState floor, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir)
-    {
-       cir.setReturnValue(floor.isIn(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS));
-    }
+
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
-    private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random, CallbackInfo ci) {
+    private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
 
         if (world.getDimensionKey() != DimensionTypes.THE_END && state.isOf(this))
         {
@@ -72,10 +58,11 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
         ci.cancel();
     }
 
+
     protected void attemptToGrow(World world, BlockPos pos, BlockState state, Random rand)
     {
         if (/** getWeedsGrowthLevel(world, i, j, k) == 0 && **/
-                getGrowthLevel(world, pos) < 7 &&
+                getGrowthLevel(world, pos) < 3 &&
                 world.getLightLevel( pos.up() ) >= 9 )
         {
             BlockState belowState = world.getBlockState(pos.down());
@@ -99,7 +86,7 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
 
         world.setBlockState(pos, state.with(AGE, iGrowthLevel),2);
 
-        if (iGrowthLevel >= 7)
+        if (iGrowthLevel >= 3)
         {
             BlockState belowState = world.getBlockState(pos.down());
 
@@ -120,13 +107,6 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
     protected int getGrowthLevel(WorldAccess blockAccess, BlockPos pos)
     {
         return this.getAge(blockAccess.getBlockState(pos));
-    }
-
-
-    // Make it not fertilizable
-    @Inject(method = "isFertilizable", at = @At("HEAD"), cancellable = true)
-    private void injectedIsFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(false);
     }
 
 

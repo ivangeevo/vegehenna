@@ -17,7 +17,7 @@ public class FertilizedFarmlandBlock extends FarmlandBlock
     public void notifyOfFullStagePlantGrowthOn(World world, BlockPos pos, Block plantBlock)
     {
         // revert back to unfertilized soil
-        world.setBlockState( pos, Blocks.FARMLAND.getDefaultState().with(MOISTURE, this.getDefaultState().get(MOISTURE)));
+        world.setBlockState( pos, Blocks.FARMLAND.getDefaultState().with(MOISTURE, world.getBlockState(pos).get(MOISTURE)));
     }
 
     @Override

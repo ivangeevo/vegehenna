@@ -17,6 +17,7 @@ import java.util.function.Consumer;
 
 public class ModRecipeProvider extends FabricRecipeProvider
 {
+    // kept as example on how to add lists lol
 
     //private static final List<ItemConvertible> NORMAL_LEATHERS = List.of(Items.LEATHER,BTWR_Items.LEATHER_CUT);
 
@@ -34,7 +35,7 @@ public class ModRecipeProvider extends FabricRecipeProvider
         generateShapedRecipes(exporter);
 
         // Generation for all non separated into a category cooking recipes is generalized.
-        // By default the cook time for all items is 1100 for smoker, 6000 for campfire.
+        // By default the cook time for all items is 1200 for smoker, 6000 for campfire.
         generateOnlySmokingCookingRecipes(exporter, 1200 );
 
     }
@@ -45,6 +46,8 @@ public class ModRecipeProvider extends FabricRecipeProvider
         RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, cookingTime, ModItems.PASTRY_UNCOOKED_COOKIES, Items.COOKIE, 0.15f);
         RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, cookingTime, ModItems.PASTRY_UNCOOKED_CAKE, Items.CAKE, 0.15f);
         RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, cookingTime, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE, Items.PUMPKIN_PIE, 0.15f);
+        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, cookingTime, Items.CARROT, ModItems.CARROT_COOKED, 0.15f);
+        //RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, cookingTime, ModItems.PASTRY_UNCOOKED_COOKIES, Items.COOKIE, 0.15f);
 
     }
 
@@ -52,6 +55,7 @@ public class ModRecipeProvider extends FabricRecipeProvider
     {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_COOKIES).input(Items.COCOA_BEANS).input(ModItems.FLOUR).input(ModItems.FLOUR).input(ModItems.FLOUR).input(ModItems.FLOUR).criterion("has_cocoa_beans", RecipeProvider.conditionsFromItem(Items.COCOA_BEANS)).offerTo(exporter);
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE).input(Items.EGG).input(ModItems.FLOUR).input(ModItems.FLOUR).input(ModItems.FLOUR).input(Items.SUGAR).input(Items.PUMPKIN).criterion("has_pumpkin", RecipeProvider.conditionsFromItem(Items.PUMPKIN)).offerTo(exporter);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.COCOA_POWDER).input(Items.COCOA_BEANS).criterion("has_cocoa_beans", RecipeProvider.conditionsFromItem(Items.COCOA_BEANS)).offerTo(exporter);
     }
     public static void generateShapedRecipes(Consumer<RecipeJsonProvider> exporter)
     {

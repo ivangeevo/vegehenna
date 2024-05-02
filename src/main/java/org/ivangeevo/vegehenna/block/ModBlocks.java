@@ -1,6 +1,7 @@
 package org.ivangeevo.vegehenna.block;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -10,6 +11,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.VegehennaMod;
 import org.ivangeevo.vegehenna.block.blocks.FertilizedFarmlandBlock;
+import org.ivangeevo.vegehenna.block.blocks.WeedsBlock;
 
 public class ModBlocks
 {
@@ -22,6 +24,13 @@ public class ModBlocks
                     .sounds(BlockSoundGroup.GRAVEL)
                     .blockVision(Blocks::always)
                     .suffocates(Blocks::always)));
+
+    public static final Block WEEDS = registerBlock("weeds",
+            new WeedsBlock(FabricBlockSettings.create()
+                    .strength(0f)
+                    .ticksRandomly()
+                    .sounds(BlockSoundGroup.GRASS)));
+
 
 
     private static Block registerBlock(String name, Block block)
