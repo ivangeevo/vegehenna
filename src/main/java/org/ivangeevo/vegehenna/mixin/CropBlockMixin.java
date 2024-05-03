@@ -30,21 +30,9 @@ import static net.minecraft.block.FarmlandBlock.MOISTURE;
 public abstract class CropBlockMixin extends PlantBlock implements Fertilizable {
 
     @Shadow @Final public static IntProperty AGE;
-
     @Shadow public abstract int getAge(BlockState state);
 
 
-
-    @Unique
-    private static final VoxelShape[] BTWR_AGE_TO_SHAPE = new VoxelShape[]{
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 2.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 4.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 5.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 6.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 7.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 8.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 9.0, 14.0)};
 
     public CropBlockMixin(Settings settings) {
         super(settings);
@@ -128,6 +116,17 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
     private void injectedIsFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient, CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(false);
     }
+
+    @Unique
+    private static final VoxelShape[] BTWR_AGE_TO_SHAPE = new VoxelShape[]{
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 2.0, 14.0),
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0),
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 4.0, 14.0),
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 5.0, 14.0),
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 6.0, 14.0),
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 7.0, 14.0),
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 8.0, 14.0),
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 9.0, 14.0)};
 
 
 

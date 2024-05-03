@@ -48,7 +48,6 @@ public abstract class StemBlockMixin extends PlantBlock
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
     {
         validateFruitState(world, pos, state, random);
-
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
@@ -181,10 +180,10 @@ public abstract class StemBlockMixin extends PlantBlock
 
     private boolean hasConnectedFruit(BlockPos pos, BlockState state)
     {
-        return Objects.requireNonNull(getConnectedFruitDirection(pos, state)).getId() > 0;
+        return getConnectedFruitDirection(pos, state) > 0;
     }
 
-    private Direction getConnectedFruitDirection(BlockPos pos, BlockState state)
+    private int getConnectedFruitDirection(BlockPos pos, BlockState state)
     {
         for ( int iTempFacing = 2; iTempFacing < 6; iTempFacing++ )
         {
@@ -195,11 +194,11 @@ public abstract class StemBlockMixin extends PlantBlock
             if ( state == gourdBlock.getDefaultState() &&
                     gourdBlock.getAttachedStem() != null)
             {
-                return Direction.byId(iTempFacing);
+                return iTempFacing;
             }
         }
 
-        return null;
+        return -1;
     }
 
 }

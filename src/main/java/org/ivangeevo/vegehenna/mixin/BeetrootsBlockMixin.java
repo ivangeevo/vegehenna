@@ -26,8 +26,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BeetrootsBlock.class)
 public abstract class BeetrootsBlockMixin extends CropBlock {
 
-    @Shadow @Final public static IntProperty AGE;
 
+    @Shadow @Final public static IntProperty AGE;
     @Unique
     private static final VoxelShape[] BTWR_AGE_TO_SHAPE = new VoxelShape[]{
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 2.0, 14.0),
@@ -49,16 +49,24 @@ public abstract class BeetrootsBlockMixin extends CropBlock {
 
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
-    private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci)
+    {
 
         if (world.getDimensionKey() != DimensionTypes.THE_END && state.isOf(this))
         {
-            attemptToGrow(world, pos, state, random);
+            this.attemptToGrow(world, pos, state, random);
         }
         ci.cancel();
     }
 
+    @Override
+    public int getAge(BlockState state)
+    { return state.get(this.getAgeProperty()); }
+    @Override
+    protected IntProperty getAgeProperty() { return AGE; }
 
+
+    @Unique
     protected void attemptToGrow(World world, BlockPos pos, BlockState state, Random rand)
     {
         if (/** getWeedsGrowthLevel(world, i, j, k) == 0 && **/
