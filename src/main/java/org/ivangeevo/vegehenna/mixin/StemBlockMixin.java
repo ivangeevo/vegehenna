@@ -47,7 +47,10 @@ public abstract class StemBlockMixin extends PlantBlock
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
     {
-        validateFruitState(world, pos, state, random);
+        if (world.getBlockState(pos) == this.gourdBlock.getDefaultState())
+        {
+            validateFruitState(world, pos, state, random);
+        }
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
@@ -59,7 +62,7 @@ public abstract class StemBlockMixin extends PlantBlock
         }
         ci.cancel();
     }
-
+    // TODO : Fix melons not growing on modded blocks. Possibly not in this class, but still check in here too. Im in a hurry bruv
     @Inject(method = "canPlantOnTop", at = @At("HEAD"), cancellable = true)
     private void injectedCanPlantOnTop(BlockState floor, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir)
     {
@@ -109,16 +112,20 @@ public abstract class StemBlockMixin extends PlantBlock
 
                         if ( canGrowFruitAt(world, pos, state) )
                         {
-                            ((BlockAdded)blockBelow).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
 
                             Direction direction = Direction.Type.HORIZONTAL.random(rand);
                             BlockPos blockPos = pos.offset(direction);
                             BlockState blockState = world.getBlockState(blockPos.down());
 
-                            if (world.getBlockState(blockPos).isAir() && (blockState.isOf(Blocks.FARMLAND) || blockState.isIn(BlockTags.DIRT))) {
+                            if (world.getBlockState(blockPos).isAir() && ( blockState.isOf(Blocks.FARMLAND) || blockState.isIn(BlockTags.DIRT) ))
+                            {
                                 world.setBlockState(blockPos, this.gourdBlock.getDefaultState());
                                 world.setBlockState(pos, (BlockState)this.gourdBlock.getAttachedStem().getDefaultState().with(HorizontalFacingBlock.FACING, direction));
+
+                                ((BlockAdded)blockBelow).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+
                             }
+
 
                         }
                     }
@@ -192,7 +199,7 @@ public abstract class StemBlockMixin extends PlantBlock
 
 
             if ( state == gourdBlock.getDefaultState() &&
-                    gourdBlock.getAttachedStem() != null)
+                    gourdBlock.getAttachedStem().getDefaultState().getBlock() != null)
             {
                 return iTempFacing;
             }

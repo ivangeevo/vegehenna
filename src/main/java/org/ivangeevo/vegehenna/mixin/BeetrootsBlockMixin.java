@@ -60,11 +60,10 @@ public abstract class BeetrootsBlockMixin extends CropBlock {
     }
 
     @Override
-    public int getAge(BlockState state)
-    { return state.get(this.getAgeProperty()); }
-    @Override
-    protected IntProperty getAgeProperty() { return AGE; }
+    public int getAge(BlockState state) { return state.get(this.getAgeProperty()); }
 
+    @Override
+    public IntProperty getAgeProperty() { return AGE; }
 
     @Unique
     protected void attemptToGrow(World world, BlockPos pos, BlockState state, Random rand)
