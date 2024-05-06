@@ -10,6 +10,7 @@
     "BoneMealItemMixin",
     "CarrotsBlockMixin",
     "CropBlockMixin",
+    "HoeItemMixin",
     "PlantBlockMixin",
     "PotatoesBlockMixin",
     "StemBlockMixin"

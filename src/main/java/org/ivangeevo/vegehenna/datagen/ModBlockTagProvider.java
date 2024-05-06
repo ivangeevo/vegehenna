@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BlockTags;
 import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.tag.ModTags;
@@ -20,9 +21,17 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg)
     {
+        addToVanillaTags();
         addToModTags();
         addToCoventionalTags();
 
+    }
+
+    private void addToVanillaTags()
+    {
+        getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
+                .add(Blocks.GRASS_BLOCK)
+                .add(Blocks.DIRT);
     }
 
     private void addToModTags()

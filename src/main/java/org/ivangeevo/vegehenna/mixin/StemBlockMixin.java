@@ -31,27 +31,26 @@ import java.util.Objects;
 @Mixin(StemBlock.class)
 public abstract class StemBlockMixin extends PlantBlock
 {
-
-
     @Shadow @Final public static IntProperty AGE;
-
     @Shadow @Final private GourdBlock gourdBlock;
-
-
     @Shadow public abstract boolean canGrow(World world, Random random, BlockPos pos, BlockState state);
+    @Shadow public abstract GourdBlock getGourdBlock();
 
     public StemBlockMixin(Settings settings) {
         super(settings);
     }
 
+
+    /**
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
     {
-        if (world.getBlockState(pos) == this.gourdBlock.getDefaultState())
+        if (world.getBlockState(pos) == this.getDefaultState())
         {
             validateFruitState(world, pos, state, random);
         }
     }
+     **/
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
@@ -62,7 +61,7 @@ public abstract class StemBlockMixin extends PlantBlock
         }
         ci.cancel();
     }
-    // TODO : Fix melons not growing on modded blocks. Possibly not in this class, but still check in here too. Im in a hurry bruv
+
     @Inject(method = "canPlantOnTop", at = @At("HEAD"), cancellable = true)
     private void injectedCanPlantOnTop(BlockState floor, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir)
     {
@@ -76,6 +75,7 @@ public abstract class StemBlockMixin extends PlantBlock
     }
 
 
+    @Unique
     private void checkForGrowth(World world, BlockPos pos, BlockState state, Random rand)
     {
         if (((BlockAdded)this).getWeedsGrowthLevel(world,pos) == 0 &&
@@ -135,6 +135,7 @@ public abstract class StemBlockMixin extends PlantBlock
     }
 
 
+    @Unique
     protected boolean hasSpaceToGrow(World world, BlockPos pos, BlockState state)
     {
         for ( int iTargetFacing = 2; iTargetFacing <= 5; iTargetFacing++ )
@@ -178,7 +179,7 @@ public abstract class StemBlockMixin extends PlantBlock
     private void validateFruitState(World world, BlockPos pos, BlockState state, Random rand)
     {
 
-        if ( state.get(AGE) == 7 && !hasConnectedFruit(pos, state) )
+        if ( state.get(AGE) == 7 && this.getGourdBlock() == null /** !hasConnectedFruit(pos, state) **/)
         {
             // reset to earlier growth stage
             world.setBlockState( pos, state.with(AGE, 4) );
