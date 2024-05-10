@@ -38,10 +38,17 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
         super(settings);
     }
 
+    // Custom outline shape to allow placing of fertilizer on the block below
     @Inject(method = "getOutlineShape", at = @At("HEAD"), cancellable = true)
     private void injectedCanPlantOnTop(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir)
     {
         cir.setReturnValue( BTWR_AGE_TO_SHAPE[this.getAge(state)] );
+    }
+
+    // Make it not fertilizable
+    @Inject(method = "isFertilizable", at = @At("HEAD"), cancellable = true)
+    private void injectedIsFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient, CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(false);
     }
 
     @Inject(method = "canPlantOnTop", at = @At("RETURN"), cancellable = true)
@@ -81,13 +88,14 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
         }
     }
 
+    @Unique
     protected void incrementGrowthLevel(World world, BlockPos pos, BlockState state)
     {
         int iGrowthLevel = this.getAge(state) + 1;
 
         world.setBlockState(pos, state.with(AGE, iGrowthLevel),2);
 
-        if (iGrowthLevel >= 7)
+        if (getGrowthLevel(world,pos) >= 7)
         {
             BlockState belowState = world.getBlockState(pos.down());
 
@@ -99,6 +107,7 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
     }
 
 
+    @Unique
     private float getBaseGrowthChance()
     {
         return 0.05F;
@@ -111,14 +120,11 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
     }
 
 
-    // Make it not fertilizable
-    @Inject(method = "isFertilizable", at = @At("HEAD"), cancellable = true)
-    private void injectedIsFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(false);
-    }
+
 
     @Unique
-    private static final VoxelShape[] BTWR_AGE_TO_SHAPE = new VoxelShape[]{
+    private static final VoxelShape[] BTWR_AGE_TO_SHAPE = new VoxelShape[]
+            {
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 2.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 4.0, 14.0),
@@ -126,7 +132,8 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 6.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 7.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 8.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 9.0, 14.0)};
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 9.0, 14.0)
+            };
 
 
 

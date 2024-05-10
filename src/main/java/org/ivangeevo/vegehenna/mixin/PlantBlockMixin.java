@@ -10,7 +10,7 @@ import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(PlantBlock.class)
-public class PlantBlockMixin extends Block
+public abstract class PlantBlockMixin extends Block
 {
 
     public PlantBlockMixin(Settings settings) {
