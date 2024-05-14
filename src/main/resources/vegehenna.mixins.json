@@ -4,6 +4,7 @@
   "package": "org.ivangeevo.vegehenna.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AliasedBlockItemMixin",
     "BeetrootsBlockMixin",
     "BlockItemMixin",
     "BlockMixin",

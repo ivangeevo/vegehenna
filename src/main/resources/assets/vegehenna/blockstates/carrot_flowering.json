@@ -1,0 +1,10 @@
+{
+  "variants":
+  {
+    "age=0": {"model": "vegehenna:block/carrot_flowering_0"},
+    "age=1": {"model": "vegehenna:block/carrot_flowering_1"},
+    "age=2": {"model": "vegehenna:block/carrot_flowering_2"},
+    "age=3": {"model": "vegehenna:block/carrot_flowering_3"}
+
+  }
+}

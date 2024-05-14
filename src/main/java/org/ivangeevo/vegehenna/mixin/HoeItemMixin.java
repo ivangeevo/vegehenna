@@ -24,22 +24,11 @@ public abstract class HoeItemMixin extends MiningToolItem {
         super(attackDamage, attackSpeed, material, effectiveBlocks, settings);
     }
 
-    // Removes right clicking for hoes.
-    // Instead, farmland is set in the specific blocks that a hoe can left-click break, like dirt, coarse dirt, loose dirt, etc...
-    @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
-    private void injectedUseOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
-        cir.setReturnValue(ActionResult.FAIL);
-    }
-
-
-    // Make the item mine these blocks faster.
+    // Make the hoe slower.
     @Override
     public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
         return super.getMiningSpeedMultiplier(stack, state) / 3;
     }
-
-
-
 
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner)
@@ -49,10 +38,8 @@ public abstract class HoeItemMixin extends MiningToolItem {
         {
             if (miner instanceof PlayerEntity playerEntity)
             {
-                // Create an ItemUsageContext
                 ItemUsageContext context = new ItemUsageContext(playerEntity, Hand.MAIN_HAND, new BlockHitResult(playerEntity.getPos(), Direction.UP, pos, false));
 
-                // Damage the tool
                 stack.damage(1, playerEntity, p -> p.sendToolBreakStatus(context.getHand()));
             }
         }

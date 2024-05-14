@@ -11,9 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class BlockMixin implements BlockAdded
 {
     @Override
-    public void notifyOfFullStagePlantGrowthOn(World world, BlockPos pos, Block plantBlock) {
-
-    }
+    public void notifyOfFullStagePlantGrowthOn(World world, BlockPos pos, Block plantBlock) {}
 
     /**
      * This is used by old style non-daily plant growth
@@ -22,19 +20,14 @@ public abstract class BlockMixin implements BlockAdded
 
 
     @Override
-    public boolean isBlockHydratedForPlantGrowthOn(World world, BlockPos pos)
-    {
-        return false;
-    }
+    public boolean isBlockHydratedForPlantGrowthOn(World world, BlockPos pos) {return false;}
     @Override
     public int getWeedsGrowthLevel(WorldAccess blockAccess, BlockPos pos)
     {
         return 0;
     }
     @Override
-    public void removeWeeds(World world, BlockPos pos)
-    {
-    }
+    public void removeWeeds(World world, BlockPos pos) {}
 
 
 }

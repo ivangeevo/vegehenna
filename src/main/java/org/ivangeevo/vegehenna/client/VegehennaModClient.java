@@ -9,12 +9,13 @@ import org.slf4j.Logger;
 
 public class VegehennaModClient implements ClientModInitializer
 {
+
     public static final Logger LOGGER = VegehennaMod.LOGGER;
 
     @Override
     public void onInitializeClient()
     {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FARMLAND_FERTILIZED, RenderLayer.getCutout());
-
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CARROT_FLOWERING, RenderLayer.getCutout());
     }
 }

@@ -29,11 +29,13 @@ public abstract class BeetrootsBlockMixin extends CropBlock {
 
     @Shadow @Final public static IntProperty AGE;
     @Unique
-    private static final VoxelShape[] BTWR_AGE_TO_SHAPE = new VoxelShape[]{
+    private static final VoxelShape[] BTWR_AGE_TO_SHAPE = new VoxelShape[]
+            {
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 2.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 4.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 6.0, 14.0),
-            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 8.0, 14.0)};
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 8.0, 14.0)
+            };
 
 
     public BeetrootsBlockMixin(Settings settings) {
@@ -65,8 +67,8 @@ public abstract class BeetrootsBlockMixin extends CropBlock {
     @Override
     public IntProperty getAgeProperty() { return AGE; }
 
-    @Unique
-    protected void attemptToGrow(World world, BlockPos pos, BlockState state, Random rand)
+    @Override
+    public void attemptToGrow(World world, BlockPos pos, BlockState state, Random rand)
     {
         if (/** getWeedsGrowthLevel(world, i, j, k) == 0 && **/
                 getGrowthLevel(world, pos) < 3 &&
@@ -87,7 +89,8 @@ public abstract class BeetrootsBlockMixin extends CropBlock {
         }
     }
 
-    protected void incrementGrowthLevel(World world, BlockPos pos, BlockState state)
+    @Override
+    public void incrementGrowthLevel(World world, BlockPos pos, BlockState state)
     {
         int iGrowthLevel = this.getAge(state) + 1;
 
@@ -104,14 +107,14 @@ public abstract class BeetrootsBlockMixin extends CropBlock {
         }
     }
 
-
-    private float getBaseGrowthChance()
+    @Override
+    public float getBaseGrowthChance()
     {
         return 0.05F;
     }
 
-    @Unique
-    protected int getGrowthLevel(WorldAccess blockAccess, BlockPos pos)
+    @Override
+    public int getGrowthLevel(WorldAccess blockAccess, BlockPos pos)
     {
         return this.getAge(blockAccess.getBlockState(pos));
     }

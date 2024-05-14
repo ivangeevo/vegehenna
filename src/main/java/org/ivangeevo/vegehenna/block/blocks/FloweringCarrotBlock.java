@@ -1,10 +1,15 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.block.blocks;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CropBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
@@ -14,60 +19,16 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
 import org.ivangeevo.vegehenna.block.interfaces.CarrotsBlockAdded;
-import org.ivangeevo.vegehenna.item.ModItems;
-import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(CarrotsBlock.class)
-public abstract class CarrotsBlockMixin extends CropBlock implements CarrotsBlockAdded
+public class FloweringCarrotBlock extends CropBlock
 {
-    // New constants for the AGE property which is now 4 instead of 7;
-    @Unique private static final int MAX_AGE = CarrotsBlockAdded.MAX_AGE;
-    @Unique private static final IntProperty AGE = CarrotsBlockAdded.AGE;
+    public static final int MAX_AGE = 3;
+    public static final IntProperty AGE = Properties.AGE_3;
 
-    public CarrotsBlockMixin(Settings settings) {
+    public FloweringCarrotBlock(Settings settings)
+    {
         super(settings);
-    }
-
-    @Inject(method = "getOutlineShape", at = @At("HEAD"), cancellable = true)
-    private void injectedShapes(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir)
-    {
-        cir.setReturnValue( NEW_AGE_TO_SHAPE[this.getAge(state)] );
-    }
-
-    @Inject(method = "getSeedsItem", at = @At("HEAD"), cancellable = true)
-    private void injectedCustomSeedItem(CallbackInfoReturnable<ItemConvertible> cir)
-    {
-        cir.setReturnValue( ModItems.CARROT_SEEDS );
-    }
-
-    @Override
-    public boolean hasRandomTicks(BlockState state) {
-        return !(this.getAge(state) >= this.getMaxAge());
-    }
-
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(AGE);
-    }
-
-    @Override
-    public int getMaxAge() {
-        return MAX_AGE;
-    }
-
-    @Override
-    protected IntProperty getAgeProperty() {
-        return AGE;
-    }
-
-    @Override
-    public int getAge(BlockState state) {
-        return state.get(this.getAgeProperty());
     }
 
     @Override
@@ -77,9 +38,7 @@ public abstract class CarrotsBlockMixin extends CropBlock implements CarrotsBloc
         {
             attemptToGrow(world, pos, state, random);
         }
-
     }
-
     @Override
     public void attemptToGrow(World world, BlockPos pos, BlockState state, Random rand)
     {
@@ -105,13 +64,21 @@ public abstract class CarrotsBlockMixin extends CropBlock implements CarrotsBloc
     }
 
     @Override
+    public boolean hasRandomTicks(BlockState state)
+    {
+        // only allow the block to have random ticks if not fully grown(mature)
+        return !(this.getAge(state) >= this.getMaxAge());
+    }
+
+
+    @Unique
     public void incrementGrowthLevel(World world, BlockPos pos, BlockState state)
     {
         int iGrowthLevel = this.getAge(state) + 1;
 
         world.setBlockState(pos, state.with(AGE, iGrowthLevel),2);
 
-        if (getGrowthLevel(world,pos) >= this.getMaxAge())
+        if (getGrowthLevel(world,pos) >= 3)
         {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
@@ -123,11 +90,12 @@ public abstract class CarrotsBlockMixin extends CropBlock implements CarrotsBloc
         }
     }
 
-    @Override
+    @Unique
     public int getGrowthLevel(WorldAccess blockAccess, BlockPos pos)
     {
         return this.getAge(blockAccess.getBlockState(pos));
     }
+
 
     @Override
     public float getBaseGrowthChance()
@@ -135,14 +103,42 @@ public abstract class CarrotsBlockMixin extends CropBlock implements CarrotsBloc
         return 0.04F;
     }
 
+    @Override
+    public int getMaxAge() { return MAX_AGE; }
+
+    @Override
+    public int getAge(BlockState state) {
+        return state.get(this.getAgeProperty());
+    }
+
+    @Override
+    protected ItemConvertible getSeedsItem() {
+        return Items.CARROT;
+    }
+
+    @Override
+    protected IntProperty getAgeProperty() {
+        return AGE;
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(AGE);
+    }
+
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return NEW_AGE_TO_SHAPE[this.getAge(state)];
+    }
 
     @Unique
     private static final VoxelShape[] NEW_AGE_TO_SHAPE = new VoxelShape[]
             {
-                    Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 2.0, 14.0),
-                    Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0),
-                    Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 4.0, 14.0),
-                    Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 5.0, 14.0)
+                    Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 6.0, 11.0),
+                    Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 9.0, 12.0),
+                    Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 11.0, 13.0),
+                    Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 12.0, 14.0)
             };
 
 }

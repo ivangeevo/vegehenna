@@ -12,8 +12,8 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
+import org.ivangeevo.vegehenna.block.interfaces.CropBlockAdded;
 import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
-import org.ivangeevo.vegehenna.tag.ModTags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,16 +23,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.minecraft.block.FarmlandBlock.MOISTURE;
-
 
 @Mixin(CropBlock.class)
-public abstract class CropBlockMixin extends PlantBlock implements Fertilizable {
-
+public abstract class CropBlockMixin extends PlantBlock implements Fertilizable, CropBlockAdded
+{
     @Shadow @Final public static IntProperty AGE;
     @Shadow public abstract int getAge(BlockState state);
-
-
+    @Shadow public abstract int getMaxAge();
 
     public CropBlockMixin(Settings settings) {
         super(settings);
@@ -40,9 +37,9 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
 
     // Custom outline shape to allow placing of fertilizer on the block below
     @Inject(method = "getOutlineShape", at = @At("HEAD"), cancellable = true)
-    private void injectedCanPlantOnTop(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir)
+    private void injectedGetOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir)
     {
-        cir.setReturnValue( BTWR_AGE_TO_SHAPE[this.getAge(state)] );
+        cir.setReturnValue( NEW_AGE_TO_SHAPE[this.getAge(state)] );
     }
 
     // Make it not fertilizable
@@ -54,31 +51,36 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
     @Inject(method = "canPlantOnTop", at = @At("RETURN"), cancellable = true)
     private void injectedCanPlantOnTop(BlockState floor, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir)
     {
-       cir.setReturnValue(floor.isIn(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS));
+       cir.setReturnValue(floor.isIn(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS) || floor.isOf(Blocks.FARMLAND));
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
-    private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random, CallbackInfo ci) {
+    private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random, CallbackInfo ci)
+    {
 
         if (world.getDimensionKey() != DimensionTypes.THE_END && state.isOf(this))
         {
             attemptToGrow(world, pos, state, random);
         }
+
         ci.cancel();
+
     }
 
-    protected void attemptToGrow(World world, BlockPos pos, BlockState state, Random rand)
+    @Override
+    public void attemptToGrow(World world, BlockPos pos, BlockState state, Random rand)
     {
+
         if (/** getWeedsGrowthLevel(world, i, j, k) == 0 && **/
-                getGrowthLevel(world, pos) < 7 &&
+                getGrowthLevel(world, pos) < this.getMaxAge() &&
                 world.getLightLevel( pos.up() ) >= 9 )
         {
-            BlockState belowState = world.getBlockState(pos.down());
+            Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
-            if ( belowState != null && ((BlockAdded)belowState.getBlock()).isBlockHydratedForPlantGrowthOn(world, pos.down()))
+            if ( blockBelow != null && ((BlockAdded)blockBelow).isBlockHydratedForPlantGrowthOn(world, pos.down()))
             {
                 float fGrowthChance = getBaseGrowthChance() *
-                        ((BlockAdded) belowState.getBlock()).getPlantGrowthOnMultiplier(world, pos.down(), this);
+                        ((BlockAdded) blockBelow).getPlantGrowthOnMultiplier(world, pos.down(), this);
 
                 if ( rand.nextFloat() <= fGrowthChance )
                 {
@@ -86,44 +88,42 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
                 }
             }
         }
+
     }
 
-    @Unique
-    protected void incrementGrowthLevel(World world, BlockPos pos, BlockState state)
+    @Override
+    public void incrementGrowthLevel(World world, BlockPos pos, BlockState state)
     {
         int iGrowthLevel = this.getAge(state) + 1;
 
         world.setBlockState(pos, state.with(AGE, iGrowthLevel),2);
 
-        if (getGrowthLevel(world,pos) >= 7)
+        if (getGrowthLevel(world,pos) >= this.getMaxAge())
         {
-            BlockState belowState = world.getBlockState(pos.down());
+            Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
-            if ( belowState != null )
+            if ( blockBelow != null )
             {
-                ((BlockAdded)belowState.getBlock()).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+                ((BlockAdded)blockBelow).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
             }
+
         }
     }
 
-
-    @Unique
-    private float getBaseGrowthChance()
+    @Override
+    public float getBaseGrowthChance()
     {
         return 0.05F;
     }
 
-    @Unique
-    protected int getGrowthLevel(WorldAccess blockAccess, BlockPos pos)
+    @Override
+    public int getGrowthLevel(WorldAccess blockAccess, BlockPos pos)
     {
         return this.getAge(blockAccess.getBlockState(pos));
     }
 
-
-
-
     @Unique
-    private static final VoxelShape[] BTWR_AGE_TO_SHAPE = new VoxelShape[]
+    private static final VoxelShape[] NEW_AGE_TO_SHAPE = new VoxelShape[]
             {
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 2.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0),
@@ -134,7 +134,5 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable 
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 8.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 9.0, 14.0)
             };
-
-
 
 }

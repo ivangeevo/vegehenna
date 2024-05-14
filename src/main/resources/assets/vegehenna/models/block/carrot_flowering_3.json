@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/tinted_cross",
+  "textures": {
+    "cross": "vegehenna:block/carrot_flowering_3"
+  }
+}

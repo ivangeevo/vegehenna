@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "vegehenna:straw"
+    },
+    {
+      "item": "vegehenna:straw"
+    },
+    {
+      "item": "vegehenna:straw"
+    },
+    {
+      "item": "vegehenna:straw"
+    },
+    {
+      "item": "vegehenna:straw"
+    },
+    {
+      "item": "vegehenna:straw"
+    },
+    {
+      "item": "vegehenna:straw"
+    },
+    {
+      "item": "vegehenna:straw"
+    },
+    {
+      "item": "vegehenna:straw"
+    }
+  ],
+  "result": {
+    "item": "minecraft:hay_block"
+  }
+}
