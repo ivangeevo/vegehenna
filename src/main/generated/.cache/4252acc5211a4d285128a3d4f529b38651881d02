@@ -1,4 +1,4 @@
-// 1.20.1	2024-05-10T11:54:45.5054957	vegehenna/Recipes
+// 1.20.1	2024-05-27T10:23:37.3218535	vegehenna/Recipes
 a32bfd452bcf73af3cb6022c44ab57658536a1e9 data\vegehenna\recipes\carrot_cooked_from_smoking.json
 70bc06e81ecc7f407cd8b7efe52179a066a2942f data\vegehenna\advancements\recipes\misc\cocoa_powder.json
 4ccb508e3b7e200ae9aa89fe1d8284eee7b2c87e data\vegehenna\recipes\cake_from_smoking.json
@@ -20,8 +20,10 @@ e612c423c6fdf70cde080b847a1451490221a336 data\vegehenna\advancements\recipes\foo
 b9551664c2b0862029c794dee8dff717b0e0d1fa data\vegehenna\advancements\recipes\food\flour.json
 f4f570bed8d12d00fdb1e39f39ced4f7322b32c6 data\vegehenna\recipes\cocoa_powder.json
 33ffdfd2801c6adb8cb5156963544d540dc22b23 data\vegehenna\advancements\recipes\food\pastry_uncooked_cake.json
+73229e2005e18e92a380afac2cabec783c86fe3e data\vegehenna\advancements\recipes\misc\beetroot_seeds.json
 16cc58358a0bb9233e1af7a98047aca79ab7a2c8 data\vegehenna\recipes\cookie_from_smoking.json
 de73a4e7968072ea5accd14821354def913056e4 data\vegehenna\recipes\pastry_uncooked_cake.json
 a0db872066b9bc0c92681ea48425c56b9a8d6600 data\vegehenna\recipes\bread_dough.json
 b2e27c1c517a4d16a03dcba3f92ec093585b23fb data\vegehenna\recipes\pastry_uncooked_cookies.json
 1163de0e03d6525af4fc072de98f090664f5b1d7 data\vegehenna\advancements\recipes\food\pumpkin_pie_from_smoking.json
+5010bf6c55ea628462560c00666aa70107002f6e data\vegehenna\recipes\beetroot_seeds.json

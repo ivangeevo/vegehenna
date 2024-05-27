@@ -18,11 +18,11 @@ public abstract class AliasedBlockItemMixin extends BlockItem
 
     // Change the placement block of CARROT to the modded block.
     @Override
-    protected boolean place(ItemPlacementContext context, BlockState state) {
+    protected boolean place(ItemPlacementContext context, BlockState state)
+    {
         if (context.getStack().isOf(Items.CARROT))
         {
             BlockState replacementState = ModBlocks.CARROT_FLOWERING.getDefaultState();
-
             return context.getWorld().setBlockState(context.getBlockPos(), replacementState, Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
         }
 
