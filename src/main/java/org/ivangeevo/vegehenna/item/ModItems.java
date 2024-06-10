@@ -25,8 +25,17 @@ public class ModItems
 
     public static final Item CARROT_COOKED = registerItem("carrot_cooked",
             new Item(new FabricItemSettings().food(ModFoodComponents.COOKED_CARROT)));
+
+    public static final Item SUGAR_CANE = registerItem("sugar_cane",
+            new Item(new FabricItemSettings()));
+
+
+    // BlockItems
+    public static final Item SUGAR_CANE_ROOTS = registerItem("sugar_cane_roots",
+            new AliasedBlockItem(ModBlocks.SUGAR_CANE_ROOTS, new FabricItemSettings()));
     public static final Item CARROT_SEEDS = registerItem("carrot_seeds",
             new AliasedBlockItem(Blocks.CARROTS, new FabricItemSettings()));
+
 
 
     private static Item asSimpleItem() { return new Item(new FabricItemSettings()); }

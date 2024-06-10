@@ -31,7 +31,7 @@ public class ModTags
     public static class Blocks
     {
 
-        public static final TagKey<Block> REEDS_CAN_GROW_ON =  createTag("raw_eggs");
+        public static final TagKey<Block> REEDS_CAN_PLANT_ON =  createTag("reeds_can_plant_on");
 
 
         private static TagKey<Block> createTag (String name) {

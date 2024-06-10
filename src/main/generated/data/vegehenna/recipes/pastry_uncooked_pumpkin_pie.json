@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "vegehenna:flour"
+    },
+    {
+      "item": "vegehenna:flour"
+    },
+    {
+      "item": "vegehenna:flour"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:pumpkin"
+    }
+  ],
+  "result": {
+    "item": "vegehenna:pastry_uncooked_pumpkin_pie"
+  }
+}

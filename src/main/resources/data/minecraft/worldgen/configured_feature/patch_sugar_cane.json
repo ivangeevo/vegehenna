@@ -35,7 +35,7 @@
               "provider": {
                 "type": "minecraft:simple_state_provider",
                 "state": {
-                  "Name": "minecraft:sugar_cane",
+                  "Name": "vegehenna:sugar_cane",
                   "Properties": {
                     "age": "0"
                   }
@@ -58,7 +58,7 @@
               {
                 "type": "minecraft:would_survive",
                 "state": {
-                  "Name": "minecraft:sugar_cane",
+                  "Name": "vegehenna:sugar_cane",
                   "Properties": {
                     "age": "0"
                   }

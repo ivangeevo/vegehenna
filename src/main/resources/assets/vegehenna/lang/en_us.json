@@ -1,12 +1,13 @@
 {
   "item.vegehenna.straw": "Straw",
-  "item.vegehenna.flour": "Flour",
-  "item.vegehenna.bread_dough": "Bread Dough",
   "item.vegehenna.carrot_cooked": "Cooked Carrot",
   "item.vegehenna.carrot_seeds": "Carrot Seeds",
+  "item.vegehenna.sugar_cane_roots": "Sugar Cane Roots",
+
+  "item.vegehenna.flour": "Flour",
+  "item.vegehenna.bread_dough": "Bread Dough",
   "item.vegehenna.cocoa_powder": "Cocoa Powder",
   "item.vegehenna.donut": "Donut",
-
   "item.vegehenna.pastry_uncooked_cookies": "Cookie Dough",
   "item.vegehenna.pastry_uncooked_cake": "Cake Batter",
   "item.vegehenna.pastry_uncooked_pumpkin_pie": "Oven Ready Pumpkin Pie",

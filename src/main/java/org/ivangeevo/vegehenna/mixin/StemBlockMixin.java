@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Objects;
 
-
+// TODO: Make it revert to an earlier AGE when its associated GourdBlock is harvested.
 @Mixin(StemBlock.class)
 public abstract class StemBlockMixin extends PlantBlock
 {
@@ -40,17 +40,6 @@ public abstract class StemBlockMixin extends PlantBlock
         super(settings);
     }
 
-
-    /**
-    @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
-    {
-        if (world.getBlockState(pos) == this.getDefaultState())
-        {
-            validateFruitState(world, pos, state, random);
-        }
-    }
-     **/
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {

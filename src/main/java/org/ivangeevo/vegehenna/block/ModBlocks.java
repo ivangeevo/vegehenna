@@ -13,7 +13,8 @@ import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.VegehennaMod;
 import org.ivangeevo.vegehenna.block.blocks.FertilizedFarmlandBlock;
 import org.ivangeevo.vegehenna.block.blocks.FloweringCarrotBlock;
-import org.ivangeevo.vegehenna.block.blocks.SugarcaneRootsBlock;
+import org.ivangeevo.vegehenna.block.blocks.SugarCaneBlock;
+import org.ivangeevo.vegehenna.block.blocks.SugarCaneRootsBlock;
 import org.ivangeevo.vegehenna.block.blocks.WeedsBlock;
 
 public class ModBlocks
@@ -27,7 +28,6 @@ public class ModBlocks
                     .sounds(BlockSoundGroup.GRAVEL)
                     .blockVision(Blocks::always)
                     .suffocates(Blocks::always)));
-
     public static final Block CARROT_FLOWERING = registerBlock("carrot_flowering",
             new FloweringCarrotBlock(FabricBlockSettings.create()
                     .mapColor(MapColor.DARK_GREEN)
@@ -36,15 +36,23 @@ public class ModBlocks
                     .breakInstantly()
                     .sounds(BlockSoundGroup.CROP)
                     .pistonBehavior(PistonBehavior.DESTROY)));
-
-    public static final Block SUGARCANE_ROOTS = registerBlock("sugar_cane_roots",
-            new SugarcaneRootsBlock(FabricBlockSettings.create()
+    public static final Block SUGAR_CANE_ROOTS = registerBlockWithoutItem("sugar_cane_roots",
+            new SugarCaneRootsBlock(FabricBlockSettings.create()
                     .mapColor(MapColor.DARK_GREEN)
                     .noCollision()
                     .ticksRandomly()
                     .breakInstantly()
                     .sounds(BlockSoundGroup.GRASS)
                     .pistonBehavior(PistonBehavior.DESTROY)));
+    public static final Block SUGAR_CANE = registerBlockWithoutItem("sugar_cane",
+            new SugarCaneBlock(FabricBlockSettings.create()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .noCollision()
+                    .ticksRandomly()
+                    .breakInstantly()
+                    .sounds(BlockSoundGroup.GRASS)
+                    .pistonBehavior(PistonBehavior.DESTROY)));
+
 
 
     public static final Block WEEDS = registerBlock("weeds",
@@ -58,6 +66,11 @@ public class ModBlocks
     private static Block registerBlock(String name, Block block)
     {
         registerBlockItem(name, block);
+        return Registry.register(Registries.BLOCK, new Identifier(VegehennaMod.MOD_ID, name), block);
+    }
+
+    private static Block registerBlockWithoutItem(String name, Block block)
+    {
         return Registry.register(Registries.BLOCK, new Identifier(VegehennaMod.MOD_ID, name), block);
     }
 

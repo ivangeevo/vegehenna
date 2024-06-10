@@ -1,6 +1,8 @@
 package org.ivangeevo.vegehenna.mixin;
 
 import net.minecraft.block.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.RavagerEntity;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -9,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.dimension.DimensionTypes;
@@ -32,6 +35,9 @@ public abstract class CarrotsBlockMixin extends CropBlock implements CarrotsBloc
     public CarrotsBlockMixin(Settings settings) {
         super(settings);
     }
+
+
+
 
     @Inject(method = "getOutlineShape", at = @At("HEAD"), cancellable = true)
     private void injectedShapes(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir)

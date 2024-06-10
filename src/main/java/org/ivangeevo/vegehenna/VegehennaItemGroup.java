@@ -30,6 +30,8 @@ public class VegehennaItemGroup
                         entries.add(ModItems.PASTRY_UNCOOKED_COOKIES);
                         entries.add(ModItems.PASTRY_UNCOOKED_CAKE);
                         entries.add(ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE);
+                        entries.add(ModItems.SUGAR_CANE_ROOTS);
+                        entries.add(ModItems.SUGAR_CANE);
 
 
                     }).build());

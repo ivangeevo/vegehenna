@@ -1,15 +1,14 @@
 package org.ivangeevo.vegehenna.mixin;
 
 import net.minecraft.block.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.RavagerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.*;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
 import org.ivangeevo.vegehenna.block.interfaces.CropBlockAdded;
@@ -33,6 +32,18 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
 
     public CropBlockMixin(Settings settings) {
         super(settings);
+    }
+
+    // Making all crops to not drop their stacks when broken by being stepped-on
+    @Inject(method = "onEntityCollision", at = @At("HEAD"), cancellable = true)
+    private void onSteppedOn(BlockState state, World world, BlockPos pos, Entity entity, CallbackInfo ci)
+    {
+        if (entity instanceof RavagerEntity && world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+            world.breakBlock(pos, false, entity);
+        }
+        super.onEntityCollision(state, world, pos, entity);
+
+        ci.cancel();
     }
 
     // Custom outline shape to allow placing of fertilizer on the block below
