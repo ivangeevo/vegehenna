@@ -13,6 +13,7 @@ import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.VegehennaMod;
 import org.ivangeevo.vegehenna.block.blocks.FertilizedFarmlandBlock;
 import org.ivangeevo.vegehenna.block.blocks.FloweringCarrotBlock;
+import org.ivangeevo.vegehenna.block.blocks.SugarcaneRootsBlock;
 import org.ivangeevo.vegehenna.block.blocks.WeedsBlock;
 
 public class ModBlocks
@@ -35,6 +36,13 @@ public class ModBlocks
                     .breakInstantly()
                     .sounds(BlockSoundGroup.CROP)
                     .pistonBehavior(PistonBehavior.DESTROY)));
+
+    public static final Block SUGARCANE_ROOTS = registerBlock("sugarcane_roots",
+            new SugarcaneRootsBlock(FabricBlockSettings.create()
+                    .breakInstantly()
+                    .ticksRandomly()
+                    .sounds(BlockSoundGroup.GRASS)));
+
 
     public static final Block WEEDS = registerBlock("weeds",
             new WeedsBlock(FabricBlockSettings.create()

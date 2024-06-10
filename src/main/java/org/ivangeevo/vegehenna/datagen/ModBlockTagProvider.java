@@ -36,6 +36,10 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     private void addToModTags()
     {
+
+        getOrCreateTagBuilder(ModTags.Blocks.REEDS_CAN_GROW_ON)
+                .add(Blocks.DIRT)
+                .addTag(BlockTags.SAND);
     }
 
     private void addToCoventionalTags()

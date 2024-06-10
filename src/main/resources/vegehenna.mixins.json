@@ -14,7 +14,8 @@
     "HoeItemMixin",
     "PlantBlockMixin",
     "PotatoesBlockMixin",
-    "StemBlockMixin"
+    "StemBlockMixin",
+    "SugarcaneBlockMixin"
   ],
   "client": [
   ],

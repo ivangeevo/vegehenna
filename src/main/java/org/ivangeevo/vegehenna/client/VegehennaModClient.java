@@ -17,5 +17,9 @@ public class VegehennaModClient implements ClientModInitializer
     {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FARMLAND_FERTILIZED, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CARROT_FLOWERING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SUGARCANE_ROOTS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WEEDS, RenderLayer.getCutout());
+
+
     }
 }

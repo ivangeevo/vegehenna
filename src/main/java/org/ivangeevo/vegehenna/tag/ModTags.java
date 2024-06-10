@@ -31,6 +31,8 @@ public class ModTags
     public static class Blocks
     {
 
+        public static final TagKey<Block> REEDS_CAN_GROW_ON =  createTag("raw_eggs");
+
 
         private static TagKey<Block> createTag (String name) {
             return TagKey.of(RegistryKeys.BLOCK, new Identifier(VegehennaMod.MOD_ID, name));
