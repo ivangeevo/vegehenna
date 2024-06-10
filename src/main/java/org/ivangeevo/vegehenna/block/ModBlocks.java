@@ -37,11 +37,14 @@ public class ModBlocks
                     .sounds(BlockSoundGroup.CROP)
                     .pistonBehavior(PistonBehavior.DESTROY)));
 
-    public static final Block SUGARCANE_ROOTS = registerBlock("sugarcane_roots",
+    public static final Block SUGARCANE_ROOTS = registerBlock("sugar_cane_roots",
             new SugarcaneRootsBlock(FabricBlockSettings.create()
-                    .breakInstantly()
+                    .mapColor(MapColor.DARK_GREEN)
+                    .noCollision()
                     .ticksRandomly()
-                    .sounds(BlockSoundGroup.GRASS)));
+                    .breakInstantly()
+                    .sounds(BlockSoundGroup.GRASS)
+                    .pistonBehavior(PistonBehavior.DESTROY)));
 
 
     public static final Block WEEDS = registerBlock("weeds",

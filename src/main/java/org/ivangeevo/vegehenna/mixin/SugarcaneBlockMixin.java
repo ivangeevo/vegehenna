@@ -11,6 +11,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
+import org.ivangeevo.vegehenna.block.blocks.SugarcaneRootsBlock;
 import org.ivangeevo.vegehenna.tag.ModTags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static com.ibm.icu.impl.ValidIdentifiers.Datatype.t;
 import static com.ibm.icu.impl.ValidIdentifiers.Datatype.x;
 
 @Mixin(SugarCaneBlock.class)
@@ -44,7 +46,7 @@ public abstract class SugarcaneBlockMixin extends Block
 
                 BlockPos checkPos = new BlockPos(pos.getX(), pos.getY() - reedHeight, pos.getZ());
 
-                while (world.getBlockState(checkPos).getBlock() instanceof SugarCaneBlock)
+                while (world.getBlockState(checkPos).getBlock() instanceof SugarcaneRootsBlock)
                 {
                     reedHeight++;
                 }
@@ -81,11 +83,10 @@ public abstract class SugarcaneBlockMixin extends Block
         Block blockBelow = stateBelow.getBlock();
 
         cir.setReturnValue( blockBelow == Blocks.SUGAR_CANE || (blockBelow != null && world.getBlockState(pos.down()).isIn(ModTags.Blocks.REEDS_CAN_GROW_ON) &&
-                isConsideredNeighbouringWaterForReedGrowthOn(world, pos.down())) );
+                isConsideredNeighbouringWaterForReedGrowthOn(world, pos.down())));
 
     }
 
-    @Unique
     public boolean isConsideredNeighbouringWaterForReedGrowthOn(WorldView world, BlockPos pos)
     {
         for ( int iTempI = pos.getX() - 1; iTempI <= pos.getX() + 1; iTempI++ )
@@ -102,10 +103,6 @@ public abstract class SugarcaneBlockMixin extends Block
 
         return false;
     }
-
-
-
-
 
 
 }
