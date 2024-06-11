@@ -15,7 +15,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BlockItemMixin
 {
 
-    // removing these blockitem's ability to be placed as as blocks in the world.
+    // removing these blockitem's ability to be placed as blocks in the world.
+
+    //TODO: Maybe make them PASS instead of FAIL to allow other functionality with those items.
+
     @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
     private void injectedUseOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir)
     {
