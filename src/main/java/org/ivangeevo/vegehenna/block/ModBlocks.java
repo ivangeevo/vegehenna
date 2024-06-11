@@ -41,7 +41,7 @@ public class ModBlocks
                     .mapColor(MapColor.DARK_GREEN)
                     .noCollision()
                     .ticksRandomly()
-                    .breakInstantly()
+                    .strength(0.1f)
                     .sounds(BlockSoundGroup.GRASS)
                     .pistonBehavior(PistonBehavior.DESTROY)));
     public static final Block SUGAR_CANE = registerBlockWithoutItem("sugar_cane",
@@ -49,7 +49,7 @@ public class ModBlocks
                     .mapColor(MapColor.DARK_GREEN)
                     .noCollision()
                     .ticksRandomly()
-                    .breakInstantly()
+                    .strength(0.1f)
                     .sounds(BlockSoundGroup.GRASS)
                     .pistonBehavior(PistonBehavior.DESTROY)));
 
