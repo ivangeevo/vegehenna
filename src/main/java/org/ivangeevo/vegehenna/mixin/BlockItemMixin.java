@@ -16,21 +16,19 @@ public abstract class BlockItemMixin
 {
 
     // removing these blockitem's ability to be placed as blocks in the world.
-
-    //TODO: Maybe make them PASS instead of FAIL to allow other functionality with those items.
-
+    // PASS to allow other functionality besides placing, FAIL to remove all.
     @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
     private void injectedUseOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir)
     {
 
         if (context.getStack().isOf(Items.SWEET_BERRIES))
         {
-            cir.setReturnValue(ActionResult.FAIL);
+            cir.setReturnValue(ActionResult.PASS);
         }
 
         if (context.getStack().isOf(Items.SUGAR_CANE))
         {
-            cir.setReturnValue(ActionResult.FAIL);
+            cir.setReturnValue(ActionResult.PASS);
         }
 
     }
