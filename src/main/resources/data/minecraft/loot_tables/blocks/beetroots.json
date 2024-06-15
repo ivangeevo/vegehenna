@@ -6,24 +6,31 @@
       "bonus_rolls": 0,
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "name": "minecraft:beetroot"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "minecraft:beetroot",
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.3
-                }
-              ]
-            }
-          ],
+          "type": "minecraft:item",
+          "name": "minecraft:beetroot",
           "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "minecraft:beetroots",
+              "properties": {
+                "age": "3"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:beetroot",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.4
+            },
             {
               "condition": "minecraft:block_state_property",
               "block": "minecraft:beetroots",
