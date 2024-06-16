@@ -47,6 +47,7 @@ public abstract class StemBlockMixin extends PlantBlock
         if (world.getDimensionKey() != DimensionTypes.THE_END && state.isOf(this))
         {
             checkForGrowth(world, pos, state, random);
+            validateFruitState(world, pos, state, random);
         }
         ci.cancel();
     }
@@ -168,18 +169,20 @@ public abstract class StemBlockMixin extends PlantBlock
     private void validateFruitState(World world, BlockPos pos, BlockState state, Random rand)
     {
 
-        if ( state.get(AGE) == 7 && this.getGourdBlock() == null /** !hasConnectedFruit(pos, state) **/)
+        if ( state.contains(AGE) && this.getGourdBlock() == null && !hasConnectedFruit(pos, state))
         {
             // reset to earlier growth stage
             world.setBlockState( pos, state.with(AGE, 4) );
         }
     }
 
+    @Unique
     private boolean hasConnectedFruit(BlockPos pos, BlockState state)
     {
         return getConnectedFruitDirection(pos, state) > 0;
     }
 
+    @Unique
     private int getConnectedFruitDirection(BlockPos pos, BlockState state)
     {
         for ( int iTempFacing = 2; iTempFacing < 6; iTempFacing++ )

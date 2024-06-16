@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SweetBerryBushBlock.class)
-public class SweetBerryBushBlockMixin extends PlantBlock
+public abstract class SweetBerryBushBlockMixin extends PlantBlock
 {
 
     @Shadow @Final public static IntProperty AGE;
