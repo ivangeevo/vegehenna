@@ -1,7 +1,16 @@
 package org.ivangeevo.vegehenna;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.MooshroomEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.ActionResult;
+import net.minecraft.world.event.GameEvent;
 import org.ivangeevo.vegehenna.item.ModItems;
+import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
