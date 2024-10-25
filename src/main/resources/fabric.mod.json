@@ -8,7 +8,7 @@
   "contact": {
     "repo": "https://github.com/ivangeevo/vegehenna"
   },
-  "license": "All-Rights-Reserved",
+  "license": "MIT",
   "icon": "assets/vegehenna/icon.png",
   "environment": "*",
   "entrypoints": {

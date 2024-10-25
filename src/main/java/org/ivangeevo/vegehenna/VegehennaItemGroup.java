@@ -13,7 +13,7 @@ public class VegehennaItemGroup
 {
 
     public static final ItemGroup GROUP_BTWR = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(VegehennaMod.MOD_ID, "group_vegehenna"),
+            Identifier.of(VegehennaMod.MOD_ID, "group_vegehenna"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.group_vegehenna"))
                     .icon(() -> new ItemStack(ModItems.GROUP_VEGEHENNA))
                     .entries((displayContext, entries) ->

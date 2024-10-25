@@ -1,6 +1,5 @@
 package org.ivangeevo.vegehenna.item;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.Item;
@@ -24,24 +23,25 @@ public class ModItems
     public static final Item PASTRY_UNCOOKED_PUMPKIN_PIE = registerItem("pastry_uncooked_pumpkin_pie", asSimpleItem());
 
     public static final Item CARROT_COOKED = registerItem("carrot_cooked",
-            new Item(new FabricItemSettings().food(ModFoodComponents.COOKED_CARROT)));
+            new Item(new Item.Settings().food(ModFoodComponents.COOKED_CARROT)));
 
     public static final Item SUGAR_CANE = registerItem("sugar_cane",
-            new Item(new FabricItemSettings()));
+            new Item(new Item.Settings()));
 
 
     // BlockItems
     public static final Item SUGAR_CANE_ROOTS = registerItem("sugar_cane_roots",
-            new AliasedBlockItem(ModBlocks.SUGAR_CANE_ROOTS, new FabricItemSettings()));
+            new AliasedBlockItem(ModBlocks.SUGAR_CANE_ROOTS, new Item.Settings()));
     public static final Item CARROT_SEEDS = registerItem("carrot_seeds",
-            new AliasedBlockItem(Blocks.CARROTS, new FabricItemSettings()));
+            new AliasedBlockItem(Blocks.CARROTS, new Item.Settings()));
 
 
 
-    private static Item asSimpleItem() { return new Item(new FabricItemSettings()); }
+    private static Item asSimpleItem() { return new Item( new Item.Settings() ); }
+
     private static Item registerItem(String name, Item item)
     {
-        return Registry.register(Registries.ITEM, new Identifier(VegehennaMod.MOD_ID,name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(VegehennaMod.MOD_ID,name), item);
     }
     public static void registerModItems()
     {

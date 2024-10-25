@@ -34,7 +34,7 @@ public abstract class SugarCaneBlockBase extends Block {
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
     {
-        if (world.getDimensionKey() != DimensionTypes.THE_END && this.canPlaceAt(state, world, pos))
+        if (!world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && this.canPlaceAt(state, world, pos))
         {
             if (world.isAir(pos.up()))
             {

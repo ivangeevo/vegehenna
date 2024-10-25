@@ -1,16 +1,17 @@
 package org.ivangeevo.vegehenna.mixin;
 
 import net.minecraft.block.*;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
@@ -25,16 +26,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Objects;
+import java.util.Optional;
 
 // TODO: Make it revert to an earlier AGE when its associated GourdBlock is harvested.
 @Mixin(StemBlock.class)
 public abstract class StemBlockMixin extends PlantBlock
 {
     @Shadow @Final public static IntProperty AGE;
-    @Shadow @Final private GourdBlock gourdBlock;
     @Shadow public abstract boolean canGrow(World world, Random random, BlockPos pos, BlockState state);
-    @Shadow public abstract GourdBlock getGourdBlock();
+
+    @Shadow @Final private RegistryKey<Block> gourdBlock;
+
+    @Shadow @Final private RegistryKey<Block> attachedStemBlock;
 
     public StemBlockMixin(Settings settings) {
         super(settings);
@@ -44,7 +47,8 @@ public abstract class StemBlockMixin extends PlantBlock
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
 
-        if (world.getDimensionKey() != DimensionTypes.THE_END && state.isOf(this))
+
+        if (world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this))
         {
             checkForGrowth(world, pos, state, random);
 
@@ -61,7 +65,7 @@ public abstract class StemBlockMixin extends PlantBlock
 
     // Make it not fertilizable
     @Inject(method = "isFertilizable", at = @At("HEAD"), cancellable = true)
-    private void injectedIsFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient, CallbackInfoReturnable<Boolean> cir) {
+    private void injectedIsFertilizable(WorldView world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(false);
     }
 
@@ -110,9 +114,14 @@ public abstract class StemBlockMixin extends PlantBlock
 
                             if (world.getBlockState(blockPos).isAir() && ( blockState.isOf(Blocks.FARMLAND) || blockState.isIn(BlockTags.DIRT) ))
                             {
-                                world.setBlockState(blockPos, this.gourdBlock.getDefaultState());
-                                world.setBlockState(pos, (BlockState)this.gourdBlock.getAttachedStem().getDefaultState().with(HorizontalFacingBlock.FACING, direction));
+                                Registry<Block> registry = world.getRegistryManager().get(RegistryKeys.BLOCK);
+                                Optional<Block> optional = registry.getOrEmpty(this.gourdBlock);
+                                Optional<Block> optional2 = registry.getOrEmpty(this.attachedStemBlock);
 
+                                if (optional.isPresent() && optional2.isPresent()) {
+                                    world.setBlockState(blockPos, optional.get().getDefaultState());
+                                    world.setBlockState(pos, optional2.get().getDefaultState().with(HorizontalFacingBlock.FACING, direction));
+                                }
                                 ((BlockAdded)blockBelow).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
 
                             }
@@ -161,16 +170,10 @@ public abstract class StemBlockMixin extends PlantBlock
         return false;
     }
 
-
-
-
-
-
-
     private void validateFruitState(World world, BlockPos pos, BlockState state, Random rand)
     {
 
-        if ( state.get(AGE) == 7 && this.getGourdBlock() == null && !hasConnectedFruit(pos, state))
+        if ( state.get(AGE) == 7 && this.gourdBlock == null && !hasConnectedFruit(world, pos, state))
         {
             // reset to earlier growth stage
             world.setBlockState( pos, state.with(AGE, 4) );
@@ -178,25 +181,38 @@ public abstract class StemBlockMixin extends PlantBlock
     }
 
     @Unique
-    private boolean hasConnectedFruit(BlockPos pos, BlockState state)
+    private boolean hasConnectedFruit(World world, BlockPos pos, BlockState state)
     {
-        return getConnectedFruitDirection(pos, state) > 0;
+        return getConnectedFruitDirection(world, pos, state) > 0;
     }
 
     @Unique
-    private int getConnectedFruitDirection(BlockPos pos, BlockState state)
+    private int getConnectedFruitDirection(World world, BlockPos pos, BlockState state)
     {
+
+        Registry<Block> registry = world.getRegistryManager().get(RegistryKeys.BLOCK);
+        Optional<Block> optional = registry.getOrEmpty(this.gourdBlock);
+        Optional<Block> optional2 = registry.getOrEmpty(this.attachedStemBlock);
+
+
         for ( int iTempFacing = 2; iTempFacing < 6; iTempFacing++ )
         {
 
             pos.offset(Direction.byId(iTempFacing));
 
+            if (optional.isPresent() && state == optional.get().getDefaultState() && optional2.isPresent())
+            {
+                return iTempFacing;
+            }
 
+            /**
             if ( state == gourdBlock.getDefaultState() &&
                     gourdBlock.getAttachedStem().getDefaultState().getBlock() != null)
             {
                 return iTempFacing;
             }
+             **/
+
         }
 
         return -1;

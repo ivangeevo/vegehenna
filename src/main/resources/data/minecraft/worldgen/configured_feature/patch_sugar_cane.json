@@ -1,19 +1,15 @@
 {
   "type": "minecraft:random_patch",
   "config": {
-    "tries": 20,
-    "xz_spread": 4,
-    "y_spread": 0,
     "feature": {
       "feature": {
         "type": "minecraft:block_column",
         "config": {
-          "direction": "up",
           "allowed_placement": {
             "type": "minecraft:matching_blocks",
-            "blocks": ["minecraft:air"]
+            "blocks": "minecraft:air"
           },
-          "prioritize_tip": false,
+          "direction": "up",
           "layers": [
             {
               "height": 1,
@@ -27,10 +23,8 @@
             {
               "height": {
                 "type": "minecraft:biased_to_bottom",
-                "value": {
-                  "min_inclusive": 1,
-                  "max_inclusive": 3
-                }
+                "min_inclusive": 1,
+                "max_inclusive": 3
               },
               "provider": {
                 "type": "minecraft:simple_state_provider",
@@ -42,7 +36,8 @@
                 }
               }
             }
-          ]
+          ],
+          "prioritize_tip": false
         }
       },
       "placement": [
@@ -53,7 +48,7 @@
             "predicates": [
               {
                 "type": "minecraft:matching_blocks",
-                "blocks": ["minecraft:air"]
+                "blocks": "minecraft:air"
               },
               {
                 "type": "minecraft:would_survive",
@@ -69,23 +64,51 @@
                 "predicates": [
                   {
                     "type": "minecraft:matching_fluids",
-                    "offset": [1, -1, 0],
-                    "fluids": ["minecraft:water", "minecraft:flowing_water"]
+                    "offset": [
+                      1,
+                      -1,
+                      0
+                    ],
+                    "fluids": [
+                      "minecraft:water",
+                      "minecraft:flowing_water"
+                    ]
                   },
                   {
                     "type": "minecraft:matching_fluids",
-                    "offset": [-1, -1, 0],
-                    "fluids": ["minecraft:water", "minecraft:flowing_water"]
+                    "offset": [
+                      -1,
+                      -1,
+                      0
+                    ],
+                    "fluids": [
+                      "minecraft:water",
+                      "minecraft:flowing_water"
+                    ]
                   },
                   {
                     "type": "minecraft:matching_fluids",
-                    "offset": [0, -1, 1],
-                    "fluids": ["minecraft:water", "minecraft:flowing_water"]
+                    "offset": [
+                      0,
+                      -1,
+                      1
+                    ],
+                    "fluids": [
+                      "minecraft:water",
+                      "minecraft:flowing_water"
+                    ]
                   },
                   {
                     "type": "minecraft:matching_fluids",
-                    "offset": [0, -1, -1],
-                    "fluids": ["minecraft:water", "minecraft:flowing_water"]
+                    "offset": [
+                      0,
+                      -1,
+                      -1
+                    ],
+                    "fluids": [
+                      "minecraft:water",
+                      "minecraft:flowing_water"
+                    ]
                   }
                 ]
               }
@@ -93,6 +116,9 @@
           }
         }
       ]
-    }
+    },
+    "tries": 20,
+    "xz_spread": 4,
+    "y_spread": 0
   }
 }

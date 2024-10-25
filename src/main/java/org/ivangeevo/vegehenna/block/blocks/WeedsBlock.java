@@ -1,6 +1,8 @@
 package org.ivangeevo.vegehenna.block.blocks;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.block.ShapeContext;
@@ -11,7 +13,9 @@ import net.minecraft.world.BlockView;
 
 import java.util.function.Function;
 
-public class WeedsBlock extends PlantBlock {
+public class WeedsBlock extends PlantBlock
+{
+    public static final MapCodec<WeedsBlock> CODEC = createCodec(WeedsBlock::new);
 
     static public final double WEEDS_BOUNDS_WIDTH = (1D - (4D / 16D));
     static public final double WEEDS_BOUNDS_HALF_WIDTH = (WEEDS_BOUNDS_WIDTH / 2D);
@@ -19,8 +23,15 @@ public class WeedsBlock extends PlantBlock {
             0.5D - WEEDS_BOUNDS_WIDTH, 0D, 0.5D - WEEDS_BOUNDS_WIDTH,
             0.5D + WEEDS_BOUNDS_WIDTH, 0.5D, 0.5D + WEEDS_BOUNDS_WIDTH);
 
+
+
     public WeedsBlock(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return CODEC;
     }
 
     @Override

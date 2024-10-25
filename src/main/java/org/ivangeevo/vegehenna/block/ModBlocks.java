@@ -1,7 +1,5 @@
 package org.ivangeevo.vegehenna.block;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
@@ -21,7 +19,7 @@ public class ModBlocks
 {
 
     public static final Block FARMLAND_FERTILIZED = registerBlock("farmland_fertilized",
-            new FertilizedFarmlandBlock(FabricBlockSettings.create()
+            new FertilizedFarmlandBlock(Block.Settings.create()
                     .mapColor(MapColor.DIRT_BROWN)
                     .ticksRandomly()
                     .strength(0.6f)
@@ -29,7 +27,7 @@ public class ModBlocks
                     .blockVision(Blocks::always)
                     .suffocates(Blocks::always)));
     public static final Block CARROT_FLOWERING = registerBlock("carrot_flowering",
-            new FloweringCarrotBlock(FabricBlockSettings.create()
+            new FloweringCarrotBlock(Block.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)
                     .noCollision()
                     .ticksRandomly()
@@ -37,7 +35,7 @@ public class ModBlocks
                     .sounds(BlockSoundGroup.CROP)
                     .pistonBehavior(PistonBehavior.DESTROY)));
     public static final Block SUGAR_CANE_ROOTS = registerBlockWithoutItem("sugar_cane_roots",
-            new SugarCaneRootsBlock(FabricBlockSettings.create()
+            new SugarCaneRootsBlock(Block.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)
                     .noCollision()
                     .ticksRandomly()
@@ -45,7 +43,7 @@ public class ModBlocks
                     .sounds(BlockSoundGroup.GRASS)
                     .pistonBehavior(PistonBehavior.DESTROY)));
     public static final Block SUGAR_CANE = registerBlockWithoutItem("sugar_cane",
-            new SugarCaneBlock(FabricBlockSettings.create()
+            new SugarCaneBlock(Block.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)
                     .noCollision()
                     .ticksRandomly()
@@ -56,7 +54,7 @@ public class ModBlocks
 
 
     public static final Block WEEDS = registerBlockWithoutItem("weeds",
-            new WeedsBlock(FabricBlockSettings.create()
+            new WeedsBlock(Block.Settings.create()
                     .strength(0f)
                     .ticksRandomly()
                     .sounds(BlockSoundGroup.GRASS)));
@@ -66,18 +64,18 @@ public class ModBlocks
     private static Block registerBlock(String name, Block block)
     {
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(VegehennaMod.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(VegehennaMod.MOD_ID, name), block);
     }
 
     private static Block registerBlockWithoutItem(String name, Block block)
     {
-        return Registry.register(Registries.BLOCK, new Identifier(VegehennaMod.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(VegehennaMod.MOD_ID, name), block);
     }
 
     private static Item registerBlockItem(String name, Block block)
     {
-        return Registry.register(Registries.ITEM, new Identifier(VegehennaMod.MOD_ID, name),
-                new BlockItem(block, new FabricItemSettings()));
+        return Registry.register(Registries.ITEM, Identifier.of(VegehennaMod.MOD_ID, name),
+                new BlockItem(block, new Item.Settings()));
     }
 
     public static void registerModBlocks()

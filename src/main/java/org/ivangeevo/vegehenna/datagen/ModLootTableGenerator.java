@@ -19,6 +19,7 @@ import net.minecraft.loot.function.LootFunctionTypes;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
@@ -26,12 +27,13 @@ import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.ivangeevo.vegehenna.item.ModItems;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class ModLootTableGenerator extends FabricBlockLootTableProvider {
 
 
-    public ModLootTableGenerator(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    public ModLootTableGenerator(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override

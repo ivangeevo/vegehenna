@@ -36,11 +36,13 @@ public abstract class SweetBerryBushBlockMixin extends PlantBlock
 
     // Modify the drop to only 1 instead of a random like before.
     @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
-    private void injectedOnUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
+    private void injectedOnUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
     {
         boolean bl;
         int i = state.get(AGE);
         bl = i == 3;
+
+        Hand hand = player.getActiveHand();
 
         if (!bl && player.getStackInHand(hand).isOf(Items.BONE_MEAL))
         {
@@ -56,6 +58,6 @@ public abstract class SweetBerryBushBlockMixin extends PlantBlock
             world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, blockState));
             cir.setReturnValue( ActionResult.success(world.isClient) );
         }
-        cir.setReturnValue( super.onUse(state, world, pos, player, hand, hit) );
+        cir.setReturnValue( super.onUse(state, world, pos, player, hit) );
     }
 }

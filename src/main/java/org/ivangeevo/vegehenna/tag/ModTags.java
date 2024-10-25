@@ -24,7 +24,7 @@ public class ModTags
         public static final TagKey<Item> RAW_EGGS = createTag("raw_eggs");
 
         private static TagKey<Item> createTag (String name) {
-            return TagKey.of(RegistryKeys.ITEM, new Identifier(VegehennaMod.MOD_ID, name));
+            return TagKey.of(RegistryKeys.ITEM, Identifier.of(VegehennaMod.MOD_ID, name));
         }
     }
 
@@ -35,7 +35,7 @@ public class ModTags
 
 
         private static TagKey<Block> createTag (String name) {
-            return TagKey.of(RegistryKeys.BLOCK, new Identifier(VegehennaMod.MOD_ID, name));
+            return TagKey.of(RegistryKeys.BLOCK, Identifier.of(VegehennaMod.MOD_ID, name));
         }
     }
 }

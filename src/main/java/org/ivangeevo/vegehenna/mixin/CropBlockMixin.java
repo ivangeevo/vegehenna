@@ -55,7 +55,7 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
 
     // Make it not fertilizable
     @Inject(method = "isFertilizable", at = @At("HEAD"), cancellable = true)
-    private void injectedIsFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient, CallbackInfoReturnable<Boolean> cir) {
+    private void injectedIsFertilizable(WorldView world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(false);
     }
 
@@ -69,7 +69,7 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
     private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random, CallbackInfo ci)
     {
 
-        if (world.getDimensionKey() != DimensionTypes.THE_END && state.isOf(this))
+        if (world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this))
         {
             attemptToGrow(world, pos, state, random);
         }

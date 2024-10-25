@@ -2,6 +2,7 @@ package org.ivangeevo.vegehenna.mixin;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -20,14 +21,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HoeItem.class)
 public abstract class HoeItemMixin extends MiningToolItem {
-    protected HoeItemMixin(float attackDamage, float attackSpeed, ToolMaterial material, TagKey<Block> effectiveBlocks, Settings settings) {
-        super(attackDamage, attackSpeed, material, effectiveBlocks, settings);
-    }
 
-    // Make the hoe slower.
-    @Override
-    public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-        return super.getMiningSpeedMultiplier(stack, state) / 3;
+
+    public HoeItemMixin(ToolMaterial material, TagKey<Block> effectiveBlocks, Settings settings) {
+        super(material, effectiveBlocks, settings);
     }
 
     @Override
@@ -38,9 +35,7 @@ public abstract class HoeItemMixin extends MiningToolItem {
         {
             if (miner instanceof PlayerEntity playerEntity)
             {
-                ItemUsageContext context = new ItemUsageContext(playerEntity, Hand.MAIN_HAND, new BlockHitResult(playerEntity.getPos(), Direction.UP, pos, false));
-
-                stack.damage(1, playerEntity, p -> p.sendToolBreakStatus(context.getHand()));
+                stack.damage(1, playerEntity, EquipmentSlot.MAINHAND);
             }
         }
 

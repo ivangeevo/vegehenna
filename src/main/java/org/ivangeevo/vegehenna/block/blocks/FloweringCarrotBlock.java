@@ -34,7 +34,7 @@ public class FloweringCarrotBlock extends CropBlock
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random)
     {
-        if (world.getDimensionKey() != DimensionTypes.THE_END && state.isOf(this))
+        if (!world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this))
         {
             attemptToGrow(world, pos, state, random);
         }

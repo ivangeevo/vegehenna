@@ -13,12 +13,10 @@
     "count": 2,
     "item": "minecraft:wheat_seeds"
   },
-
-  "secondaryResult":
+  "additionalDrops":
   [
     {
-      "item": "vegehenna:straw",
-      "count": 1
+      "item": "vegehenna:straw"
     }
   ]
 }

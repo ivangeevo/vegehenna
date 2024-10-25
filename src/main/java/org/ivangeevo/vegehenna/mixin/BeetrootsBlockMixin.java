@@ -53,11 +53,11 @@ public abstract class BeetrootsBlockMixin extends CropBlock {
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci)
     {
-
-        if (world.getDimensionKey() != DimensionTypes.THE_END && state.isOf(this))
+        if (world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this))
         {
             this.attemptToGrow(world, pos, state, random);
         }
+
         ci.cancel();
     }
 
