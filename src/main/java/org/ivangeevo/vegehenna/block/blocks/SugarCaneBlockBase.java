@@ -16,7 +16,8 @@ import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.ivangeevo.vegehenna.tag.ModTags;
 
-public abstract class SugarCaneBlockBase extends Block {
+public abstract class SugarCaneBlockBase extends Block
+{
     private static final IntProperty AGE = Properties.AGE_15;
     private static final double WIDTH = 0.75D;
     private static final double HALF_WIDTH = WIDTH / 2;

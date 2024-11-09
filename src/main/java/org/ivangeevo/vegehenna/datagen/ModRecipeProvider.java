@@ -39,8 +39,8 @@ public class ModRecipeProvider extends FabricRecipeProvider
         generateShapedRecipes(exporter);
 
         // Generation for all non separated into a category cooking recipes is generalized.
-        // By default the cook time for all items is 1200 for smoker, 6000 for campfire.
-        generateOnlySmokingCookingRecipes(exporter, 1200 );
+        // By default the cook time for all items is 100 for smoker
+        generateOnlySmokingCookingRecipes(exporter, 100 );
 
     }
 
@@ -50,7 +50,6 @@ public class ModRecipeProvider extends FabricRecipeProvider
         RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, cookingTime, ModItems.PASTRY_UNCOOKED_COOKIES, Items.COOKIE, 0.15f);
         RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, cookingTime, ModItems.PASTRY_UNCOOKED_CAKE, Items.CAKE, 0.15f);
         RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, cookingTime, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE, Items.PUMPKIN_PIE, 0.15f);
-        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, cookingTime, Items.CARROT, ModItems.CARROT_COOKED, 0.15f);
         //RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, cookingTime, ModItems.PASTRY_UNCOOKED_COOKIES, Items.COOKIE, 0.15f);
 
     }

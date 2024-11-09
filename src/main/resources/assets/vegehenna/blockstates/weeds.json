@@ -1,0 +1,10 @@
+{
+  "variants":
+  {
+    "weeds_level=0": { "model": "vegehenna:block/weeds_level_0" },
+    "weeds_level=1": { "model": "vegehenna:block/weeds_level_1" },
+    "weeds_level=2": { "model": "vegehenna:block/weeds_level_2" },
+    "weeds_level=3": { "model": "vegehenna:block/weeds_level_3" }
+  }
+
+}

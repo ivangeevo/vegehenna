@@ -6,6 +6,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -16,6 +19,9 @@ import java.util.function.Function;
 public class WeedsBlock extends PlantBlock
 {
     public static final MapCodec<WeedsBlock> CODEC = createCodec(WeedsBlock::new);
+
+    public static final IntProperty WEEDS_LEVEL = IntProperty.of("weeds_level", 0, 3);
+
 
     static public final double WEEDS_BOUNDS_WIDTH = (1D - (4D / 16D));
     static public final double WEEDS_BOUNDS_HALF_WIDTH = (WEEDS_BOUNDS_WIDTH / 2D);
@@ -39,6 +45,10 @@ public class WeedsBlock extends PlantBlock
         return SHAPE;
     }
 
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(WEEDS_LEVEL);
+    }
 
     /**
     @Override

@@ -82,9 +82,7 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
     public void attemptToGrow(World world, BlockPos pos, BlockState state, Random rand)
     {
 
-        if (/** getWeedsGrowthLevel(world, i, j, k) == 0 && **/
-                getGrowthLevel(world, pos) < this.getMaxAge() &&
-                world.getLightLevel( pos.up() ) >= 9 )
+        if (getWeedsGrowthLevel(world, pos) == 0 && getGrowthLevel(world, pos) < this.getMaxAge() && world.getLightLevel( pos.up() ) >= 9 )
         {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 

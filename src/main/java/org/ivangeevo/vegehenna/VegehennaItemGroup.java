@@ -24,14 +24,12 @@ public class VegehennaItemGroup
                         entries.add(ModItems.STRAW);
                         entries.add(ModItems.FLOUR);
                         entries.add(ModItems.BREAD_DOUGH);
-                        entries.add(ModItems.CARROT_COOKED);
                         entries.add(ModItems.CARROT_SEEDS);
                         entries.add(ModItems.COCOA_POWDER);
                         entries.add(ModItems.PASTRY_UNCOOKED_COOKIES);
                         entries.add(ModItems.PASTRY_UNCOOKED_CAKE);
                         entries.add(ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE);
                         entries.add(ModItems.SUGAR_CANE_ROOTS);
-                        entries.add(ModItems.SUGAR_CANE);
 
 
                     }).build());

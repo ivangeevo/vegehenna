@@ -22,18 +22,9 @@ public class ModItems
     public static final Item PASTRY_UNCOOKED_CAKE = registerItem("pastry_uncooked_cake", asSimpleItem());
     public static final Item PASTRY_UNCOOKED_PUMPKIN_PIE = registerItem("pastry_uncooked_pumpkin_pie", asSimpleItem());
 
-    public static final Item CARROT_COOKED = registerItem("carrot_cooked",
-            new Item(new Item.Settings().food(ModFoodComponents.COOKED_CARROT)));
-
-    public static final Item SUGAR_CANE = registerItem("sugar_cane",
-            new Item(new Item.Settings()));
-
-
     // BlockItems
-    public static final Item SUGAR_CANE_ROOTS = registerItem("sugar_cane_roots",
-            new AliasedBlockItem(ModBlocks.SUGAR_CANE_ROOTS, new Item.Settings()));
-    public static final Item CARROT_SEEDS = registerItem("carrot_seeds",
-            new AliasedBlockItem(Blocks.CARROTS, new Item.Settings()));
+    public static final Item SUGAR_CANE_ROOTS = registerItem("sugar_cane_roots", new AliasedBlockItem(ModBlocks.SUGAR_CANE_ROOTS, new Item.Settings()));
+    public static final Item CARROT_SEEDS = registerItem("carrot_seeds", new AliasedBlockItem(Blocks.CARROTS, new Item.Settings()));
 
 
 

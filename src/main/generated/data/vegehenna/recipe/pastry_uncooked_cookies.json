@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:cocoa_beans"
+    },
+    {
+      "item": "vegehenna:flour"
+    },
+    {
+      "item": "vegehenna:flour"
+    },
+    {
+      "item": "vegehenna:flour"
+    },
+    {
+      "item": "vegehenna:flour"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "vegehenna:pastry_uncooked_cookies"
+  }
+}

@@ -26,6 +26,7 @@ public class ModBlocks
                     .sounds(BlockSoundGroup.GRAVEL)
                     .blockVision(Blocks::always)
                     .suffocates(Blocks::always)));
+
     public static final Block CARROT_FLOWERING = registerBlock("carrot_flowering",
             new FloweringCarrotBlock(Block.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)
@@ -34,6 +35,7 @@ public class ModBlocks
                     .breakInstantly()
                     .sounds(BlockSoundGroup.CROP)
                     .pistonBehavior(PistonBehavior.DESTROY)));
+
     public static final Block SUGAR_CANE_ROOTS = registerBlockWithoutItem("sugar_cane_roots",
             new SugarCaneRootsBlock(Block.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)
@@ -42,6 +44,7 @@ public class ModBlocks
                     .breakInstantly()
                     .sounds(BlockSoundGroup.GRASS)
                     .pistonBehavior(PistonBehavior.DESTROY)));
+
     public static final Block SUGAR_CANE = registerBlockWithoutItem("sugar_cane",
             new SugarCaneBlock(Block.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)

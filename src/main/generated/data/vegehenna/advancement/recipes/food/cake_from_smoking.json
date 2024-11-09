@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pastry_uncooked_cake": {
+      "conditions": {
+        "items": [
+          {
+            "items": "vegehenna:pastry_uncooked_cake"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cake_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pastry_uncooked_cake"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cake_from_smoking"
+    ]
+  }
+}

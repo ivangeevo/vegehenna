@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 1200,
+  "experience": 0.15,
+  "ingredient": {
+    "item": "vegehenna:pastry_uncooked_cake"
+  },
+  "result": {
+    "id": "minecraft:cake"
+  }
+}
