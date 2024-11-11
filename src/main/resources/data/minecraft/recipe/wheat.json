@@ -1,22 +1,19 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "food",
-
-  "ingredients":
-  [
+  "group": "misc",
+  "ingredients": [
     {
       "item": "minecraft:wheat"
     }
-
   ],
   "result": {
     "count": 2,
     "id": "minecraft:wheat_seeds"
   },
-  "additionalDrops":
-  [
+  "additionalDrops": [
     {
-      "item": "vegehenna:straw"
+      "id": "vegehenna:straw",
+      "count": 1
     }
   ]
 }
