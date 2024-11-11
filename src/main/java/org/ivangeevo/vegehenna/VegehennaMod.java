@@ -37,7 +37,7 @@ public class VegehennaMod implements ModInitializer
         ModBlockEntities.registerBlockEntities();
         ModItems.registerModItems();
         VegehennaItemGroup.registerItemGroups();
-        ModLootTableEvents.initialize();
+        //ModLootTableEvents.initialize();
 
         //ModelLoadingPlugin.register(new WeedsModelLoadingPlugin());
     }
