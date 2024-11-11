@@ -12,6 +12,8 @@
     "CarrotsBlockMixin",
     "CropBlockMixin",
     "HoeItemMixin",
+    "ItemEntryAccessor",
+    "LootPoolBuilderAccessor",
     "PlantBlockMixin",
     "PotatoesBlockMixin",
     "StemBlockMixin",

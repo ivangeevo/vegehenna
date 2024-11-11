@@ -2,38 +2,11 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "entries": [
-        {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "name": "minecraft:grass",
-              "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count": 2,
-                  "add": false
-                }
-              ],
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": "#c:tools/shear"
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ],
+      "bonus_rolls": 0.0,
       "conditions": [
         {
-          "condition": "minecraft:block_state_property",
           "block": "minecraft:tall_grass",
+          "condition": "minecraft:block_state_property",
           "properties": {
             "half": "lower"
           }
@@ -43,50 +16,48 @@
           "offsetY": 1,
           "predicate": {
             "block": {
-              "blocks": [
-                "minecraft:tall_grass"
-              ],
+              "blocks": "minecraft:tall_grass",
               "state": {
                 "half": "upper"
               }
             }
           }
         }
-      ]
-    },
-    {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      ],
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "name": "minecraft:grass",
-              "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count": 2,
-                  "add": false
-                }
-              ],
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": "#c:tools/shear"
+                    "items": "minecraft:shears"
                   }
                 }
-              ]
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": 2.0,
+                  "function": "minecraft:set_count"
+                }
+              ],
+              "name": "minecraft:short_grass"
             }
           ]
         }
       ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
       "conditions": [
         {
-          "condition": "minecraft:block_state_property",
           "block": "minecraft:tall_grass",
+          "condition": "minecraft:block_state_property",
           "properties": {
             "half": "upper"
           }
@@ -96,16 +67,41 @@
           "offsetY": -1,
           "predicate": {
             "block": {
-              "blocks": [
-                "minecraft:tall_grass"
-              ],
+              "blocks": "minecraft:tall_grass",
               "state": {
                 "half": "lower"
               }
             }
           }
         }
-      ]
+      ],
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "minecraft:shears"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": 2.0,
+                  "function": "minecraft:set_count"
+                }
+              ],
+              "name": "minecraft:short_grass"
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "minecraft:blocks/tall_grass"

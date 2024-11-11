@@ -13,6 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.event.GameEvent;
 import org.ivangeevo.vegehenna.entity.block.ModBlockEntities;
+import org.ivangeevo.vegehenna.event.ModLootTableEvents;
 import org.ivangeevo.vegehenna.item.ModItems;
 import org.ivangeevo.vegehenna.model.WeedsBlockModel;
 import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
@@ -36,6 +37,7 @@ public class VegehennaMod implements ModInitializer
         ModBlockEntities.registerBlockEntities();
         ModItems.registerModItems();
         VegehennaItemGroup.registerItemGroups();
+        ModLootTableEvents.initialize();
 
         //ModelLoadingPlugin.register(new WeedsModelLoadingPlugin());
     }
