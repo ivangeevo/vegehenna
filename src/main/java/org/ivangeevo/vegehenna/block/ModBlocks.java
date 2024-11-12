@@ -27,7 +27,7 @@ public class ModBlocks
                     .blockVision(Blocks::always)
                     .suffocates(Blocks::always)));
 
-    public static final Block CARROT_FLOWERING = registerBlock("carrot_flowering",
+    public static final Block CARROT_FLOWERING = registerBlockWithoutItem("carrot_flowering",
             new FloweringCarrotBlock(Block.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)
                     .noCollision()
