@@ -14,9 +14,11 @@
     "HoeItemMixin",
     "ItemEntryAccessor",
     "LootPoolBuilderAccessor",
+    "MilkBucketItemMixin",
     "PlantBlockMixin",
     "PotatoesBlockMixin",
     "StemBlockMixin",
+    "SugarCaneBlockMixin",
     "SweetBerryBushBlockMixin"
   ],
   "client": [

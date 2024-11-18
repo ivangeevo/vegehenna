@@ -1,33 +1,44 @@
 package org.ivangeevo.vegehenna.mixin;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
+import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.tough_environment.block.ModBlocks;
 
 @Mixin(Block.class)
-public abstract class BlockMixin implements BlockAdded
+public abstract class BlockMixin
 {
-    @Override
-    public void notifyOfFullStagePlantGrowthOn(World world, BlockPos pos, Block plantBlock) {}
-
-    /**
-     * This is used by old style non-daily plant growth
-     */
-    public float getPlantGrowthOnMultiplier(World world, BlockPos pos, Block plantBlock) { return 1F; }
-
-
-    @Override
-    public boolean isBlockHydratedForPlantGrowthOn(World world, BlockPos pos) {return false;}
-    @Override
-    public int getWeedsGrowthLevel(WorldAccess blockAccess, BlockPos pos)
+    @Inject(method = "afterBreak", at = @At("HEAD"))
+    private void onAfterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack tool, CallbackInfo ci)
     {
-        return 0;
-    }
-    @Override
-    public void removeWeeds(World world, BlockPos pos) {}
+        if (state.isIn(BlockTags.CROPS))
+        {
+            Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
+            if (blockBelow.getDefaultState().isIn(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS))
+            {
+                if (FabricLoader.getInstance().isModLoaded("tough_environment"))
+                {
+                    world.setBlockState(pos.down(), ModBlocks.DIRT_LOOSE.getDefaultState());
+                }
+                else
+                {
+                    world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState());
+                }
+            }
+        }
+    }
 
 }

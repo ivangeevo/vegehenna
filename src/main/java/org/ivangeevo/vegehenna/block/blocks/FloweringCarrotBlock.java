@@ -1,5 +1,6 @@
 package org.ivangeevo.vegehenna.block.blocks;
 
+import btwr.lib.added.BlockAdded;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
@@ -17,8 +18,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.dimension.DimensionTypes;
-import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
-import org.ivangeevo.vegehenna.block.interfaces.CarrotsBlockAdded;
 import org.spongepowered.asm.mixin.Unique;
 
 public class FloweringCarrotBlock extends CropBlock
@@ -49,10 +48,10 @@ public class FloweringCarrotBlock extends CropBlock
         {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
-            if ( blockBelow != null && ((BlockAdded)blockBelow).isBlockHydratedForPlantGrowthOn(world, pos.down()))
+            if ( blockBelow != null && (blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())))
             {
                 float fGrowthChance = getBaseGrowthChance() *
-                        ((BlockAdded) blockBelow).getPlantGrowthOnMultiplier(world, pos.down(), this);
+                        blockBelow.getPlantGrowthOnMultiplier(world, pos.down(), this);
 
                 if ( rand.nextFloat() <= fGrowthChance )
                 {
@@ -84,7 +83,7 @@ public class FloweringCarrotBlock extends CropBlock
 
             if ( blockBelow != null )
             {
-                ((BlockAdded)blockBelow).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+                blockBelow.notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
             }
 
         }

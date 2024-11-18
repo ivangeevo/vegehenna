@@ -54,8 +54,6 @@ public class ModBlocks
                     .sounds(BlockSoundGroup.GRASS)
                     .pistonBehavior(PistonBehavior.DESTROY)));
 
-
-
     public static final Block WEEDS = registerBlockWithoutItem("weeds",
             new WeedsBlock(Block.Settings.create()
                     .strength(0f)

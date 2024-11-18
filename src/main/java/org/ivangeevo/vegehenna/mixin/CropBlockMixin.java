@@ -10,7 +10,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.world.dimension.DimensionTypes;
-import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
 import org.ivangeevo.vegehenna.block.interfaces.CropBlockAdded;
 import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
 import org.spongepowered.asm.mixin.Final;
@@ -86,10 +85,10 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
         {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
-            if ( blockBelow != null && ((BlockAdded)blockBelow).isBlockHydratedForPlantGrowthOn(world, pos.down()))
+            if ( blockBelow != null && (blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())))
             {
                 float fGrowthChance = getBaseGrowthChance() *
-                        ((BlockAdded) blockBelow).getPlantGrowthOnMultiplier(world, pos.down(), this);
+                        (blockBelow.getPlantGrowthOnMultiplier(world, pos.down(), this));
 
                 if ( rand.nextFloat() <= fGrowthChance )
                 {
@@ -113,7 +112,7 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
 
             if ( blockBelow != null )
             {
-                ((BlockAdded)blockBelow).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+                blockBelow.notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
             }
 
         }

@@ -6,7 +6,6 @@ import net.minecraft.block.PlantBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(PlantBlock.class)
@@ -25,7 +24,7 @@ public abstract class PlantBlockMixin extends Block
 
         if ( blockBelow != null && state != blockBelow.getDefaultState() )
         {
-            return ((BlockAdded)blockBelow).getWeedsGrowthLevel(blockAccess, pos.down());
+            return blockBelow.getWeedsGrowthLevel(blockAccess, pos.down());
         }
 
         return 0;
@@ -37,7 +36,7 @@ public abstract class PlantBlockMixin extends Block
 
         if ( blockBelow != null )
         {
-            ((BlockAdded)blockBelow).removeWeeds(world, pos.down());
+           blockBelow.removeWeeds(world, pos.down());
         }
     }
 }

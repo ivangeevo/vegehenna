@@ -16,5 +16,4 @@ public interface CropBlockAdded
 
     default int getGrowthLevel(WorldAccess blockAccess, BlockPos pos) { return 0; }
 
-
 }

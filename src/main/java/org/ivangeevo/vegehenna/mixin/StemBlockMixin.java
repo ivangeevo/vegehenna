@@ -14,7 +14,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
-import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
 import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.util.WorldUtils;
 import org.spongepowered.asm.mixin.Final;
@@ -73,16 +72,14 @@ public abstract class StemBlockMixin extends PlantBlock
     @Unique
     private void checkForGrowth(World world, BlockPos pos, BlockState state, Random rand)
     {
-        if (((BlockAdded)this).getWeedsGrowthLevel(world,pos) == 0 &&
-                world.getLightLevel( pos.up() ) >= 9 )
+        if (this.getWeedsGrowthLevel(world,pos) == 0 && world.getLightLevel( pos.up() ) >= 9 )
         {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
             if ( blockBelow != null &&
-                    ((BlockAdded)blockBelow).isBlockHydratedForPlantGrowthOn(world, pos.down()) )
+                    blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down()) )
             {
-                float fGrowthChance = 0.2F *
-                        ((BlockAdded)blockBelow).getPlantGrowthOnMultiplier(world, pos.down(), this);
+                float fGrowthChance = 0.2F * blockBelow.getPlantGrowthOnMultiplier(world, pos.down(), this);
 
                 if ( rand.nextFloat() <= fGrowthChance )
                 {
@@ -122,11 +119,9 @@ public abstract class StemBlockMixin extends PlantBlock
                                     world.setBlockState(blockPos, optional.get().getDefaultState());
                                     world.setBlockState(pos, optional2.get().getDefaultState().with(HorizontalFacingBlock.FACING, direction));
                                 }
-                                ((BlockAdded)blockBelow).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
 
+                                blockBelow.notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
                             }
-
-
                         }
                     }
                 }

@@ -38,8 +38,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     {
 
         getOrCreateTagBuilder(ModTags.Blocks.REEDS_CAN_PLANT_ON)
-                .add(Blocks.DIRT)
-                .add(Blocks.GRASS_BLOCK)
+                .forceAddTag(BlockTags.DIRT)
                 .forceAddTag(BlockTags.SAND);
     }
 

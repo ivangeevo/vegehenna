@@ -1,8 +1,6 @@
 package org.ivangeevo.vegehenna.mixin;
 
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.RavagerEntity;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -11,18 +9,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.dimension.DimensionTypes;
-import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
 import org.ivangeevo.vegehenna.block.interfaces.CarrotsBlockAdded;
 import org.ivangeevo.vegehenna.item.ModItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CarrotsBlock.class)
@@ -96,10 +91,10 @@ public abstract class CarrotsBlockMixin extends CropBlock implements CarrotsBloc
         {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
-            if ( blockBelow != null && ((BlockAdded)blockBelow).isBlockHydratedForPlantGrowthOn(world, pos.down()))
+            if ( blockBelow != null && (blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())))
             {
                 float fGrowthChance = getBaseGrowthChance() *
-                        ((BlockAdded) blockBelow).getPlantGrowthOnMultiplier(world, pos.down(), this);
+                        blockBelow.getPlantGrowthOnMultiplier(world, pos.down(), this);
 
                 if ( rand.nextFloat() <= fGrowthChance )
                 {
@@ -123,7 +118,7 @@ public abstract class CarrotsBlockMixin extends CropBlock implements CarrotsBloc
 
             if ( blockBelow != null )
             {
-                ((BlockAdded)blockBelow).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+                blockBelow.notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
             }
 
         }

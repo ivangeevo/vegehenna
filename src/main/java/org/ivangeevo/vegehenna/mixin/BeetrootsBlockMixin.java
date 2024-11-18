@@ -9,10 +9,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
-import org.ivangeevo.vegehenna.block.interfaces.BlockAdded;
-import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -76,10 +73,10 @@ public abstract class BeetrootsBlockMixin extends CropBlock {
         {
             BlockState belowState = world.getBlockState(pos.down());
 
-            if ( belowState != null && ((BlockAdded)belowState.getBlock()).isBlockHydratedForPlantGrowthOn(world, pos.down()))
+            if ( belowState != null && (belowState.getBlock()).isBlockHydratedForPlantGrowthOn(world, pos.down()))
             {
                 float fGrowthChance = getBaseGrowthChance() *
-                        ((BlockAdded) belowState.getBlock()).getPlantGrowthOnMultiplier(world, pos.down(), this);
+                        (belowState.getBlock()).getPlantGrowthOnMultiplier(world, pos.down(), this);
 
                 if ( rand.nextFloat() <= fGrowthChance )
                 {
@@ -102,7 +99,7 @@ public abstract class BeetrootsBlockMixin extends CropBlock {
 
             if ( belowState != null )
             {
-                ((BlockAdded)belowState.getBlock()).notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+                belowState.getBlock().notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
             }
         }
     }

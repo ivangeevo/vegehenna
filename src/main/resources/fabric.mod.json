@@ -34,7 +34,6 @@
   "custom": {
     "loom:injected_interfaces":
     {
-      "net/minecraft/class_2248": ["org/ivangeevo/vegehenna/block/interfaces/BlockAdded"],
       "net/minecraft/class_2302": ["org/ivangeevo/vegehenna/block/interfaces/CropBlockAdded"]
 
     }

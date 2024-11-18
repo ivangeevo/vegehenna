@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cocoa_beans": {
+    "has_cocoa_powder": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:cocoa_beans"
+            "items": "vegehenna:cocoa_powder"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_cocoa_beans"
+      "has_cocoa_powder"
     ]
   ],
   "rewards": {

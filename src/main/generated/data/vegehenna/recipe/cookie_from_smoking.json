@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smoking",
   "category": "food",
-  "cookingtime": 1200,
+  "cookingtime": 100,
   "experience": 0.15,
   "ingredient": {
     "item": "vegehenna:pastry_uncooked_cookies"
