@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:milk_bucket"
+    },
+    {
+      "item": "vegehenna:cocoa_powder"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "vegehenna:chocolate_milk"
+  }
+}

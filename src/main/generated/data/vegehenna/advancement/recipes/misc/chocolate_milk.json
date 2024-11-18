@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cocoa_powder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "vegehenna:cocoa_powder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "vegehenna:chocolate_milk"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cocoa_powder"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "vegehenna:chocolate_milk"
+    ]
+  }
+}
