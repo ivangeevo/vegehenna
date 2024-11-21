@@ -2,6 +2,4 @@
 /.idea
 /build
 /run
-/src/minecraft-1.20.1+build.10-v2
-/libs
-
+/libs/
