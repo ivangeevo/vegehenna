@@ -16,6 +16,8 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
+    maven { url "https://ivangeevo.github.io/btwr-shared-lib/" }
+
 
 }
 
@@ -28,10 +30,7 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation files("libs/tough_environment-0.4.1-1.21.1.jar")
-    modImplementation files("libs/btwr-core-0.27-1.21.1.jar")
-
-    modImplementation files("libs/btwr-shared-lib-1.0-SNAPSHOT.jar")
+    modImplementation("org.ivangeevo:btwr-shared-lib:${project.btwr_lib_version}")
 
 }
 

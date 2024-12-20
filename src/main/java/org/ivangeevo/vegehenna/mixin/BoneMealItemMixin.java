@@ -26,11 +26,11 @@ public abstract class BoneMealItemMixin {
         BlockPos pos = context.getBlockPos();
         BlockState state = context.getWorld().getBlockState(pos);
 
-        // Case 1: Clicked directly on farmland
+       // Clicked directly on farmland
         if (state.isOf(Blocks.FARMLAND)) {
             fertilizeFarmland(context, pos, state, cir);
         }
-        // Case 2: Clicked on a crop with farmland below
+        // Clicked on a crop with farmland below
         else if (state.getBlock() instanceof CropBlock && context.getWorld().getBlockState(pos.down()).isOf(Blocks.FARMLAND)) {
             fertilizeFarmland(context, pos.down(), context.getWorld().getBlockState(pos.down()), cir);
         }

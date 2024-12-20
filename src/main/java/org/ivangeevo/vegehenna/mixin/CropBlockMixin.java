@@ -73,8 +73,7 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
             attemptToGrow(world, pos, state, random);
         }
 
-        ci.cancel();
-
+        ci.cancel() ;
     }
 
     @Override

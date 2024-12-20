@@ -32,6 +32,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
                 .add(Blocks.GRASS_BLOCK)
                 .add(Blocks.DIRT);
+
+        getOrCreateTagBuilder(BlockTags.CROPS)
+                .add(ModBlocks.CARROT_FLOWERING);
     }
 
     private void addToModTags()
