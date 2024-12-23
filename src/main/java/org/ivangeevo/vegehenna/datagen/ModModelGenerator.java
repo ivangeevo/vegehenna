@@ -7,7 +7,6 @@ import net.minecraft.data.client.ItemModelGenerator;
 
 public class ModModelGenerator extends FabricModelProvider {
 
-
     public ModModelGenerator(FabricDataOutput output) {
         super(output);
     }

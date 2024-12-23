@@ -8,6 +8,6 @@
     "moisture=4": {"model": "vegehenna:block/farmland_fertilized"},
     "moisture=5": {"model": "vegehenna:block/farmland_fertilized"},
     "moisture=6": {"model": "vegehenna:block/farmland_fertilized"},
-    "moisture=7": {"model": "vegehenna:block/farmland_moist_fertilized"}
+    "moisture=7": {"model": "vegehenna:block/farmland_fertilized_moist"}
   }
 }
