@@ -41,6 +41,7 @@ public class ModLootTableGenerator extends FabricBlockLootTableProvider {
     {
 
         this.addDrop(ModBlocks.CARROT_FLOWERING, (block -> onMaxAgeDrops(block, ModItems.CARROT_SEEDS,2, Properties.AGE_3, 3)));
+        this.addDrop(ModBlocks.BREAD_DOUGH, drops(ModItems.BREAD_DOUGH));
         //this.addDrop(ModBlocks.FARMLAND_FERTILIZED, block -> LootTable.builder().pool(addSurvivesExplosionCondition(Blocks.DIRT, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))).build()  ));
         //this.addDrop(ModBlocks.FARMLAND_FERTILIZED, block -> LootTable.builder().pool(LootPool.builder().Blocks.DIRT, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))).build()  ));
 

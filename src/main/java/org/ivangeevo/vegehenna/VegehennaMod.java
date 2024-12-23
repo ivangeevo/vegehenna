@@ -12,6 +12,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.event.GameEvent;
+import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.ivangeevo.vegehenna.entity.block.ModBlockEntities;
 import org.ivangeevo.vegehenna.event.ModLootTableEvents;
 import org.ivangeevo.vegehenna.item.ModItems;
@@ -35,6 +36,7 @@ public class VegehennaMod implements ModInitializer
     @Override
     public void onInitialize() {
         ModBlockEntities.registerBlockEntities();
+        ModBlocks.registerModBlocks();
         ModItems.registerModItems();
         VegehennaItemGroup.registerItemGroups();
         //ModLootTableEvents.initialize();

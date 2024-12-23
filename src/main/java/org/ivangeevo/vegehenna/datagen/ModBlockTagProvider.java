@@ -23,7 +23,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     {
         addToVanillaTags();
         addToModTags();
-        addToCoventionalTags();
+        addToConventionalTags();
 
     }
 
@@ -45,7 +45,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .forceAddTag(BlockTags.SAND);
     }
 
-    private void addToCoventionalTags()
+    private void addToConventionalTags()
     {
         getOrCreateTagBuilder(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS)
                 .add(ModBlocks.FARMLAND_FERTILIZED);

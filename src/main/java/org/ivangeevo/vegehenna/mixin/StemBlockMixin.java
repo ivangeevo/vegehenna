@@ -53,6 +53,7 @@ public abstract class StemBlockMixin extends PlantBlock
 
             validateFruitState(world, pos, state, random);
         }
+
         ci.cancel();
     }
 

@@ -1,0 +1,10 @@
+{
+  "variants":
+  {
+    "facing=east": { "model": "vegehenna:block/bread_dough",  "y": 270 },
+    "facing=north": { "model": "vegehenna:block/bread_dough", "y": 180 },
+    "facing=south": { "model": "vegehenna:block/bread_dough" },
+    "facing=west": { "model": "vegehenna:block/bread_dough", "y": 90 }
+
+  }
+}

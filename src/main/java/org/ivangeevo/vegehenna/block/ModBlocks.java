@@ -1,5 +1,6 @@
 package org.ivangeevo.vegehenna.block;
 
+import btwr.btwrsl.lib.util.PlaceableAsBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
@@ -9,11 +10,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.VegehennaMod;
-import org.ivangeevo.vegehenna.block.blocks.FertilizedFarmlandBlock;
-import org.ivangeevo.vegehenna.block.blocks.FloweringCarrotBlock;
+import org.ivangeevo.vegehenna.block.blocks.*;
 import org.ivangeevo.vegehenna.block.blocks.SugarCaneBlock;
-import org.ivangeevo.vegehenna.block.blocks.SugarCaneRootsBlock;
-import org.ivangeevo.vegehenna.block.blocks.WeedsBlock;
+import org.ivangeevo.vegehenna.item.ModItems;
 
 public class ModBlocks
 {
@@ -60,6 +59,13 @@ public class ModBlocks
                     .ticksRandomly()
                     .sounds(BlockSoundGroup.GRASS)));
 
+    public static final Block BREAD_DOUGH = registerBlockWithoutItem("bread_dough",
+            new BreadDoughBlock(Block.Settings.create()
+                    .strength(0f)
+                    .sounds(BlockSoundGroup.SLIME)
+                    .pistonBehavior(PistonBehavior.NORMAL)));
+
+
 
 
     private static Block registerBlock(String name, Block block)
@@ -81,6 +87,7 @@ public class ModBlocks
 
     public static void registerModBlocks()
     {
+        PlaceableAsBlock.getInstance().registerPlaceable(ModItems.BREAD_DOUGH, BREAD_DOUGH);
         VegehennaMod.LOGGER.debug("Registering ModBlocks for " + VegehennaMod.MOD_ID);
     }
 
