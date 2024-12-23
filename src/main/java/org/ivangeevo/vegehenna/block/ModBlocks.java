@@ -87,7 +87,6 @@ public class ModBlocks
 
     public static void registerModBlocks()
     {
-        PlaceableAsBlock.getInstance().registerPlaceable(ModItems.BREAD_DOUGH, BREAD_DOUGH);
         VegehennaMod.LOGGER.debug("Registering ModBlocks for " + VegehennaMod.MOD_ID);
     }
 

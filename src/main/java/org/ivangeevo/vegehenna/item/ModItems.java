@@ -19,7 +19,7 @@ public class ModItems
 
     public static final Item STRAW = registerItem("straw", asSimpleItem());
     public static final Item FLOUR = registerItem("flour", asSimpleItem());
-    public static final Item BREAD_DOUGH = registerItem("bread_dough", asSimpleItem());
+    public static final Item BREAD_DOUGH = registerItem("bread_dough", new AliasedBlockItem(ModBlocks.BREAD_DOUGH, new Item.Settings()));
     public static final Item COCOA_POWDER = registerItem("cocoa_powder", asSimpleItem());
     public static final Item CHOCOLATE = registerItem("chocolate", new Item(new Item.Settings().food(ModFoodComponents.CHOCOLATE).maxCount(16)));
     public static final Item CHOCOLATE_MILK = registerItem("chocolate_milk", new MilkBucketItem(new Item.Settings().food(ModFoodComponents.CHOCOLATE_MILK)));
