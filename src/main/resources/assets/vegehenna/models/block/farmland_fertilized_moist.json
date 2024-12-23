@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_farmland",
   "textures": {
     "dirt": "minecraft:block/dirt",
-    "top": "vegehenna:block/farmland_moist_fertilized"
+    "top": "vegehenna:block/farmland_fertilized_moist"
   }
 }
