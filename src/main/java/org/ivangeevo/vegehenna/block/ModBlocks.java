@@ -1,6 +1,6 @@
 package org.ivangeevo.vegehenna.block;
 
-import btwr.btwrsl.lib.util.PlaceableAsBlock;
+import btwr.btwr_sl.lib.util.PlaceableAsBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
