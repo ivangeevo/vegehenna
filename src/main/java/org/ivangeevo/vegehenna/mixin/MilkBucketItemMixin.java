@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MilkBucketItemMixin
 {
 
+    // remove normal usage for the milk bucket item.
+    // TODO: Make the milk bucket act as a normal food instead.
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void onGetUseAction(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir)
     {

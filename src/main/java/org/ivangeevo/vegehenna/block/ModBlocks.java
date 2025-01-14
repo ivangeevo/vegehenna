@@ -1,6 +1,5 @@
 package org.ivangeevo.vegehenna.block;
 
-import btwr.btwr_sl.lib.util.PlaceableAsBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
@@ -12,10 +11,8 @@ import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.VegehennaMod;
 import org.ivangeevo.vegehenna.block.blocks.*;
 import org.ivangeevo.vegehenna.block.blocks.SugarCaneBlock;
-import org.ivangeevo.vegehenna.item.ModItems;
 
-public class ModBlocks
-{
+public class ModBlocks {
 
     public static final Block FARMLAND_FERTILIZED = registerBlock("farmland_fertilized",
             new FertilizedFarmlandBlock(Block.Settings.create()
@@ -61,6 +58,12 @@ public class ModBlocks
 
     public static final Block BREAD_DOUGH = registerBlockWithoutItem("bread_dough",
             new BreadDoughBlock(Block.Settings.create()
+                    .strength(0f)
+                    .sounds(BlockSoundGroup.SLIME)
+                    .pistonBehavior(PistonBehavior.NORMAL)));
+
+    public static final Block UNCOOKED_CAKE = registerBlockWithoutItem("uncooked_cake",
+            new UncookedCakeBlock(Block.Settings.create()
                     .strength(0f)
                     .sounds(BlockSoundGroup.SLIME)
                     .pistonBehavior(PistonBehavior.NORMAL)));

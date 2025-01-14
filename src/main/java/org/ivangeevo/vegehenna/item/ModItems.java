@@ -25,10 +25,11 @@ public class ModItems
     public static final Item CHOCOLATE_MILK = registerItem("chocolate_milk", new MilkBucketItem(new Item.Settings().food(ModFoodComponents.CHOCOLATE_MILK)));
 
     public static final Item PASTRY_UNCOOKED_COOKIES = registerItem("pastry_uncooked_cookies", asSimpleItem());
-    public static final Item PASTRY_UNCOOKED_CAKE = registerItem("pastry_uncooked_cake", asSimpleItem());
     public static final Item PASTRY_UNCOOKED_PUMPKIN_PIE = registerItem("pastry_uncooked_pumpkin_pie", asSimpleItem());
 
     // BlockItems
+    public static final Item PASTRY_UNCOOKED_CAKE = registerItem("pastry_uncooked_cake", new AliasedBlockItem(ModBlocks.UNCOOKED_CAKE, new Item.Settings()));
+
     public static final Item SUGAR_CANE_ROOTS = registerItem("sugar_cane_roots", new AliasedBlockItem(ModBlocks.SUGAR_CANE_ROOTS, new Item.Settings()));
     public static final Item CARROT_SEEDS = registerItem("carrot_seeds", new AliasedBlockItem(Blocks.CARROTS, new Item.Settings()));
 

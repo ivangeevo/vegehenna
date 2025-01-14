@@ -151,7 +151,7 @@ public abstract class StemBlockMixin extends PlantBlock
     protected boolean canGrowFruitAt(World world, BlockPos pos, BlockState state)
     {
 
-        if (WorldUtils.isReplaceableBlock(state) ||
+        if (state.isReplaceable() ||
                 ( state.getBlock() != null /** &&  state.getBlock() instanceof  **/ &&
                         state != Blocks.COCOA.getDefaultState() ) )
         {

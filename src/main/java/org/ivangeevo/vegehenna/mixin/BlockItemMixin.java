@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockItem.class)
-public abstract class BlockItemMixin
-{
+public abstract class BlockItemMixin {
 
     // removing these blockitem's ability to be placed as blocks in the world.
     // PASS to allow other functionality besides placing, FAIL to remove all.
