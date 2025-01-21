@@ -5,7 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldView;
 
-public class SugarCaneBlock extends SugarCaneBlockBase
+public class SugarCaneBlock extends OGSugarCaneBlockBase
 {
     public SugarCaneBlock(Settings settings) {
         super(settings);
@@ -16,6 +16,6 @@ public class SugarCaneBlock extends SugarCaneBlockBase
     {
         Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
-        return blockBelow instanceof SugarCaneBlockBase;
+        return blockBelow instanceof OGSugarCaneBlockBase;
     }
 }

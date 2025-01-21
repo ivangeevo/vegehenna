@@ -13,6 +13,7 @@ public class VegehennaDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModItemTagProvider::new);
         pack.addProvider(ModLootTableGenerator::new);
+        pack.addProvider(ModLangProvider::new);
 
         pack.addProvider(ModModelGenerator::new);
 

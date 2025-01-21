@@ -1,5 +1,6 @@
 package org.ivangeevo.vegehenna.datagen;
 
+import btwr.btwr_sl.lib.util.utils.RecipeProviderUtils;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
@@ -42,7 +43,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         getOrCreateTagBuilder(ModTags.Blocks.REEDS_CAN_PLANT_ON)
                 .forceAddTag(BlockTags.DIRT)
-                .forceAddTag(BlockTags.SAND);
+                .forceAddTag(BlockTags.SAND)
+                .addOptional(RecipeProviderUtils.ID.ofBWT("grass_planter"))
+                .addOptional(RecipeProviderUtils.ID.ofBWT("soil_planter"));
     }
 
     private void addToConventionalTags()

@@ -1,0 +1,17 @@
+{
+  "block.vegehenna.farmland_fertilized": "Fertilized Farmland",
+  "item.vegehenna.boiled_potato": "Boiled Potato",
+  "item.vegehenna.bread_dough": "Bread Dough",
+  "item.vegehenna.carrot_seeds": "Carrot Seeds",
+  "item.vegehenna.chocolate": "Chocolate",
+  "item.vegehenna.chocolate_milk": "Chocolate Milk",
+  "item.vegehenna.cocoa_powder": "Cocoa Powder",
+  "item.vegehenna.cooked_carrot": "Cooked Carrot",
+  "item.vegehenna.flour": "Flour",
+  "item.vegehenna.pastry_uncooked_cake": "Cake Batter",
+  "item.vegehenna.pastry_uncooked_cookies": "Cookie Dough",
+  "item.vegehenna.pastry_uncooked_pumpkin_pie": "Oven Ready Pumpkin Pie",
+  "item.vegehenna.straw": "Straw",
+  "item.vegehenna.sugar_cane_roots": "Sugar Cane Roots",
+  "itemgroup.group_vegehenna": "Vegehenna"
+}

@@ -1,22 +1,24 @@
 package org.ivangeevo.vegehenna.datagen;
 
+import btwr.btwr_sl.lib.util.utils.RecipeProviderUtils;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SmokingRecipe;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+
+import static net.minecraft.data.server.recipe.CookingRecipeJsonBuilder.*;
+import static net.minecraft.data.server.recipe.CookingRecipeJsonBuilder.createSmoking;
 
 public class ModRecipeProvider extends FabricRecipeProvider
 {
@@ -38,18 +40,31 @@ public class ModRecipeProvider extends FabricRecipeProvider
         generateShapelessRecipes(exporter);
         generateShapedRecipes(exporter);
 
-        // Generation for all non separated into a category cooking recipes is generalized.
-        // By default the cook time for all items is 100 for smoker
-        generateOnlySmokingCookingRecipes(exporter, 100 );
+        generateOnlySmokingCookingRecipes(exporter);
+
+        RecipeProvider.offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new,
+                200, Items.CARROT, ModItems.COOKED_CARROT, 0.2f);
+
+        RecipeProvider.offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new,
+                600, Items.CARROT, ModItems.COOKED_CARROT, 0.2f);
+
 
     }
 
-    public static void generateOnlySmokingCookingRecipes(RecipeExporter exporter, int cookingTime)
+    public static void generateOnlySmokingCookingRecipes(RecipeExporter exporter)
     {
-        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, cookingTime , ModItems.BREAD_DOUGH, Items.BREAD, 0.15f);
-        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, cookingTime, ModItems.PASTRY_UNCOOKED_COOKIES, Items.COOKIE, 0.15f);
-        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, cookingTime, ModItems.PASTRY_UNCOOKED_CAKE, Items.CAKE, 0.15f);
-        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, cookingTime, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE, Items.PUMPKIN_PIE, 0.15f);
+        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, Items.POTATO, ModItems.BOILED_POTATO, 0.3f);
+        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, Items.CARROT, ModItems.COOKED_CARROT, 0.3f);
+        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100 , ModItems.BREAD_DOUGH, Items.BREAD, 0.15f);
+        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, ModItems.PASTRY_UNCOOKED_COOKIES, Items.COOKIE, 0.15f);
+        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, ModItems.PASTRY_UNCOOKED_CAKE, Items.CAKE, 0.15f);
+        RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE, Items.PUMPKIN_PIE, 0.15f);
 
     }
 

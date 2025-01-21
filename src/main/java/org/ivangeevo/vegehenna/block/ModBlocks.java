@@ -10,7 +10,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.VegehennaMod;
 import org.ivangeevo.vegehenna.block.blocks.*;
-import org.ivangeevo.vegehenna.block.blocks.SugarCaneBlock;
 
 public class ModBlocks {
 
@@ -34,15 +33,6 @@ public class ModBlocks {
 
     public static final Block SUGAR_CANE_ROOTS = registerBlockWithoutItem("sugar_cane_roots",
             new SugarCaneRootsBlock(Block.Settings.create()
-                    .mapColor(MapColor.DARK_GREEN)
-                    .noCollision()
-                    .ticksRandomly()
-                    .breakInstantly()
-                    .sounds(BlockSoundGroup.GRASS)
-                    .pistonBehavior(PistonBehavior.DESTROY)));
-
-    public static final Block SUGAR_CANE = registerBlockWithoutItem("sugar_cane",
-            new SugarCaneBlock(Block.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)
                     .noCollision()
                     .ticksRandomly()

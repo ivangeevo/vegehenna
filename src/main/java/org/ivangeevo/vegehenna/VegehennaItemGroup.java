@@ -21,6 +21,8 @@ public class VegehennaItemGroup
                         /** ITEMS **/
 
                         // Uncategorized
+                        entries.add(ModItems.BOILED_POTATO);
+                        entries.add(ModItems.COOKED_CARROT);
                         entries.add(ModItems.STRAW);
                         entries.add(ModItems.FLOUR);
                         entries.add(ModItems.BREAD_DOUGH);
