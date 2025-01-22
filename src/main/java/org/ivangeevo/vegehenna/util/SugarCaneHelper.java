@@ -8,12 +8,10 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.block.ModBlocks;
-import org.ivangeevo.vegehenna.block.blocks.SugarCaneBlockBase;
 
 public class SugarCaneHelper {
 
@@ -27,14 +25,14 @@ public class SugarCaneHelper {
     }
 
     // Handles random growth tick logic
-    public static void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public static void randomTick(BlockState state, ServerWorld world, BlockPos pos) {
         if (!world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && canPlaceAt(world, pos)) {
             if (world.isAir(pos.up())) {
                 int reedHeight = 1;
                 BlockPos posAtBase = pos.down();
 
                 // Calculate whole reed plant height
-                while (reedHeight < 3 && SugarCaneHelper.isAllowedGrowthBlock(world, posAtBase)) {
+                while (reedHeight < 3 && SugarCaneHelper.isAllowedGrowthOnBlock(world, posAtBase)) {
                     reedHeight++;
                     posAtBase = posAtBase.down(); // Move one block down each iteration
                 }
@@ -67,7 +65,7 @@ public class SugarCaneHelper {
     }
 
     // Handles scheduled tick logic
-    public static void scheduledTick(ServerWorld world, BlockPos pos, Random random) {
+    public static void scheduledTick(ServerWorld world, BlockPos pos) {
         if (!canPlaceAt(world, pos)) {
             world.breakBlock(pos, true);
         }
@@ -76,10 +74,10 @@ public class SugarCaneHelper {
     // Determines if the block can be placed
     public static boolean canPlaceAt(WorldView world, BlockPos pos) {
         Block blockBelow = world.getBlockState(pos.down()).getBlock();
-        return isAllowedGrowthBlock(world, pos) || blockBelow == Blocks.SAND || blockBelow == Blocks.GRAVEL || blockBelow == Blocks.GRASS_BLOCK;
+        return isAllowedGrowthOnBlock(world, pos) || blockBelow == Blocks.SAND || blockBelow == Blocks.GRAVEL || blockBelow == Blocks.GRASS_BLOCK;
     }
 
-     public static boolean isAllowedGrowthBlock(WorldView world, BlockPos pos) {
+     private static boolean isAllowedGrowthOnBlock(WorldView world, BlockPos pos) {
      Block blockBelow = world.getBlockState(pos.down()).getBlock();
      return blockBelow.getDefaultState().isOf(ModBlocks.SUGAR_CANE_ROOTS)
              || blockBelow.getDefaultState().isOf(Blocks.SUGAR_CANE);

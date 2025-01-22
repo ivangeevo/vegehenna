@@ -34,6 +34,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.GRASS_BLOCK)
                 .add(Blocks.DIRT);
 
+        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
+                .add(ModBlocks.SUGAR_CANE_ROOTS);
+
+        getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
+                .add(ModBlocks.SUGAR_CANE_ROOTS);
+
         getOrCreateTagBuilder(BlockTags.CROPS)
                 .add(ModBlocks.CARROT_FLOWERING);
     }
@@ -46,6 +52,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .forceAddTag(BlockTags.SAND)
                 .addOptional(RecipeProviderUtils.ID.ofBWT("grass_planter"))
                 .addOptional(RecipeProviderUtils.ID.ofBWT("soil_planter"));
+
     }
 
     private void addToConventionalTags()

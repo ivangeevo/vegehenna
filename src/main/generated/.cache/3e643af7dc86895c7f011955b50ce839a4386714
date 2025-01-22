@@ -1,5 +1,7 @@
-// 1.21.1	2025-01-21T21:06:46.6929453	Vegehenna!/Tags for minecraft:block
+// 1.21.1	2025-01-22T01:51:44.1334241	Vegehenna!/Tags for minecraft:block
 ea0add87bbc780b2fe234338d8ddb445a05a096c data\minecraft\tags\block\crops.json
+287d731dce3cf0aae593ce078d55c59f6a2ad927 data\minecraft\tags\block\sword_efficient.json
 098de68b8d9e48214ecaa7ed0fa90a0a3dcdb156 data\minecraft\tags\block\mineable\hoe.json
+287d731dce3cf0aae593ce078d55c59f6a2ad927 data\minecraft\tags\block\mineable\axe.json
 f48c2f49da16b07c32832421d6833e5396b62f19 data\c\tags\block\farmland_blocks.json
 b6becdb480dca4df3e747bfac6f207dd67861405 data\vegehenna\tags\block\reeds_can_plant_on.json
