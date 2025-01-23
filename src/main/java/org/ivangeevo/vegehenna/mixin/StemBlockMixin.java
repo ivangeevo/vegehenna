@@ -53,7 +53,7 @@ public abstract class StemBlockMixin extends PlantBlock
         if (!world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this)) {
             checkForGrowth(world, pos, state, random);
 
-            //validateFruitState(world, pos, state);
+            // sets to an earlier age in the AttachedStemBlockMixin
         }
 
         ci.cancel();
@@ -73,7 +73,7 @@ public abstract class StemBlockMixin extends PlantBlock
 
     @Unique
     private void checkForGrowth(World world, BlockPos pos, BlockState state, Random rand) {
-        if (this.getWeedsGrowthLevel(world,pos) == 0 && world.getLightLevel( pos.up() ) >= 9 ) {
+        if (this.getWeedsGrowthLevel(world, pos) == 0 && world.getLightLevel( pos.up() ) >= 9 ) {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
             if (blockBelow != null && blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())) {
@@ -123,7 +123,6 @@ public abstract class StemBlockMixin extends PlantBlock
         }
     }
 
-
     @Unique
     protected boolean hasSpaceToGrow(World world, BlockPos pos, BlockState state) {
         for ( int iTargetFacing = 2; iTargetFacing <= 5; iTargetFacing++ ) {
@@ -153,52 +152,6 @@ public abstract class StemBlockMixin extends PlantBlock
         }
 
         return false;
-    }
-
-    private void validateFruitState(World world, BlockPos pos, BlockState state) {
-
-        if ( state.get(AGE) == MAX_AGE && !hasConnectedFruit(world, pos))
-        {
-            // reset to earlier growth stage
-            world.setBlockState( pos, state.with(AGE, 4) );
-        }
-    }
-
-    @Unique
-    private boolean hasConnectedFruit(World world, BlockPos pos)
-    {
-        return getConnectedFruitDirection(world, pos) > 0;
-    }
-
-    @Unique
-    private int getConnectedFruitDirection(World world, BlockPos pos)
-    {
-
-        Registry<Block> registry = world.getRegistryManager().get(RegistryKeys.BLOCK);
-        Optional<Block> optional = registry.getOrEmpty(this.gourdBlock);
-        Optional<Block> optional2 = registry.getOrEmpty(this.attachedStemBlock);
-
-        BlockState state = world.getBlockState(pos);
-
-        for ( int iTempFacing = 2; iTempFacing < 6; iTempFacing++ )
-        {
-
-            pos.offset(Direction.byId(iTempFacing));
-
-            if (optional.isPresent() && state == optional.get().getDefaultState() && optional2.isPresent())
-            {
-                return iTempFacing;
-            }
-
-            Block tempGourdBlock = Registries.BLOCK.get(gourdBlock);
-            if ( state.getBlock() == tempGourdBlock && tempGourdBlock != null) {
-                return iTempFacing;
-            }
-
-
-        }
-
-        return -1;
     }
 
 }

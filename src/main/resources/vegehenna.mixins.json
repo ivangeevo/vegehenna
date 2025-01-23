@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AliasedBlockItemMixin",
+    "AttachedStemBlockMixin",
     "BeetrootsBlockMixin",
     "BlockItemMixin",
     "BlockMixin",
