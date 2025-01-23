@@ -1,6 +1,7 @@
 package org.ivangeevo.vegehenna.mixin;
 
 import net.minecraft.block.*;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -12,6 +13,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
@@ -38,6 +40,8 @@ public abstract class StemBlockMixin extends PlantBlock
 
     @Shadow @Final private RegistryKey<Block> attachedStemBlock;
 
+    @Shadow @Final public static int MAX_AGE;
+
     public StemBlockMixin(Settings settings) {
         super(settings);
     }
@@ -46,12 +50,10 @@ public abstract class StemBlockMixin extends PlantBlock
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
 
-
-        if (world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this))
-        {
+        if (!world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this)) {
             checkForGrowth(world, pos, state, random);
 
-            validateFruitState(world, pos, state, random);
+            //validateFruitState(world, pos, state);
         }
 
         ci.cancel();
@@ -69,28 +71,19 @@ public abstract class StemBlockMixin extends PlantBlock
         cir.setReturnValue(false);
     }
 
-
     @Unique
-    private void checkForGrowth(World world, BlockPos pos, BlockState state, Random rand)
-    {
-        if (this.getWeedsGrowthLevel(world,pos) == 0 && world.getLightLevel( pos.up() ) >= 9 )
-        {
+    private void checkForGrowth(World world, BlockPos pos, BlockState state, Random rand) {
+        if (this.getWeedsGrowthLevel(world,pos) == 0 && world.getLightLevel( pos.up() ) >= 9 ) {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
-            if ( blockBelow != null &&
-                    blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down()) )
-            {
+            if (blockBelow != null && blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())) {
                 float fGrowthChance = 0.2F * blockBelow.getPlantGrowthOnMultiplier(world, pos.down(), this);
 
-                if ( rand.nextFloat() <= fGrowthChance )
-                {
+                if ( rand.nextFloat() <= fGrowthChance ) {
 
-                    if ( state.get(AGE) < 7 )
-                    {
+                    if ( state.get(AGE) < 7 ) {
                         world.setBlockState( pos, state.with(AGE, state.get(AGE) + 1) );
-                    }
-                    else if ( state.get(AGE) == 7  )
-                    {
+                    } else if ( state.get(AGE) == 7  ) {
                         int iTargetFacing = 0;
 
                         if ( hasSpaceToGrow(world, pos, state) )
@@ -132,15 +125,12 @@ public abstract class StemBlockMixin extends PlantBlock
 
 
     @Unique
-    protected boolean hasSpaceToGrow(World world, BlockPos pos, BlockState state)
-    {
-        for ( int iTargetFacing = 2; iTargetFacing <= 5; iTargetFacing++ )
-        {
+    protected boolean hasSpaceToGrow(World world, BlockPos pos, BlockState state) {
+        for ( int iTargetFacing = 2; iTargetFacing <= 5; iTargetFacing++ ) {
 
             pos.offset(Direction.byId(iTargetFacing));
 
-            if ( canGrowFruitAt(world, pos, state) )
-            {
+            if ( canGrowFruitAt(world, pos, state) ) {
                 return true;
             }
         }
@@ -148,8 +138,7 @@ public abstract class StemBlockMixin extends PlantBlock
         return false;
     }
 
-    protected boolean canGrowFruitAt(World world, BlockPos pos, BlockState state)
-    {
+    protected boolean canGrowFruitAt(World world, BlockPos pos, BlockState state) {
 
         if (state.isReplaceable() ||
                 ( state.getBlock() != null /** &&  state.getBlock() instanceof  **/ &&
@@ -166,10 +155,9 @@ public abstract class StemBlockMixin extends PlantBlock
         return false;
     }
 
-    private void validateFruitState(World world, BlockPos pos, BlockState state, Random rand)
-    {
+    private void validateFruitState(World world, BlockPos pos, BlockState state) {
 
-        if ( state.get(AGE) == 7 && this.gourdBlock == null && !hasConnectedFruit(world, pos, state))
+        if ( state.get(AGE) == MAX_AGE && !hasConnectedFruit(world, pos))
         {
             // reset to earlier growth stage
             world.setBlockState( pos, state.with(AGE, 4) );
@@ -177,19 +165,20 @@ public abstract class StemBlockMixin extends PlantBlock
     }
 
     @Unique
-    private boolean hasConnectedFruit(World world, BlockPos pos, BlockState state)
+    private boolean hasConnectedFruit(World world, BlockPos pos)
     {
-        return getConnectedFruitDirection(world, pos, state) > 0;
+        return getConnectedFruitDirection(world, pos) > 0;
     }
 
     @Unique
-    private int getConnectedFruitDirection(World world, BlockPos pos, BlockState state)
+    private int getConnectedFruitDirection(World world, BlockPos pos)
     {
 
         Registry<Block> registry = world.getRegistryManager().get(RegistryKeys.BLOCK);
         Optional<Block> optional = registry.getOrEmpty(this.gourdBlock);
         Optional<Block> optional2 = registry.getOrEmpty(this.attachedStemBlock);
 
+        BlockState state = world.getBlockState(pos);
 
         for ( int iTempFacing = 2; iTempFacing < 6; iTempFacing++ )
         {
@@ -201,13 +190,11 @@ public abstract class StemBlockMixin extends PlantBlock
                 return iTempFacing;
             }
 
-            /**
-            if ( state == gourdBlock.getDefaultState() &&
-                    gourdBlock.getAttachedStem().getDefaultState().getBlock() != null)
-            {
+            Block tempGourdBlock = Registries.BLOCK.get(gourdBlock);
+            if ( state.getBlock() == tempGourdBlock && tempGourdBlock != null) {
                 return iTempFacing;
             }
-             **/
+
 
         }
 
