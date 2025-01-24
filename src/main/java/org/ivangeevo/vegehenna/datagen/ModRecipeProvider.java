@@ -20,8 +20,7 @@ import java.util.function.Consumer;
 import static net.minecraft.data.server.recipe.CookingRecipeJsonBuilder.*;
 import static net.minecraft.data.server.recipe.CookingRecipeJsonBuilder.createSmoking;
 
-public class ModRecipeProvider extends FabricRecipeProvider
-{
+public class ModRecipeProvider extends FabricRecipeProvider implements RecipeProviderUtils {
 
     public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
@@ -36,6 +35,8 @@ public class ModRecipeProvider extends FabricRecipeProvider
     @Override
     public void generate(RecipeExporter exporter)
     {
+
+        disableVanilla(exporter, "cake");
 
         generateShapelessRecipes(exporter);
         generateShapedRecipes(exporter);

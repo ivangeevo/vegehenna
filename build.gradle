@@ -18,7 +18,10 @@ repositories {
     // for more information about repositories.
     maven { url "https://ivangeevo.github.io/btwr-shared-lib/" }
 
-
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
 }
 
 dependencies {
@@ -31,6 +34,10 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modImplementation("org.ivangeevo:btwr-shared-lib:${project.btwr_lib_version}")
+
+    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
+
 
 }
 
