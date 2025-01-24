@@ -2,12 +2,10 @@
   "values": [
     "#minecraft:dirt",
     "#minecraft:sand",
+    "minecraft:grass_block",
+    "minecraft:gravel",
     {
       "id": "bwt:grass_planter",
-      "required": false
-    },
-    {
-      "id": "bwt:soil_planter",
       "required": false
     }
   ]

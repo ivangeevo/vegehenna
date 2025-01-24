@@ -143,8 +143,7 @@ public abstract class StemBlockMixin extends PlantBlock
                 ( state.getBlock() != null /** &&  state.getBlock() instanceof  **/ &&
                         state != Blocks.COCOA.getDefaultState() ) )
         {
-            // CanGrowOnBlock() to allow fruit to grow on tilled earth and such
-            if (/** world.isTopSolid( pos.down(), null ) || **/
+            if (hasLargeCenterHardPointToFacing(world, pos.down(), Direction.UP) ||
                     canGrow(world, world.getRandom(), pos.down(), state) )
             {
                 return true;
@@ -152,6 +151,16 @@ public abstract class StemBlockMixin extends PlantBlock
         }
 
         return false;
+    }
+
+    private static boolean hasLargeCenterHardPointToFacing(WorldAccess blockAccess, BlockPos pos, Direction facing, boolean bIgnoreTransparency)
+    {
+        return blockAccess.getBlockState(pos).isSideSolidFullSquare(blockAccess, pos, facing);
+    }
+
+    private static boolean hasLargeCenterHardPointToFacing(WorldAccess blockAccess, BlockPos pos, Direction facing )
+    {
+        return hasLargeCenterHardPointToFacing(blockAccess, pos, facing, false);
     }
 
 }

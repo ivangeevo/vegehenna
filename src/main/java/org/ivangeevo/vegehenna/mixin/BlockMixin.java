@@ -1,24 +1,17 @@
 package org.ivangeevo.vegehenna.mixin;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
-import org.jetbrains.annotations.Nullable;
+import org.ivangeevo.vegehenna.util.WorldUtils;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -36,17 +29,8 @@ public abstract class BlockMixin extends AbstractBlock {
     private void onAfterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack tool, CallbackInfo ci)
     {
         if (state.isIn(BlockTags.CROPS) && world.getBlockState(pos.down()).isIn(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS)) {
-            setFarmlandToDirt(player, state, world, pos.down());
+            WorldUtils.setFarmlandToDirt(player, state, world, pos.down());
         }
-    }
-
-    @Unique
-    private static void setFarmlandToDirt(@Nullable Entity entity, BlockState state, World world, BlockPos pos) {
-        boolean isTELoaded = FabricLoader.getInstance().isModLoaded("tough_environment");
-        Block looseDirtBlock = Registries.BLOCK.get(Identifier.of("tough_environment", "dirt_loose"));
-        BlockState blockState = Block.pushEntitiesUpBeforeBlockChange(state, isTELoaded ? looseDirtBlock.getDefaultState() : Blocks.DIRT.getDefaultState(), world, pos);
-        world.setBlockState(pos, blockState);
-        world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(entity, blockState));
     }
 
 }

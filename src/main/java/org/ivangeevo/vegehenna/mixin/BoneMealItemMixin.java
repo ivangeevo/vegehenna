@@ -8,6 +8,7 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import org.ivangeevo.vegehenna.block.ModBlocks;
+import org.ivangeevo.vegehenna.util.WorldUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,6 +20,7 @@ import static net.minecraft.block.FarmlandBlock.MOISTURE;
 @Mixin(BoneMealItem.class)
 public abstract class BoneMealItemMixin {
 
+    // Fertilize farmland on use
     @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
     private void injectedUseOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
         if (context.getWorld().isClient) return;
@@ -28,18 +30,14 @@ public abstract class BoneMealItemMixin {
 
        // Clicked directly on farmland
         if (state.isOf(Blocks.FARMLAND)) {
-            fertilizeFarmland(context, pos, state, cir);
+            WorldUtils.fertilizeFarmland(context, pos, state);
+            cir.setReturnValue(ActionResult.SUCCESS);
         }
         // Clicked on a crop with farmland below
         else if (state.getBlock() instanceof CropBlock && context.getWorld().getBlockState(pos.down()).isOf(Blocks.FARMLAND)) {
-            fertilizeFarmland(context, pos.down(), context.getWorld().getBlockState(pos.down()), cir);
+            WorldUtils.fertilizeFarmland(context, pos.down(), context.getWorld().getBlockState(pos.down()));
+            cir.setReturnValue(ActionResult.SUCCESS);
         }
     }
 
-    @Unique
-    private void fertilizeFarmland(ItemUsageContext context, BlockPos pos, BlockState farmlandState, CallbackInfoReturnable<ActionResult> cir) {
-        context.getWorld().setBlockState(pos, ModBlocks.FARMLAND_FERTILIZED.getDefaultState().with(MOISTURE, farmlandState.get(MOISTURE)));
-        context.getStack().decrement(1);
-        cir.setReturnValue(ActionResult.SUCCESS);
-    }
 }

@@ -45,14 +45,14 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
         ci.cancel();
     }
 
-    // Custom outline shape to allow placing of fertilizer on the block below
+    // Custom outline shape
     @Inject(method = "getOutlineShape", at = @At("HEAD"), cancellable = true)
     private void injectedGetOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir)
     {
         cir.setReturnValue( NEW_AGE_TO_SHAPE[this.getAge(state)] );
     }
 
-    // Make it not fertilizable
+    // Make it not fertilizable by the traditional way
     @Inject(method = "isFertilizable", at = @At("HEAD"), cancellable = true)
     private void injectedIsFertilizable(WorldView world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(false);

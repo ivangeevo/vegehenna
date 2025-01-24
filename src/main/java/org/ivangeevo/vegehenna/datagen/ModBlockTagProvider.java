@@ -50,8 +50,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(ModTags.Blocks.REEDS_CAN_PLANT_ON)
                 .forceAddTag(BlockTags.DIRT)
                 .forceAddTag(BlockTags.SAND)
-                .addOptional(RecipeProviderUtils.ID.ofBWT("grass_planter"))
-                .addOptional(RecipeProviderUtils.ID.ofBWT("soil_planter"));
+                .add(Blocks.GRASS_BLOCK)
+                .add(Blocks.GRAVEL)
+                .addOptional(RecipeProviderUtils.ID.ofBWT("grass_planter"));
 
     }
 

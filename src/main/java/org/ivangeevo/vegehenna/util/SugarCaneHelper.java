@@ -12,6 +12,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.block.ModBlocks;
+import org.ivangeevo.vegehenna.tag.ModTags;
 
 public class SugarCaneHelper {
 
@@ -32,7 +33,7 @@ public class SugarCaneHelper {
                 BlockPos posAtBase = pos.down();
 
                 // Calculate whole reed plant height
-                while (reedHeight < 3 && SugarCaneHelper.isAllowedGrowthOnBlock(world, posAtBase)) {
+                while (reedHeight < 3 && SugarCaneHelper.isSugarCaneTypeBlock(world.getBlockState(posAtBase).getBlock())) {
                     reedHeight++;
                     posAtBase = posAtBase.down(); // Move one block down each iteration
                 }
@@ -74,12 +75,14 @@ public class SugarCaneHelper {
     // Determines if the block can be placed
     public static boolean canPlaceAt(WorldView world, BlockPos pos) {
         Block blockBelow = world.getBlockState(pos.down()).getBlock();
-        return isAllowedGrowthOnBlock(world, pos) || blockBelow == Blocks.SAND || blockBelow == Blocks.GRAVEL || blockBelow == Blocks.GRASS_BLOCK;
+        return isSugarCaneTypeBlock(blockBelow) || blockBelow.getDefaultState().isIn(ModTags.Blocks.REEDS_CAN_PLANT_ON)
+                || blockBelow == Blocks.SAND
+                || blockBelow == Blocks.GRAVEL
+                || blockBelow == Blocks.GRASS_BLOCK;
     }
 
-     private static boolean isAllowedGrowthOnBlock(WorldView world, BlockPos pos) {
-     Block blockBelow = world.getBlockState(pos.down()).getBlock();
-     return blockBelow.getDefaultState().isOf(ModBlocks.SUGAR_CANE_ROOTS)
-             || blockBelow.getDefaultState().isOf(Blocks.SUGAR_CANE);
+     public static boolean isSugarCaneTypeBlock(Block block) {
+     return block.getDefaultState().isOf(ModBlocks.SUGAR_CANE_ROOTS)
+             || block.getDefaultState().isOf(Blocks.SUGAR_CANE);
      }
 }
