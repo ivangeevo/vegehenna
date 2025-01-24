@@ -1,6 +1,5 @@
 package org.ivangeevo.vegehenna.entity.block;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -12,16 +11,15 @@ public class ModBlockEntities {
 
     public static BlockEntityType<WeedsBlockEntity> WEEDS;
 
-    // public static BlockEntityType<TorchBE> TORCH;
+    public static void registerBlockEntities() {
+        WEEDS = Registry.register(
+                Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(VegehennaMod.MOD_ID, "weeds"),
+                BlockEntityType.Builder.create(WeedsBlockEntity::new, ModBlocks.WEEDS).build(null)
+        );
 
-    public static void registerBlockEntities()
-    {
-        WEEDS = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(VegehennaMod.MOD_ID,
-                "weeds"), BlockEntityType.Builder.create(WeedsBlockEntity::new,
-                ModBlocks.WEEDS).build(null));
 
-
-        }
+    }
 
 
 }

@@ -16,4 +16,12 @@ public interface CropBlockAdded
 
     default int getGrowthLevel(WorldAccess blockAccess, BlockPos pos) { return 0; }
 
+    default int getLightLevelForGrowth() {
+        return 0;
+    }
+
+    default boolean requiresNaturalLight() {
+        return true;
+    }
+
 }
