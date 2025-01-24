@@ -10,7 +10,7 @@ public class ModFoodComponents
             new FoodComponent.Builder().nutrition(3).saturationModifier(0.15f).build();
 
     public static final FoodComponent CHOCOLATE_MILK =
-            new FoodComponent.Builder().nutrition(3).saturationModifier(0.25f).build();
+            new FoodComponent.Builder().nutrition(3).saturationModifier(0.20f).build();
 
     public static final FoodComponent BOILED_POTATO =
             new FoodComponent.Builder().nutrition(1).saturationModifier(0.25f).build();

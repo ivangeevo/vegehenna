@@ -1,7 +1,8 @@
-// 1.21.1	2025-01-24T02:50:38.9152137	Vegehenna!/Recipes
+// 1.21.1	2025-01-24T03:54:43.0153461	Vegehenna!/Recipes
 e1d5ae75ae4116b942f85b16a95478dbe775dd04 data\vegehenna\advancement\recipes\misc\chocolate.json
 89e117b063324cbbb41150f0dda276056fdd60bf data\vegehenna\recipe\cooked_carrot_from_campfire_cooking.json
 c5f4af436f9c798bc99e7f02d8659d301a1c9e16 data\vegehenna\advancement\recipes\food\pastry_uncooked_cookies.json
+b1ea67570b880ed4a4b48ad77740d83ab28f1a0e data\vegehenna\recipe\cake.json
 2860e09511e14dfb207903a50303629430f40ed2 data\vegehenna\recipe\pastry_uncooked_cookies.json
 eb5b6ae0f045198913e2e4fa38097621b341be57 data\vegehenna\advancement\recipes\food\cake_from_smoking.json
 3448e880f782853af338681ca0daa6e6ce871065 data\vegehenna\recipe\cookie_from_smoking.json
