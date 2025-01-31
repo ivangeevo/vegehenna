@@ -16,10 +16,11 @@
     "LootPoolBuilderAccessor",
     "MilkBucketItemMixin",
     "PlantBlockMixin",
-    "PotatoesBlockMixin",
+    "ServerChunkLoadingManagerAccessor",
     "StemBlockMixin",
     "SugarCaneBlockMixin",
-    "SweetBerryBushBlockMixin"
+    "SweetBerryBushBlockMixin",
+    "TorchFlowerBlockMixin"
   ],
   "client": [
   ],

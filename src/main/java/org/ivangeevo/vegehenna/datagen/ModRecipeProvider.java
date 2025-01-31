@@ -30,7 +30,10 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipePro
     //private static final List<ItemConvertible> NORMAL_LEATHERS = List.of(Items.LEATHER,BTWR_Items.LEATHER_CUT);
 
 
-
+    @Override
+    protected Identifier getRecipeIdentifier(Identifier identifier) {
+        return identifier;
+    }
 
     @Override
     public void generate(RecipeExporter exporter)

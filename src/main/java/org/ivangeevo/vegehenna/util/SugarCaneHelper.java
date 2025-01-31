@@ -18,7 +18,7 @@ public class SugarCaneHelper {
 
     public static final IntProperty AGE = Properties.AGE_15;
     public static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
-
+    public static final int MAX_HEIGHT = 3;
 
     // Adds AGE property to a block's state manager
     public static void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -33,13 +33,13 @@ public class SugarCaneHelper {
                 BlockPos posAtBase = pos.down();
 
                 // Calculate whole reed plant height
-                while (reedHeight < 3 && SugarCaneHelper.isSugarCaneTypeBlock(world.getBlockState(posAtBase).getBlock())) {
+                while (reedHeight < MAX_HEIGHT && SugarCaneHelper.isSugarCaneTypeBlock(world.getBlockState(posAtBase).getBlock())) {
                     reedHeight++;
                     posAtBase = posAtBase.down(); // Move one block down each iteration
                 }
 
-                // If reed height is less than 2, try to grow the sugarcane
-                if (reedHeight < 2) {
+                // If reed height is less than MAX_HEIGHT, try to grow the sugarcane
+                if (reedHeight < MAX_HEIGHT) {
                     int age = state.get(AGE);
                     if (age == 15) {
                         world.setBlockState(pos.up(), Blocks.SUGAR_CANE.getDefaultState());
