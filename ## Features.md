@@ -59,4 +59,3 @@ Vegehenna adds depth and challenge to Minecraft farming. By introducing realisti
 
 ## Planned for future updates
 - **Daily Growth**: Carrots, Potatoes, Wheat, and Beetroots (will) now grow once per day, adding predictability.
-
