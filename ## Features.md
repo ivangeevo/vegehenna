@@ -1,43 +1,61 @@
-## Vegehenna list of features
+# Vegehenna: Redefining Farming in Minecraft
 
-### New Items:
+Vegehenna transforms the way you approach farming in Minecraft, introducing slower crop growth, specialized planting mechanics, and crafting-focused features. Immerse yourself in a more strategic agricultural experience with new crops, items, blocks, and revamped mechanics that emphasize planning and resource management.
 
-+ Carrot Seeds
-+ Sugar Cane Roots
-+ Boiled Potato (in the smoker)
-+ Cooked Carrot
-+ Straw (leftover from Wheat conversion)
-+ Flour - used in all pastry recipes
-+ Bread Dough - bakes into bread
-+ Cocoa Powder
-+ Chocolate
-+ Chocolate Milk (now used to cure poison, regular milk doesn't work)
+---
 
-The following "pastry items"
-+ Uncooked Cookies
-+ Uncooked Pumpkin Pie (Oven Ready Pumpkin Pie)
-+ Uncooked Cake
+## 🌱 Features at a Glance
 
-### New Blocks:
+### 🥕 New Items
+- **Carrot Seeds**
+- **Sugar Cane Roots**
+- **Boiled Potato** (crafted in a smoker)
+- **Cooked Carrot**
+- **Straw** (a byproduct of Wheat conversion)
+- **Flour** - essential for all pastry recipes
+- **Bread Dough** - bakes into bread
+- **Cocoa Powder**
+- **Chocolate**
+- **Chocolate Milk** - now cures poison, as regular milk no longer does
 
-+ Flowering Carrot - a new plant which is placed from the Carrot Seeds and when fully grown yields a single Carrot
-+ Fertilized Farmland - grows plants 2 times faster
-+ Bread Dough - placeable as a block from the item
-+ Uncooked Cake - placeable as a block from the item
+#### Pastry Items
+- **Uncooked Cookies**
+- **Uncooked Pumpkin Pie** (Oven-Ready Pumpkin Pie)
+- **Uncooked Cake**
 
-### Changes to crops:
+---
 
-+ All crops are unfertilize-able in the traditional manner. You can now only use Bone Meal on the farmland that a crop grows on to speed it up 2x.
-+ Carrots, Potatoes, Wheat & Beetroots have been made to only grow once per day, instead of randomly.
-+ Carrots are farmed in 2 stages. First you plant seeds, and from those you get more carrots which you can then use for food or plant for more seeds.
-+ Wheat doesn't drop seeds on harvesting blocks anymore, instead you must craft Wheat (found in villages normally or through loot) into seeds, which leaves behind a new item (Straw) and also gives 2 seeds to plant.
-+ Potatoes only drop 1 and sometimes 2 potatoes when harvested.
-+ Beetroots drop rarely 2 and always 1 when harvested.
-+ Overhauled Sugar Cane! It now grows only from a Sugar Cane Roots item and can also be planted diagonally from water source blocks (vanilla only allows planting to adjacent ones).
-+ Sweet Berries are no longer plantable and can only be harvested/eaten.
-+ Cocoa Beans will now only have a 25% chance to drop 2 seeds when harvested and fully grown. This puts emphasis and importance on making a proper farm for them.
-+ All farmland planted crops revert to normal dirt when the crop is harvested. This puts importance on Hoe items and gives a better incentive to craft higher tier ones.
+### 🧱 New Blocks
+- **Flowering Carrot**: A plant grown from Carrot Seeds that yields Carrots when fully grown.
+- **Fertilized Farmland**: Speeds up plant growth by 2x.
+- **Bread Dough Block**: Placeable as a block from the Bread Dough item.
+- **Uncooked Cake Block**: Placeable as a block from the Uncooked Cake item.
 
-### Misc changes
-+ Hay bale item is now crafted with Straw instead of Wheat to remove early game acquiring of easy wheat from villages
-+ Fern and short/tall grass no longer drop wheat seeds.
+---
+
+## 🌾 Crop Overhauls
+- **Bone Meal Mechanics**: Crops are no longer directly fertilizable; apply Bone Meal to farmland for a 2x growth speed boost.
+- **Carrot Farming**: Plant Carrot Seeds to grow Carrots, which can be used for food or replanted for seeds.
+- **Wheat Overhaul**: Harvesting Wheat no longer yields seeds. Instead, craft Wheat (from villages or loot) into seeds, producing 2 seeds and Straw.
+- **Reduced Yields**:
+    - Potatoes: Drops 1-2 potatoes when harvested.
+    - Beetroots: Drops 1, rarely 2, per harvest.
+- **Sugar Cane Upgrade**: Grows only from Sugar Cane Roots and can now be planted diagonally from water sources.
+- **Sweet Berries**: No longer plantable, they can only be harvested or eaten.
+- **Cocoa Beans**: Fully grown plants now have a 25% chance to drop 2 seeds, emphasizing the need for proper farming setups.
+- **Farmland Reset**: Farmland reverts to dirt when a crop is harvested, making Hoe items essential for efficient farming.
+
+---
+
+### 🛠️ Miscellaneous Changes
+- **Hay Bale Recipe**: Now crafted using Straw instead of Wheat, balancing early-game progression.
+- **Seed Drops Removed**: Fern and tall/short grass no longer drop Wheat Seeds, ensuring a more deliberate farming start.
+
+---
+
+## Why Vegehenna?
+Vegehenna adds depth and challenge to Minecraft farming. By introducing realistic growth cycles, crafting-focused mechanics, and resource management, this mod enhances the satisfaction of growing and harvesting crops. Step up your farming game with Vegehenna and experience agriculture like never before!
+
+
+## Planned for future updates
+- **Daily Growth**: Carrots, Potatoes, Wheat, and Beetroots (will) now grow once per day, adding predictability.
