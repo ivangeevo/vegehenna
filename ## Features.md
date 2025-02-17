@@ -38,8 +38,8 @@ Vegehenna transforms the way you approach farming in Minecraft, introducing slow
 - **Carrot Farming**: Plant Carrot Seeds to grow Carrots, which can be used for food or replanted for seeds.
 - **Wheat Overhaul**: Harvesting Wheat no longer yields seeds. Instead, craft Wheat (from villages or loot) into seeds, producing 2 seeds and Straw.
 - **Reduced Yields**:
-    - Potatoes: Drops 1-2 potatoes when harvested.
-    - Beetroots: Drops 1, rarely 2, per harvest.
+  - Potatoes: Drops 1-2 potatoes when harvested.
+  - Beetroots: Drops 1, rarely 2, per harvest.
 - **Sugar Cane Upgrade**: Grows only from Sugar Cane Roots and can now be planted diagonally from water sources.
 - **Sweet Berries**: No longer plantable, they can only be harvested or eaten.
 - **Cocoa Beans**: Fully grown plants now have a 25% chance to drop 2 seeds, emphasizing the need for proper farming setups.
@@ -59,3 +59,4 @@ Vegehenna adds depth and challenge to Minecraft farming. By introducing realisti
 
 ## Planned for future updates
 - **Daily Growth**: Carrots, Potatoes, Wheat, and Beetroots (will) now grow once per day, adding predictability.
+- **Crop Weeding**: - All crops (will) now grow weeds that slow growth and eventually kill a plant if left unmanaged.
