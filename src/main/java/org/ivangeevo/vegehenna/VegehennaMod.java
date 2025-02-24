@@ -12,8 +12,8 @@ import org.ivangeevo.vegehenna.util.CropGrowthHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VegehennaMod implements ModInitializer
-{
+public class VegehennaMod implements ModInitializer {
+
     public static final String MOD_ID = "vegehenna";
     public static final Logger LOGGER = LoggerFactory.getLogger("vegehenna");
 
