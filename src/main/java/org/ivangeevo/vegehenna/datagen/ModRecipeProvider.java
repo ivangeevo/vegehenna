@@ -40,6 +40,7 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipePro
     {
 
         disableVanilla(exporter, "cake");
+        disableVanilla(exporter, "baked_potato_from_smoking");
 
         generateShapelessRecipes(exporter);
         generateShapedRecipes(exporter);
