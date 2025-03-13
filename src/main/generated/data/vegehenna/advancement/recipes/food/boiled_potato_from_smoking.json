@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_carrot": {
+    "has_potato": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:carrot"
+            "items": "minecraft:potato"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:cooked_carrot_from_campfire_cooking"
+        "recipe": "vegehenna:boiled_potato_from_smoking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_carrot"
+      "has_potato"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:cooked_carrot_from_campfire_cooking"
+      "vegehenna:boiled_potato_from_smoking"
     ]
   }
 }
