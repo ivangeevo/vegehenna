@@ -1,4 +1,4 @@
-## v0.2 (next)
+## v0.2
 + Changed cookie dough recipe to result into 4 (8 in btw) cookie dough items as vanilla furnaces/smelters only cook 1 item at a time and can't return 8 for 1 dough as it's originally in BTW
 + Fixed some recipes to generate under the mod namespace instead of the vanilla one
 + Removed the baked potato recipe in the smoker in favor of it making the boiled potato one instead
