@@ -44,4 +44,5 @@ public interface DailyGrowthCrop extends CropBlockAdded {
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 5.0, 14.0)
     };
 
+
 }

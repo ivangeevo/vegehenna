@@ -17,6 +17,7 @@
     "LootPoolBuilderAccessor",
     "MilkBucketItemMixin",
     "PlantBlockMixin",
+    "PotatoesBlockMixin",
     "ServerChunkLoadingManagerAccessor",
     "StemBlockMixin",
     "SugarCaneBlockMixin",
