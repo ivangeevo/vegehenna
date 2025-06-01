@@ -1,3 +1,6 @@
+## v0.3(dev)
++ Fixed outline for potato blocks to be the same as other ones where it's not a full block shape
+
 ## v0.2
 + Changed cookie dough recipe to result into 4 (8 in btw) cookie dough items as vanilla furnaces/smelters only cook 1 item at a time and can't return 8 for 1 dough as it's originally in BTW
 + Fixed some recipes to generate under the mod namespace instead of the vanilla one
