@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -7,15 +7,11 @@ import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
-import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.ivangeevo.vegehenna.util.WorldUtils;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import static net.minecraft.block.FarmlandBlock.MOISTURE;
 
 @Mixin(BoneMealItem.class)
 public abstract class BoneMealItemMixin {

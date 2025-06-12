@@ -1,5 +1,7 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.block;
 
+import btwr.btwr_sl.lib.interfaces.added.BlockAdded;
+import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.util.WorldUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,7 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(Block.class)
-public abstract class BlockMixin extends AbstractBlock {
+public abstract class BlockMixin extends AbstractBlock implements BlockAdded
+{
 
     public BlockMixin(Settings settings) {
         super(settings);
@@ -32,5 +34,4 @@ public abstract class BlockMixin extends AbstractBlock {
             WorldUtils.setFarmlandToDirt(player, state, world, pos.down());
         }
     }
-
 }

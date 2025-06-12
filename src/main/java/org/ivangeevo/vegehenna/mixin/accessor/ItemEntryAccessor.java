@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.accessor;
 
 import net.minecraft.item.Item;
 import net.minecraft.loot.entry.ItemEntry;
