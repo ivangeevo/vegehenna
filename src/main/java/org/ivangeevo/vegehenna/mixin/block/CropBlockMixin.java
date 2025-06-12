@@ -1,19 +1,15 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.block;
 
-import net.fabricmc.loader.api.FabricLoader;
+import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.minecraft.block.*;
-import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.world.dimension.DimensionTypes;
-import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,26 +24,42 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
 
     @Shadow @Final public static IntProperty AGE;
     @Shadow public abstract int getAge(BlockState state);
-    @Shadow public abstract int getMaxAge();
 
     @Shadow protected abstract IntProperty getAgeProperty();
+
+    @Shadow public abstract int getMaxAge();
 
     public CropBlockMixin(Settings settings) {
         super(settings);
     }
 
-    //@Inject(method = "appendProperties", at = @At("TAIL"))
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void onInit(Settings settings, CallbackInfo ci) {
+        // Don't add HAS_GROWN_TODAY property for TorchFlowerBlock
+        if ((CropBlock)(Object)this instanceof TorchflowerBlock) return;
+        this.setDefaultState(
+                this.getStateManager().getDefaultState()
+                        .with(this.getAgeProperty(), 0)
+                        .with(HAS_GROWN_TODAY, false)
+        );
+    }
+
+    @Inject(method = "appendProperties", at = @At("HEAD"))
     private void onAppendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo ci) {
         builder.add(HAS_GROWN_TODAY);
     }
 
-    //@Inject(method = "<init>", at = @At("RETURN"))
-    private void onInit(Settings settings, CallbackInfo ci) {
-        this.setDefaultState(
-                this.getStateManager().getDefaultState()
-                        .with(this.getAgeProperty(), 0)
-                        //.with(HAS_GROWN_TODAY, false)
-        );
+    @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
+    private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+        if ((CropBlock)(Object)this instanceof TorchflowerBlock) return;
+        // TODO: Move the dimension check for crops only for the modpack.
+        if (!(world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID)) && state.isOf(this)) {
+            if (state.getBlock() instanceof DailyGrowthCrop) {
+                attemptToGrow(world, pos, state);
+            }
+        }
+
+        ci.cancel();
     }
 
     // Custom outline shape
@@ -69,36 +81,27 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
        cir.setReturnValue(floor.isIn(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS) || floor.isOf(Blocks.FARMLAND));
     }
 
-    //@Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
-    private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this)) {
-            if (state.getBlock() instanceof DailyGrowthCrop) {
-                attemptToGrow(world, pos, state);
-            }
-        }
-
-        ci.cancel();
-    }
 
     @Override
     public void vegehenna$incrementGrowthLevel(World world, BlockPos pos, BlockState state) {
         int iGrowthLevel = this.getAge(state) + 1;
 
-        world.setBlockState(pos, state.with(AGE, iGrowthLevel),2);
+        world.setBlockState(pos, state.with(this.getAgeProperty(), iGrowthLevel),2);
 
-        if (this.getAge(state) >= this.getMaxAge()) {
-            Block blockBelow = world.getBlockState(pos.down()).getBlock();
+        if (iGrowthLevel >= this.getMaxAge()) {
+            BlockState belowState = world.getBlockState(pos.down());
 
-            if ( blockBelow != null ) {
-                blockBelow.notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+            if (belowState != null) {
+                belowState.getBlock().notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
             }
-
         }
     }
 
+    // This is the base growth chance for all blocks that use the CropBlock
+    // Same value as in the original DailyGrowthCropsBlock class from BTW
     @Override
     public float vegehenna$getBaseGrowthChance() {
-        return 0.05F;
+        return 0.04F;
     }
 
     @Override
@@ -108,25 +111,8 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
 
     @Override
     public boolean vegehenna$requiresNaturalLight() {
-        return true;
-    }
-
-    protected boolean canGrowAtCurrentLightLevel(World world, BlockPos pos) {
-        Block bwtLightBlock = Registries.BLOCK.get(Identifier.of("bwt", "light_block"));
-        BlockState lightBlockState = FabricLoader.getInstance().isModLoaded("bwt")
-                ? bwtLightBlock.getDefaultState()
-                : Blocks.REDSTONE_LAMP.getDefaultState();
-
-        if (this.vegehenna$requiresNaturalLight()) {
-            return isLitLightBlock(world, pos.up(), lightBlockState) || isLitLightBlock(world, pos.up(2), lightBlockState);
-        } else {
-            return world.getLightLevel(pos) >= vegehenna$getLightLevelForGrowth();
-        }
-
-    }
-
-    private boolean isLitLightBlock(World world, BlockPos pos, BlockState lightBlockState) {
-        return world.getBlockState(pos).equals(lightBlockState.with(Properties.LIT, true));
+        BlockState state = this.getDefaultState();
+        return state.isOf(Blocks.WHEAT);
     }
 
 }

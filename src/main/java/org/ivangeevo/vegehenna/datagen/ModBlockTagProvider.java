@@ -1,35 +1,32 @@
 package org.ivangeevo.vegehenna.datagen;
 
 import btwr.btwr_sl.lib.util.utils.RecipeProviderUtils;
+import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 import org.ivangeevo.vegehenna.block.ModBlocks;
-import org.ivangeevo.vegehenna.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.tag.ModTags;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
-
     public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup arg)
-    {
+    protected void configure(RegistryWrapper.WrapperLookup arg) {
         addToVanillaTags();
         addToModTags();
         addToConventionalTags();
 
     }
 
-    private void addToVanillaTags()
-    {
+    private void addToVanillaTags() {
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
                 .add(Blocks.GRASS_BLOCK)
                 .add(Blocks.DIRT);
@@ -37,15 +34,20 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
                 .add(ModBlocks.SUGAR_CANE_ROOTS);
 
+        getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)
+                .add(ModBlocks.FARMLAND_FERTILIZED);
+
         getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
                 .add(ModBlocks.SUGAR_CANE_ROOTS);
 
         getOrCreateTagBuilder(BlockTags.CROPS)
                 .add(ModBlocks.CARROT_FLOWERING);
+
+        getOrCreateTagBuilder(BlockTags.BIG_DRIPLEAF_PLACEABLE)
+                .add(ModBlocks.FARMLAND_FERTILIZED);
     }
 
-    private void addToModTags()
-    {
+    private void addToModTags() {
 
         getOrCreateTagBuilder(ModTags.Blocks.REEDS_CAN_PLANT_ON)
                 .forceAddTag(BlockTags.DIRT)
@@ -53,11 +55,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.GRASS_BLOCK)
                 .add(Blocks.GRAVEL)
                 .addOptional(RecipeProviderUtils.ID.ofBWT("grass_planter"));
-
     }
 
-    private void addToConventionalTags()
-    {
+    private void addToConventionalTags() {
         getOrCreateTagBuilder(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS)
                 .add(ModBlocks.FARMLAND_FERTILIZED);
     }

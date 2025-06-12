@@ -8,14 +8,14 @@ import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.ivangeevo.vegehenna.entity.block.ModBlockEntities;
 import org.ivangeevo.vegehenna.item.ModItems;
 import org.ivangeevo.vegehenna.model.WeedsBlockModel;
-import org.ivangeevo.vegehenna.util.CropGrowthHandler;
+import org.ivangeevo.vegehenna.util.HasCropGrownHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class VegehennaMod implements ModInitializer {
 
     public static final String MOD_ID = "vegehenna";
-    public static final Logger LOGGER = LoggerFactory.getLogger("vegehenna");
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     //public BTWRSettings settings;
     private static VegehennaMod instance;
@@ -34,7 +34,8 @@ public class VegehennaMod implements ModInitializer {
 
         //CropGrowthHandler.register();
 
-        //ModelLoadingPlugin.register(new WeedsModelLoadingPlugin());
+        // Resets growth flag for daily growth crops when night is skipped forcefully
+        HasCropGrownHandler.register();
     }
 
     static class WeedsModelLoadingPlugin implements ModelLoadingPlugin

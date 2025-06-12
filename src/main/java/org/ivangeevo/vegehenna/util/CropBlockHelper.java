@@ -1,10 +1,7 @@
 package org.ivangeevo.vegehenna.util;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CropBlock;
+import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
@@ -18,59 +15,63 @@ import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 
 public class CropBlockHelper {
 
-    public static void handleCropGrowth(World world, BlockPos pos, BlockState state, Random rand, CropBlock cropBlock) {
+    public static void handleCropGrowth(World world, BlockPos pos, BlockState state, Random rand, Block cropBlock) {
+
         int timeOfDay = (int)(world.getTime() % 24000L);
 
         if (timeOfDay > 14000 && timeOfDay < 22000) {
             // night
+            // reset grown flag at night
+            // or if the player sleeps, or time gets skipped -> that's handled by the HasCropGrownHandler
             if (state.get(DailyGrowthCrop.HAS_GROWN_TODAY)) {
                 setHasGrownToday(world, pos, false);
             }
-        } else {
-            if (!state.get(DailyGrowthCrop.HAS_GROWN_TODAY) && getWeedsGrowthLevel(world, pos) == 0 && canGrowAtCurrentLightLevel(world, pos, cropBlock)) {
-                Block blockBelow = world.getBlockState(pos.down()).getBlock();
+        } else
+            if (!state.get(DailyGrowthCrop.HAS_GROWN_TODAY) /**&& getWeedsGrowthLevel(world, pos) == 0**/ && canGrowAtCurrentLightLevel(world, pos, cropBlock)) {
+            Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
-                if (blockBelow != null && blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())) {
-                    float growthChance = ((CropBlockAdded)cropBlock).vegehenna$getBaseGrowthChance();
+            if (blockBelow != null && blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())) {
+                float growthChance = ((CropBlockAdded)cropBlock).vegehenna$getBaseGrowthChance();
 
-                    if (blockBelow.getIsFertilizedForPlantGrowth(world, pos.down())) {
-                        growthChance *= 2F;
-                    }
+                if (blockBelow.getIsFertilizedForPlantGrowth(world, pos.down())) {
+                    growthChance *= 2F;
+                }
 
-                    if (rand.nextFloat() <= growthChance) {
-                        incrementGrowthLevel(world, pos, state, cropBlock);
-                        updateFlagForGrownToday(world, pos, cropBlock);
-                    }
+                if (rand.nextFloat() <= growthChance) {
+                    incrementGrowthLevel(world, pos, state, cropBlock);
+                    updateFlagForGrownToday(world, pos, cropBlock);
                 }
             }
         }
-
     }
 
-    protected static boolean canGrowAtCurrentLightLevel(World world, BlockPos pos, CropBlock cropBlock) {
+    protected static boolean canGrowAtCurrentLightLevel(World world, BlockPos pos, Block cropBlock) {
         Block bwtLightBlock = Registries.BLOCK.get(Identifier.of("bwt", "light_block"));
         BlockState lightBlockState = FabricLoader.getInstance().isModLoaded("bwt")
                 ? bwtLightBlock.getDefaultState()
                 : Blocks.REDSTONE_LAMP.getDefaultState();
+        CropBlockAdded added = (CropBlockAdded)cropBlock;
 
-        if (((CropBlockAdded)cropBlock).vegehenna$requiresNaturalLight()) {
-            return isLitLightBlock(world, pos.up(), lightBlockState) || isLitLightBlock(world, pos.up(2), lightBlockState);
-        } else {
-            return world.getLightLevel(pos) >= ((CropBlockAdded)cropBlock).vegehenna$getLightLevelForGrowth();
+        if (added.vegehenna$requiresNaturalLight()) {
+            return world.getLightLevel(pos) > added.vegehenna$getLightLevelForGrowth() ||
+                    isLitLightBlock(world, pos.up(), lightBlockState) ||
+                    isLitLightBlock(world, pos.up(2), lightBlockState);
         }
-
+        else {
+            return world.getLightLevel(pos) >= added.vegehenna$getLightLevelForGrowth();
+        }
     }
 
-    private static boolean isLitLightBlock(World world, BlockPos pos, BlockState lightBlockState) {
+        private static boolean isLitLightBlock(World world, BlockPos pos, BlockState lightBlockState) {
         return world.getBlockState(pos).equals(lightBlockState.with(Properties.LIT, true));
     }
 
-    protected static void updateFlagForGrownToday(World world, BlockPos pos, CropBlock cropBlock) {
+    protected static void updateFlagForGrownToday(World world, BlockPos pos, Block cropBlock) {
         // fertilized crops can grow twice in a day
         Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
         if ( blockBelow != null ) {
-            if (!blockBelow.getIsFertilizedForPlantGrowth(world, pos.down()) || cropBlock.getAge(world.getBlockState(pos)) % 2 == 0 ) {
+            if (!blockBelow.getIsFertilizedForPlantGrowth(world, pos.down()) || ((CropBlock)cropBlock).getAge(world.getBlockState(pos)) % 2 == 0 ) {
                 setHasGrownToday(world, pos, true);
             }
         }
@@ -93,8 +94,9 @@ public class CropBlockHelper {
 
     // Method to increment growth level for the crop (Block)
     public static void incrementGrowthLevel(World world, BlockPos pos, BlockState state, Block cropBlock) {
-        if (cropBlock instanceof DailyGrowthCrop) {
-            ((DailyGrowthCrop) cropBlock).vegehenna$incrementGrowthLevel(world, pos, state);
+        if (cropBlock instanceof DailyGrowthCrop dailyGrowthCrop) {
+            dailyGrowthCrop.vegehenna$incrementGrowthLevel(world, pos, state);
         }
     }
+
 }

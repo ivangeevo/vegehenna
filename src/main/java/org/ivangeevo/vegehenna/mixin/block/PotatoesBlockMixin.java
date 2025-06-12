@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.block;
 
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PotatoesBlock.class)
 public abstract class PotatoesBlockMixin extends CropBlock implements DailyGrowthCrop {
 
-
     public PotatoesBlockMixin(Settings settings) {
         super(settings);
     }
@@ -23,6 +22,11 @@ public abstract class PotatoesBlockMixin extends CropBlock implements DailyGrowt
     private void injectedGetOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir)
     {
         cir.setReturnValue(NEW_DEFAULT_AGE_TO_SHAPE[this.getAge(state)]);
+    }
+
+    @Override
+    public boolean vegehenna$requiresNaturalLight() {
+        return false;
     }
 
 }

@@ -1,5 +1,8 @@
 ## v0.3(dev)
++ Made the following crops to grow daily instead of randomly: Wheat, Potatoes, Carrot, Flowering Carrot, Beetroots
++ Reworked and cleaned up code for pretty much all crop blocks 
 + Fixed outline for potato blocks to be the same as other ones where it's not a full block shape
++ Updated the mod to Fabric API 0.116.1, Fabric Loader 0.16.14 & BTWR: Shared Library 0.54
 
 ## v0.2
 + Changed cookie dough recipe to result into 4 (8 in btw) cookie dough items as vanilla furnaces/smelters only cook 1 item at a time and can't return 8 for 1 dough as it's originally in BTW
