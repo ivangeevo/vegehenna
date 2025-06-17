@@ -1,5 +1,6 @@
 ## v0.3(dev)
 + Made the following crops to grow daily instead of randomly: Wheat, Potatoes, Carrot, Flowering Carrot, Beetroots
++ Changed Cocoa beans to grow slower (in parity with retail BTW)
 + Reworked and cleaned up code for pretty much all crop blocks 
 + Removed the Beetroots -> Beetroots Seeds recipe as it was clashing with the red dye one.
 + Changed the Beetroots loot table to drop have only 33% chance to drop beetroot seeds on normal harvest.
