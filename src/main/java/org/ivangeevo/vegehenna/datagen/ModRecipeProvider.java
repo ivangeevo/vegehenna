@@ -83,7 +83,6 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipePro
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CHOCOLATE_MILK).input(Items.MILK_BUCKET).input(ModItems.COCOA_POWDER).criterion("has_cocoa_powder", RecipeProvider.conditionsFromItem(ModItems.COCOA_POWDER)).offerTo(exporter);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STRAW,9).input(Items.HAY_BLOCK).criterion("has_hay_block", RecipeProvider.conditionsFromItem(Items.HAY_BLOCK)).offerTo(exporter);
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.BEETROOT_SEEDS).input(Items.BEETROOT).criterion("has_beetroot", RecipeProvider.conditionsFromItem(Items.BEETROOT)).offerTo(exporter);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.PACKED_MUD).input(Items.MUD).input(ModItems.STRAW).criterion("has_straw", RecipeProvider.conditionsFromItem(ModItems.STRAW)).offerTo(exporter);
 

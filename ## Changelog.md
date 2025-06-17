@@ -1,6 +1,8 @@
 ## v0.3(dev)
 + Made the following crops to grow daily instead of randomly: Wheat, Potatoes, Carrot, Flowering Carrot, Beetroots
 + Reworked and cleaned up code for pretty much all crop blocks 
++ Removed the Beetroots -> Beetroots Seeds recipe as it was clashing with the red dye one.
++ Changed the Beetroots loot table to drop have only 33% chance to drop beetroot seeds on normal harvest.
 + Fixed outline for potato blocks to be the same as other ones where it's not a full block shape
 + Updated the mod to Fabric API 0.116.1, Fabric Loader 0.16.14 & BTWR: Shared Library 0.54
 
