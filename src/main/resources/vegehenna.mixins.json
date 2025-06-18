@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CraftingResultSlotMixin",
+    "MushroomPlantBlockMixin",
     "StemBlockMixin",
     "accessor.ItemEntryAccessor",
     "accessor.LootPoolBuilderAccessor",
