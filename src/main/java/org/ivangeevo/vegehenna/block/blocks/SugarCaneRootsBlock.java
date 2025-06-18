@@ -34,7 +34,7 @@ public class SugarCaneRootsBlock extends Block
 
     @Override
     public void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        SugarCaneHelper.appendProperties(builder);
+        SugarCaneHelper.getInstance().appendProperties(builder);
     }
 
     @Override
@@ -44,12 +44,12 @@ public class SugarCaneRootsBlock extends Block
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        SugarCaneHelper.randomTick(state, world, pos);
+        SugarCaneHelper.getInstance().randomTick(state, world, pos);
     }
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        SugarCaneHelper.scheduledTick(world, pos);
+        SugarCaneHelper.getInstance().scheduledTick(world, pos);
     }
 
     @Override
@@ -81,6 +81,6 @@ public class SugarCaneRootsBlock extends Block
         Block blockBelow = stateBelow.getBlock();
 
         return blockBelow == this.asBlock() || (blockBelow != null && stateBelow.isIn(ModTags.Blocks.REEDS_CAN_PLANT_ON) &&
-                SugarCaneHelper.isConsideredNeighbouringWaterForReedGrowthOn(world, pos.down()));
+                SugarCaneHelper.getInstance().isConsideredNeighbouringWaterForReedGrowthOn(world, pos.down()));
     }
 }

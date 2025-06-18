@@ -15,7 +15,15 @@ import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 
 public class CropBlockHelper {
 
-    public static void handleCropGrowth(World world, BlockPos pos, BlockState state, Random rand, Block cropBlock) {
+    final static CropBlockHelper INSTANCE = new CropBlockHelper();
+    private CropBlockHelper() {
+
+    }
+    public static CropBlockHelper getInstance() {
+        return INSTANCE;
+    }
+
+    public void handleCropGrowth(World world, BlockPos pos, BlockState state, Random rand, Block cropBlock) {
 
         int timeOfDay = (int)(world.getTime() % 24000L);
 

@@ -23,7 +23,6 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         addToVanillaTags();
         addToModTags();
         addToConventionalTags();
-
     }
 
     private void addToVanillaTags() {
