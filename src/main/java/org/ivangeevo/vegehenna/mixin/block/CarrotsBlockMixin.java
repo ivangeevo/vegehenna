@@ -1,17 +1,14 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.block;
 
 import net.minecraft.block.*;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.item.ModItems;
 import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,12 +42,13 @@ public abstract class CarrotsBlockMixin extends CropBlock implements DailyGrowth
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(AGE/**, HAS_GROWN_TODAY**/);
+        builder.add(AGE, HAS_GROWN_TODAY);
     }
 
+
     @Override
-    public boolean vegehenna$requiresNaturalLight() {
-        return false;
+    protected IntProperty getAgeProperty() {
+        return AGE;
     }
 
     @Override
@@ -59,44 +57,13 @@ public abstract class CarrotsBlockMixin extends CropBlock implements DailyGrowth
     }
 
     @Override
-    protected IntProperty getAgeProperty() {
-        return AGE;
-    }
-
-    @Override
-    public int getAge(BlockState state) {
-        return state.get(this.getAgeProperty());
-    }
-
-
-    /**
-    @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this)) {
-            attemptToGrow(world, pos, state);
-        }
-    }
-     **/
-
-    @Override
-    public void vegehenna$incrementGrowthLevel(World world, BlockPos pos, BlockState state) {
-        int iGrowthLevel = this.getAge(state) + 1;
-
-        world.setBlockState(pos, state.with(AGE, iGrowthLevel),2);
-
-        if (this.getAge(state) >= this.getMaxAge()) {
-            Block blockBelow = world.getBlockState(pos.down()).getBlock();
-
-            if ( blockBelow != null ) {
-                blockBelow.notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
-            }
-
-        }
-    }
-
-    @Override
     public float vegehenna$getBaseGrowthChance() {
         return 0.04F;
+    }
+
+    @Override
+    public boolean vegehenna$requiresNaturalLight() {
+        return false;
     }
 
 }

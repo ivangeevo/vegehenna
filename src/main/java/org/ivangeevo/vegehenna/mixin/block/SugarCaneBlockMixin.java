@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.block;
 
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
@@ -27,13 +27,13 @@ public abstract class SugarCaneBlockMixin extends Block
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void onRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        SugarCaneHelper.randomTick(state, world, pos);
+        SugarCaneHelper.getInstance().randomTick(state, world, pos);
         ci.cancel();
     }
 
     @Inject(method = "canPlaceAt", at = @At("HEAD"), cancellable = true)
     private void onCanPlaceAt(BlockState state, WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(SugarCaneHelper.canPlaceAt(world, pos));
+        cir.setReturnValue(SugarCaneHelper.getInstance().canPlaceAt(world, pos));
     }
 
 }

@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.accessor;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.loot.LootPool;

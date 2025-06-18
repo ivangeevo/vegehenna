@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.item;
 
 
 import net.minecraft.entity.player.PlayerEntity;

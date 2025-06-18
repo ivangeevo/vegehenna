@@ -15,7 +15,7 @@ public interface DailyGrowthCrop extends CropBlockAdded {
 
     default void attemptToGrow(World world, BlockPos pos, BlockState state) {
         // Use CropBlockHelper for common growth logic
-        CropBlockHelper.handleCropGrowth(world, pos, state, world.getRandom(), (CropBlock)state.getBlock());
+        CropBlockHelper.getInstance().handleCropGrowth(world, pos, state, world.getRandom(), (CropBlock)state.getBlock());
     }
 
     /** The new default age-to-shape outline for crop blocks **/
@@ -43,5 +43,13 @@ public interface DailyGrowthCrop extends CropBlockAdded {
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 4.0, 14.0),
             Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 5.0, 14.0)
     };
+
+    VoxelShape[] FLOWERING_CARROTS_AGE_TO_SHAPE = new VoxelShape[] {
+            Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 6.0, 11.0),
+            Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 9.0, 12.0),
+            Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 11.0, 13.0),
+            Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 12.0, 14.0)
+    };
+
 
 }

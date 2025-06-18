@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.block;
 
 import net.minecraft.block.*;
 import org.spongepowered.asm.mixin.Mixin;
