@@ -1,4 +1,4 @@
-## v0.3(dev)
+## v0.3
 + Made the following crops to grow daily instead of randomly: 
 Wheat, Potatoes, Carrot, Flowering Carrot, Beetroots. Melons need a bit more fixes to be in parity with retail BTW, so
 that change will come at a later stage.
