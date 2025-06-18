@@ -2,7 +2,7 @@
 + Made the following crops to grow daily instead of randomly: 
 Wheat, Potatoes, Carrot, Flowering Carrot, Beetroots. Melons need a bit more fixes to be in parity with retail BTW, so
 that change will come at a later stage.
-+ Changed brown mushrooms to grow in a similar way as they do in BTW(without the deep generation, which will only happen in the BTWR mod pack)
++ Changed brown mushrooms to grow in a similar way as they do in BTW(without any world generation changes, which will only happen in the BTWR mod pack)
 + Changed Cocoa beans to grow slower (in parity with BTW)
 + Reworked and cleaned up code for pretty much all crop blocks 
 + Removed the Beetroots -> Beetroots Seeds recipe as it was clashing with the red dye one.
