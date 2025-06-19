@@ -52,7 +52,7 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if ((CropBlock)(Object)this instanceof TorchflowerBlock) return;
-        // TODO: Move the dimension check for crops only for the modpack.
+        // TODO: Move the dimension check for crops only for the modpack?. idk
         if (!(world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID)) && state.isOf(this)) {
             if (state.getBlock() instanceof DailyGrowthCrop) {
                 attemptToGrow(world, pos, state);

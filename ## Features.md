@@ -34,6 +34,7 @@ Vegehenna transforms the way you approach farming in Minecraft, introducing slow
 ---
 
 ## 🌾 Crop Overhauls
+- **Daily Growth**: Carrots, Potatoes, Wheat, and Beetroots (will) now have a chance to grow once per day.
 - **Bone Meal Mechanics**: Crops are no longer directly fertilizable; apply Bone Meal to farmland for a 2x growth speed boost.
 - **Carrot Farming**: Plant Carrot Seeds to grow Carrots, which can be used for food or replanted for seeds.
 - **Wheat Overhaul**: Harvesting Wheat no longer yields seeds. Instead, craft Wheat (from villages or loot) into seeds, producing 2 seeds and Straw.
@@ -58,5 +59,4 @@ Vegehenna adds depth and challenge to Minecraft farming. By introducing realisti
 
 
 ## Planned for future updates
-- **Daily Growth**: Carrots, Potatoes, Wheat, and Beetroots (will) now grow once per day, adding predictability.
 - **Crop Weeding**: - All crops (will) now grow weeds that slow growth and eventually kill a plant if left unmanaged.

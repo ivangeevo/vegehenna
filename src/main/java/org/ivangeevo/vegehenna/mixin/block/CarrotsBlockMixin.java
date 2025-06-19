@@ -45,7 +45,6 @@ public abstract class CarrotsBlockMixin extends CropBlock implements DailyGrowth
         builder.add(AGE, HAS_GROWN_TODAY);
     }
 
-
     @Override
     protected IntProperty getAgeProperty() {
         return AGE;
