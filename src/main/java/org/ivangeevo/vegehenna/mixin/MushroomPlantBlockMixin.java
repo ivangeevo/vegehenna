@@ -5,7 +5,9 @@ import net.minecraft.block.*;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
@@ -40,16 +42,20 @@ public abstract class MushroomPlantBlockMixin extends PlantBlock
 
     }
 
-    @Inject(method = "canPlaceAt", at = @At("HEAD"), cancellable = true)
+    // Causing issues atm. Look for enabling later on. Seem like the logic is pretty much the same as
+    // vanilla, but it also it seems to add the isReplaceable check to allow placing over those too.
+    //@Inject(method = "canPlaceAt", at = @At("HEAD"), cancellable = true)
     void modifyCanPlaceAt(BlockState state, WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(state.isAir() || state.isReplaceable() && extractedCanPlaceAt(world, pos));
     }
 
     @Unique // Extracted from the same class for calling again
     boolean extractedCanPlaceAt(WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.down();
-        BlockState blockState = world.getBlockState(blockPos);
-        return blockState.isIn(BlockTags.MUSHROOM_GROW_BLOCK) || world.getBaseLightLevel(pos, 0) < 13 && this.canPlantOnTop(blockState, world, blockPos);
+        BlockPos posDown = pos.down();
+        BlockState blockState = world.getBlockState(posDown);
+        return blockState.isIn(BlockTags.MUSHROOM_GROW_BLOCK)
+                || (world.getBaseLightLevel(pos, 0) < 13
+                && blockState.isSolidBlock(world, posDown));
 
     }
 

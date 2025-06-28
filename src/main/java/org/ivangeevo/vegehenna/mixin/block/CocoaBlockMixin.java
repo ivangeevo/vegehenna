@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(CocoaBlock.class)
-public class CocoaBlockMixin
+public abstract class CocoaBlockMixin
 {
 
     // Modify the random bound amount from 5 to 20

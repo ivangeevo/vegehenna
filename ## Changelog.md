@@ -1,4 +1,5 @@
 ## v0.4(dev)
++ Fixed mushrooms not being placeable since last update.
 
 
 ## v0.3
