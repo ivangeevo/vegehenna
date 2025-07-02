@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.mixin;
+package org.ivangeevo.vegehenna.mixin.block;
 
 import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.minecraft.block.*;
