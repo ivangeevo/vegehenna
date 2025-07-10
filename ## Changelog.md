@@ -1,5 +1,7 @@
 ## v0.4(dev)
 + Fixed mushrooms not being placeable since last update.
++ Added a condition for daily growth crops to grow on block from the ALWAYS_FERTILE_SOIL block tag, essentially these being blocks that don't require moisture to grow plants.
++ Added Better With Time's Soil Planter block into the ALWAYS_FERTILE_SOIL block tag from BTWR:SL
 
 
 ## v0.3

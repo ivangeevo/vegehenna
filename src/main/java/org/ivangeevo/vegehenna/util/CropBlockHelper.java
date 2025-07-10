@@ -1,5 +1,6 @@
 package org.ivangeevo.vegehenna.util;
 
+import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
@@ -37,8 +38,9 @@ public class CropBlockHelper {
         } else
             if (!state.get(DailyGrowthCrop.HAS_GROWN_TODAY) /**&& getWeedsGrowthLevel(world, pos) == 0**/ && canGrowAtCurrentLightLevel(world, pos, cropBlock)) {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
+            BlockState stateBelow = blockBelow.getDefaultState();
 
-            if (blockBelow != null && blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())) {
+            if ((blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())) || stateBelow.isIn(BTWRConventionalTags.Blocks.ALWAYS_FERTILE_SOIL)) {
                 float growthChance = ((CropBlockAdded)cropBlock).vegehenna$getBaseGrowthChance();
 
                 if (blockBelow.getIsFertilizedForPlantGrowth(world, pos.down())) {
