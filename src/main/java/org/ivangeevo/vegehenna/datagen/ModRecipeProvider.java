@@ -120,6 +120,11 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipePro
                 .criterion("has_mashed_melon", RecipeProvider.conditionsFromItem(ModItems.MASHED_MELON))
                 .offerTo(exporter);
 
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.MELON_SLICE, 5)
+                .input(Items.MELON)
+                .criterion("has_melon", RecipeProvider.conditionsFromItem(Items.MELON))
+                .offerTo(exporter);
+
     }
     public static void generateShapedRecipes(RecipeExporter exporter)
     {

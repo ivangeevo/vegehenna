@@ -1,3 +1,6 @@
+## 0.4.1
++ Fixed missing recipe to acquire melon slices since last update's changes to melons
+
 ## v0.4(dev)
 + Added a condition for daily growth crops to grow on block from the ALWAYS_FERTILE_SOIL block tag, essentially these being blocks that don't require moisture to grow plants.
 + Added Better With Time's Soil Planter block into the ALWAYS_FERTILE_SOIL block tag from BTWR:SL

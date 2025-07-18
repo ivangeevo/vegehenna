@@ -1,4 +1,5 @@
-// 1.21.1	2025-07-18T17:11:51.2835775	Vegehenna!/Recipes
+// 1.21.1	2025-07-18T18:08:51.9537085	Vegehenna!/Recipes
+190a60a227ee557ec4afad664d2c95a96e860372 data\minecraft\recipe\melon_slice.json
 9ab805337cb11f5f6563da5a3a00311f8f74dbbc data\minecraft\advancement\recipes\building_blocks\packed_mud.json
 eb5b6ae0f045198913e2e4fa38097621b341be57 data\minecraft\advancement\recipes\food\cake_from_smoking.json
 f28f5506348234c04f6acbcd2e7662946456adb7 data\vegehenna\recipe\chocolate_milk.json
@@ -7,6 +8,7 @@ f28f5506348234c04f6acbcd2e7662946456adb7 data\vegehenna\recipe\chocolate_milk.js
 06ca076102e7c254fa94753e4c0f0be73ae3ebe8 data\minecraft\recipe\melon_seeds.json
 1b7ecab4fa40e18540a77517ee0dc4d9896f37af data\minecraft\advancement\recipes\food\cookie_from_smoking.json
 55ebcdaae4592c8e7eaeacf9eccfae59156582ae data\vegehenna\recipe\pastry_uncooked_cake.json
+228610d4e2a70c119982885719087abc61e00c29 data\minecraft\advancement\recipes\building_blocks\melon_slice.json
 c1aa6043a216f9f7017899e58e72f7fdbe6e2064 data\vegehenna\recipe\chocolate.json
 b1ea67570b880ed4a4b48ad77740d83ab28f1a0e data\minecraft\recipe\baked_potato_from_smoking.json
 3448e880f782853af338681ca0daa6e6ce871065 data\minecraft\recipe\cookie_from_smoking.json
