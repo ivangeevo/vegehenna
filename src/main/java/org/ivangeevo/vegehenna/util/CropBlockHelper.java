@@ -38,9 +38,8 @@ public class CropBlockHelper {
         } else
             if (!state.get(DailyGrowthCrop.HAS_GROWN_TODAY) /**&& getWeedsGrowthLevel(world, pos) == 0**/ && canGrowAtCurrentLightLevel(world, pos, cropBlock)) {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
-            BlockState stateBelow = blockBelow.getDefaultState();
 
-            if ((blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())) || stateBelow.isIn(BTWRConventionalTags.Blocks.ALWAYS_FERTILE_SOIL)) {
+            if (this.hasViableSoilBelow(world, pos)) {
                 float growthChance = ((CropBlockAdded)cropBlock).vegehenna$getBaseGrowthChance();
 
                 if (blockBelow.getIsFertilizedForPlantGrowth(world, pos.down())) {
@@ -53,6 +52,13 @@ public class CropBlockHelper {
                 }
             }
         }
+    }
+
+    private boolean hasViableSoilBelow(World world, BlockPos pos) {
+        Block blockBelow = world.getBlockState(pos.down()).getBlock();
+        boolean isHydratedSoil = blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down());
+        boolean isAlwaysHydratedSoil = blockBelow.getDefaultState().isIn(BTWRConventionalTags.Blocks.ALWAYS_FERTILE_SOIL);
+        return isHydratedSoil || isAlwaysHydratedSoil;
     }
 
     protected static boolean canGrowAtCurrentLightLevel(World world, BlockPos pos, Block cropBlock) {
