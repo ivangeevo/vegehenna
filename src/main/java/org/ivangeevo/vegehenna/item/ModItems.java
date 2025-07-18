@@ -17,7 +17,7 @@ public class ModItems
 
     public static final Item BOILED_POTATO = registerItem( "boiled_potato", new Item (new Item.Settings().food(ModFoodComponents.BOILED_POTATO)));
     public static final Item COOKED_CARROT = registerItem( "cooked_carrot", new Item (new Item.Settings().food(ModFoodComponents.COOKED_CARROT)));
-    public static final Item MASHED_MELON = registerItem("mashed_melon", asSimpleItem());
+    public static final Item MASHED_MELON = registerItem("mashed_melon", new Item (new Item.Settings().food(ModFoodComponents.MASHED_MELON)));
 
     public static final Item STRAW = registerItem("straw", asSimpleItem());
     public static final Item FLOUR = registerItem("flour", asSimpleItem());

@@ -17,4 +17,8 @@ public class ModFoodComponents
 
     public static final FoodComponent COOKED_CARROT =
             new FoodComponent.Builder().nutrition(2).saturationModifier(0.25f).build();
+
+    public static final FoodComponent MASHED_MELON =
+            new FoodComponent.Builder().nutrition(1).saturationModifier(0.3f).build();
+
 }
