@@ -33,6 +33,7 @@ public class ModLangProvider extends FabricLanguageProvider {
 
         tb.add(ModItems.CARROT_SEEDS, "Carrot Seeds");
         tb.add(ModItems.SUGAR_CANE_ROOTS, "Sugar Cane Roots");
+        tb.add(ModItems.MASHED_MELON, "Mashed Melon");
 
         tb.add(ModItems.STRAW, "Straw");
         tb.add(ModItems.FLOUR, "Flour");

@@ -2,6 +2,8 @@ package org.ivangeevo.vegehenna;
 
 import btwr.btwr_sl.lib.util.utils.RecipeProviderUtils;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.util.Identifier;

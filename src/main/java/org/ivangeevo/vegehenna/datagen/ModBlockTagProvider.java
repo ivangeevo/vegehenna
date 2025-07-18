@@ -32,6 +32,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.DIRT);
 
         getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
+                .add(Blocks.MELON)
+                .add(Blocks.PUMPKIN)
                 .add(ModBlocks.SUGAR_CANE_ROOTS);
 
         getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)

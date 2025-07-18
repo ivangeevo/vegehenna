@@ -1,8 +1,8 @@
 ## v0.4(dev)
 + Fixed mushrooms not being placeable since last update.
++ Changed Gourd blocks (Melon and Pumpkin) to be falling blocks and to break when falling from high enough, like they work in retail BTW
 + Added a condition for daily growth crops to grow on block from the ALWAYS_FERTILE_SOIL block tag, essentially these being blocks that don't require moisture to grow plants.
 + Added Better With Time's Soil Planter block into the ALWAYS_FERTILE_SOIL block tag from BTWR:SL
-
 
 ## v0.3
 + Made the following crops to grow daily instead of randomly: 

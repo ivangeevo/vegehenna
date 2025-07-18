@@ -3,7 +3,6 @@ package org.ivangeevo.vegehenna.datagen;
 import btwr.btwr_sl.lib.util.utils.RecipeProviderUtils;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
@@ -12,14 +11,8 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.item.ModItems;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
-
-import static net.minecraft.data.server.recipe.CookingRecipeJsonBuilder.*;
-import static net.minecraft.data.server.recipe.CookingRecipeJsonBuilder.createSmoking;
 
 public class ModRecipeProvider extends FabricRecipeProvider implements RecipeProviderUtils {
 
@@ -76,15 +69,56 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipePro
 
     public static void generateShapelessRecipes(RecipeExporter exporter)
     {
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_COOKIES, 4).input(Items.COCOA_BEANS).input(ModItems.FLOUR).criterion("has_cocoa_powder", RecipeProvider.conditionsFromItem(ModItems.COCOA_POWDER)).offerTo(exporter);
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE).input(Items.EGG).input(ModItems.FLOUR).input(ModItems.FLOUR).input(ModItems.FLOUR).input(Items.SUGAR).input(Items.PUMPKIN).criterion("has_pumpkin", RecipeProvider.conditionsFromItem(Items.PUMPKIN)).offerTo(exporter);
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.COCOA_POWDER).input(Items.COCOA_BEANS).criterion("has_cocoa_beans", RecipeProvider.conditionsFromItem(Items.COCOA_BEANS)).offerTo(exporter);
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CHOCOLATE,2).input(ModItems.COCOA_POWDER).input(Items.SUGAR).input(Items.MILK_BUCKET).criterion("has_cocoa_powder", RecipeProvider.conditionsFromItem(ModItems.COCOA_POWDER)).offerTo(exporter);
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CHOCOLATE_MILK).input(Items.MILK_BUCKET).input(ModItems.COCOA_POWDER).criterion("has_cocoa_powder", RecipeProvider.conditionsFromItem(ModItems.COCOA_POWDER)).offerTo(exporter);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_COOKIES, 4)
+                .input(Items.COCOA_BEANS)
+                .input(ModItems.FLOUR)
+                .criterion("has_cocoa_powder", RecipeProvider.conditionsFromItem(ModItems.COCOA_POWDER))
+                .offerTo(exporter);
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STRAW,9).input(Items.HAY_BLOCK).criterion("has_hay_block", RecipeProvider.conditionsFromItem(Items.HAY_BLOCK)).offerTo(exporter);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE)
+                .input(Items.EGG)
+                .input(ModItems.FLOUR)
+                .input(ModItems.FLOUR)
+                .input(ModItems.FLOUR)
+                .input(Items.SUGAR)
+                .input(Items.PUMPKIN)
+                .criterion("has_pumpkin", RecipeProvider.conditionsFromItem(Items.PUMPKIN))
+                .offerTo(exporter);
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.PACKED_MUD).input(Items.MUD).input(ModItems.STRAW).criterion("has_straw", RecipeProvider.conditionsFromItem(ModItems.STRAW)).offerTo(exporter);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.COCOA_POWDER)
+                .input(Items.COCOA_BEANS)
+                .criterion("has_cocoa_beans", RecipeProvider.conditionsFromItem(Items.COCOA_BEANS))
+                .offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CHOCOLATE,2)
+                .input(ModItems.COCOA_POWDER)
+                .input(Items.SUGAR)
+                .input(Items.MILK_BUCKET)
+                .criterion("has_cocoa_powder", RecipeProvider.conditionsFromItem(ModItems.COCOA_POWDER))
+                .offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CHOCOLATE_MILK)
+                .input(Items.MILK_BUCKET)
+                .input(ModItems.COCOA_POWDER)
+                .criterion("has_cocoa_powder", RecipeProvider.conditionsFromItem(ModItems.COCOA_POWDER))
+                .offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STRAW,9)
+                .input(Items.HAY_BLOCK)
+                .criterion("has_hay_block", RecipeProvider.conditionsFromItem(Items.HAY_BLOCK))
+                .offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.PACKED_MUD)
+                .input(Items.MUD)
+                .input(ModItems.STRAW)
+                .criterion("has_straw", RecipeProvider.conditionsFromItem(ModItems.STRAW))
+                .offerTo(exporter);
+
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.MELON_SEEDS)
+                .input(ModItems.MASHED_MELON)
+                .criterion("has_mashed_melon", RecipeProvider.conditionsFromItem(ModItems.MASHED_MELON))
+                .offerTo(exporter);
 
     }
     public static void generateShapedRecipes(RecipeExporter exporter)

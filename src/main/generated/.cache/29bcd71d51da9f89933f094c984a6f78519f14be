@@ -1,9 +1,10 @@
-// 1.21.1	2025-07-11T00:56:36.7229299	Vegehenna!/Recipes
+// 1.21.1	2025-07-18T17:11:51.2835775	Vegehenna!/Recipes
 9ab805337cb11f5f6563da5a3a00311f8f74dbbc data\minecraft\advancement\recipes\building_blocks\packed_mud.json
 eb5b6ae0f045198913e2e4fa38097621b341be57 data\minecraft\advancement\recipes\food\cake_from_smoking.json
 f28f5506348234c04f6acbcd2e7662946456adb7 data\vegehenna\recipe\chocolate_milk.json
 2f571bc4ef555540c221516e8af51939e2828795 data\vegehenna\advancement\recipes\misc\cocoa_powder.json
 16af28e4b7462a02314c26b79039ecd731cafe59 data\vegehenna\recipe\boiled_potato_from_smoking.json
+06ca076102e7c254fa94753e4c0f0be73ae3ebe8 data\minecraft\recipe\melon_seeds.json
 1b7ecab4fa40e18540a77517ee0dc4d9896f37af data\minecraft\advancement\recipes\food\cookie_from_smoking.json
 55ebcdaae4592c8e7eaeacf9eccfae59156582ae data\vegehenna\recipe\pastry_uncooked_cake.json
 c1aa6043a216f9f7017899e58e72f7fdbe6e2064 data\vegehenna\recipe\chocolate.json
@@ -30,6 +31,7 @@ e7842c46aa697f359c909b2c030e03f9801ad3c9 data\minecraft\recipe\bread_from_smokin
 dac0432c6ef26c644376c3cdd5ce9123371df8be data\vegehenna\advancement\recipes\food\cooked_carrot_from_campfire_cooking.json
 694a590a22773dca4e606194b3fb37239039a7a0 data\vegehenna\recipe\pastry_uncooked_cookies.json
 d0c24bdbc4a49232decbe25163374bfcf73d58f7 data\vegehenna\recipe\flour.json
+16b6f1a06c206153cfa5d01f2ecf97a06108d2de data\minecraft\advancement\recipes\building_blocks\melon_seeds.json
 17e9af7b550c33220d6797dece584ba6b3eca903 data\minecraft\advancement\recipes\food\bread_from_smoking.json
 2e69119a2010b542f2c12c67ea4b0902e3c3c7c4 data\minecraft\recipe\packed_mud.json
 30d6e1a90e9b672300dfdd1b7d52e658728e2288 data\vegehenna\advancement\recipes\food\cooked_carrot_from_smoking.json
