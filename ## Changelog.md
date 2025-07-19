@@ -1,4 +1,4 @@
-## 0.4.2(dev)
+## 0.4.2
 + Fixed the pumpkin to actually fall as a falling block
 
 ## 0.4.1
