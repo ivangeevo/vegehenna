@@ -1,3 +1,6 @@
+## 0.4.2(dev)
++ Fixed the pumpkin to actually fall as a falling block
+
 ## 0.4.1
 + Fixed missing recipe to acquire melon slices since last update's changes to melons
 
