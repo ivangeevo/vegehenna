@@ -1,17 +1,11 @@
-package org.ivangeevo.vegehenna.client;
+package org.ivangeevo.vegehenna.block;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.block.BlockState;
-import org.ivangeevo.vegehenna.block.blocks.WeedsBlock;
 import org.ivangeevo.vegehenna.entity.block.WeedsBlockEntity;
-import org.ivangeevo.vegehenna.model.WeedsBlockModel;
 
 @Environment(EnvType.CLIENT)
 public class WeedsBlockRenderer implements BlockEntityRenderer<WeedsBlockEntity>

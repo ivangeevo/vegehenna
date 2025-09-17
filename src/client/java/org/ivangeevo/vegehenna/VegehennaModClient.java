@@ -1,11 +1,10 @@
-package org.ivangeevo.vegehenna.client;
+package org.ivangeevo.vegehenna;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
-import org.ivangeevo.vegehenna.VegehennaMod;
 import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.slf4j.Logger;
 

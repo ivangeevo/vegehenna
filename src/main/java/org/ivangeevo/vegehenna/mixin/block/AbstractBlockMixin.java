@@ -8,77 +8,58 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.ivangeevo.vegehenna.util.FallingBlockAPI;
+import org.ivangeevo.vegehenna.util.FallingBlockSupport;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractBlock.class)
-public abstract class AbstractBlockMixin
-{
-
-    @Shadow protected abstract Block asBlock();
+public abstract class AbstractBlockMixin {
 
     @Inject(method = "onBlockAdded", at = @At("TAIL"))
     private void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify, CallbackInfo ci) {
-        // Make TorchFlower block notify fertilized blocks below to revert to normal
+        // Torchflower special logic
         if (state.isOf(Blocks.TORCHFLOWER)) {
             BlockState belowState = world.getBlockState(pos.down());
             Block blockBelow = belowState.getBlock();
-
             if (blockBelow != null) {
                 blockBelow.notifyOfFullStagePlantGrowthOn(world, pos.down(), state.getBlock());
             }
         }
 
-        // Add scheduled tick to melons and pumpkins to allow falling block updates
-        if (state.isOf(Blocks.MELON) || state.isOf(Blocks.PUMPKIN)) {
-            world.scheduleBlockTick(pos, this.asBlock(), 2);
+        if (FallingBlockAPI.isFallingLike(state)) {
+            boolean safeSupport = FallingBlockSupport.isSolidTop(world, pos.down(), state, Direction.UP);
+            int delay = safeSupport ? 10 : 2;
+            world.scheduleBlockTick(pos, state.getBlock(), delay);
         }
+
     }
 
     @Inject(method = "getStateForNeighborUpdate", at = @At("HEAD"))
     private void onGetStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> cir) {
-        // Add scheduled tick to melons and pumpkins to allow falling block updates
-        if (state.isOf(Blocks.MELON) || state.isOf(Blocks.PUMPKIN)) {
-            world.scheduleBlockTick(pos, this.asBlock(), 2);
+        if (FallingBlockAPI.isFallingLike(state)) {
+            boolean safeSupport = FallingBlockSupport.isSolidTop(world, pos.down(), state, Direction.UP);
+            int delay = safeSupport ? 10 : 2;
+            world.scheduleBlockTick(pos, state.getBlock(), delay);
         }
     }
 
-    // Add scheduled tick to melons and pumpking to allow falling block updates
-    @Inject(method = "scheduledTick", at = @At("HEAD"))
+    @Inject(method = "scheduledTick", at = @At("HEAD"), cancellable = true)
     private void onScheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        this.scheduleTickGourdBlock(world, pos, state, Blocks.MELON);
-        this.scheduleTickGourdBlock(world, pos, state, Blocks.PUMPKIN);
-    }
+        if (FallingBlockAPI.isFallingLike(state)) {
+            BlockPos below = pos.down();
+            BlockState belowState = world.getBlockState(below);
 
-    @Unique
-    private void scheduleTickGourdBlock(World world, BlockPos pos, BlockState state, Block gourdBlock) {
-        if (!state.isOf(gourdBlock)) return;
-        if (FallingBlock.canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= world.getBottomY()) {
-            FallingBlockEntity entity = FallingBlockEntity.spawnFromBlock(world, pos, state);
+            if (FallingBlock.canFallThrough(belowState) && pos.getY() >= world.getBottomY()) {
+                FallingBlockEntity entity = FallingBlockEntity.spawnFromBlock(world, pos, state);
 
-            if (state.isOf(gourdBlock)) {
+                // Call custom handler if one exists
+                FallingBlockAPI.applyFallHandler(world, pos, state, entity);
 
-                int fallDistance = 0;
-                boolean shouldBreak;
-
-                // Look ahead and simulate fall
-                BlockPos.Mutable checkPos = pos.mutableCopy().move(0, -1, 0);
-                while (checkPos.getY() >= world.getBottomY() && FallingBlock.canFallThrough(world.getBlockState(checkPos))) {
-                    fallDistance++;
-                    checkPos.move(0, -1, 0);
-                }
-
-                shouldBreak = fallDistance >= 15 || (fallDistance >= 5 && world.random.nextFloat() < (fallDistance - 5) / 10f);
-
-                if (shouldBreak) {
-                    entity.setDestroyedOnLanding();
-                }
-
+                ci.cancel();
             }
         }
     }

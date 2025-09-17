@@ -46,8 +46,9 @@ public abstract class BlockMixin extends AbstractBlock implements BlockAdded, La
         if (state.isOf(Blocks.MELON) || state.isOf(Blocks.PUMPKIN)) {
             if (random.nextInt(16) == 0) {
                 BlockPos blockPos = pos.down();
+                // Do we even need a particle for falling gourds?
                 if (canFallThrough(world.getBlockState(blockPos))) {
-                    ParticleUtil.spawnParticle(world, pos, random, new BlockStateParticleEffect(ParticleTypes.FALLING_DUST, state));
+                    //ParticleUtil.spawnParticle(world, pos, random, new BlockStateParticleEffect(ParticleTypes.FALLING_DUST, state));
                 }
             }
 
