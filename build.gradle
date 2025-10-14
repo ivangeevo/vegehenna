@@ -51,14 +51,15 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    //modImplementation("org.ivangeevo:btwr-shared-lib:${project.btwr_sl_version}")
+    // BTWR: Shared Library
     modImplementation "maven.modrinth:btwr-shared-library:${project.btwr_sl_version}"
 
+    // Cloth Config
+    modApi "me.shedaniel.cloth:cloth-config-fabric:15.0.140"
+
+    // EMI
     modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
     modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
-
-    // For some reason BTWR Shared lib requires that -_-
-    modApi "me.shedaniel.cloth:cloth-config-fabric:15.0.140"
 
 }
 

@@ -1,5 +1,6 @@
 package org.ivangeevo.vegehenna.datagen;
 
+import btwr.btwr_sl.lib.recipe.ExtendedShapelessRecipe;
 import btwr.btwr_sl.lib.util.utils.RecipeProviderUtils;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -19,8 +20,8 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipePro
     public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
-    // kept as example on how to add lists lol
 
+    // kept as example on how to add lists lol
     //private static final List<ItemConvertible> NORMAL_LEATHERS = List.of(Items.LEATHER,BTWR_Items.LEATHER_CUT);
 
 
@@ -30,45 +31,40 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipePro
     }
 
     @Override
-    public void generate(RecipeExporter exporter)
-    {
+    public void generate(RecipeExporter exporter) {
+        this.generateForVanilla(exporter);
+        this.generateForMod(exporter);
+    }
+
+    private void generateForVanilla(RecipeExporter exporter) {
 
         disableVanilla(exporter, "cake");
         disableVanilla(exporter, "baked_potato_from_smoking");
 
-        generateShapelessRecipes(exporter);
-        generateShapedRecipes(exporter);
+        // Override wheat from hay block recipe to give straw instead
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STRAW, 9)
+                .input(Items.HAY_BLOCK)
+                .criterion("has_hay_block", conditionsFromItem(Items.HAY_BLOCK))
+                .offerTo(exporter, Identifier.ofVanilla("wheat"));
 
-        generateOnlySmokingCookingRecipes(exporter);
-
-        offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new,
-                200, Items.CARROT, ModItems.COOKED_CARROT, 0.2f);
-
-        offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new,
-                600, Items.CARROT, ModItems.COOKED_CARROT, 0.2f);
-
-
+        // Override hay block recipe to require straw instead of wheat
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.HAY_BLOCK)
+                .input('X', ModItems.STRAW)
+                .pattern("XXX")
+                .pattern("XXX")
+                .pattern("XXX")
+                .criterion("has_straw", conditionsFromItem(ModItems.STRAW))
+                .offerTo(exporter, Identifier.ofVanilla("hay_block"));
     }
 
-    public static void generateOnlySmokingCookingRecipes(RecipeExporter exporter)
-    {
-        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
-                100, Items.POTATO, ModItems.BOILED_POTATO, 0.3f);
-        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
-                100, Items.CARROT, ModItems.COOKED_CARROT, 0.3f);
-        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
-                100 , ModItems.BREAD_DOUGH, Items.BREAD, 0.15f);
-        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
-                100, ModItems.PASTRY_UNCOOKED_COOKIES, Items.COOKIE, 0.15f);
-        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
-                100, ModItems.PASTRY_UNCOOKED_CAKE, Items.CAKE, 0.15f);
-        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
-                100, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE, Items.PUMPKIN_PIE, 0.15f);
+    private void generateForMod(RecipeExporter exporter) {
 
-    }
+        ExtendedShapelessRecipe.JsonBuilder.create(RecipeCategory.MISC, Items.WHEAT_SEEDS, 2)
+                .additionalDrop(ModItems.STRAW)
+                .input(Items.WHEAT)
+                .criterion("has_wheat", conditionsFromItem(Items.WHEAT))
+                .offerTo(exporter);
 
-    public static void generateShapelessRecipes(RecipeExporter exporter)
-    {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_COOKIES, 4)
                 .input(Items.COCOA_BEANS)
                 .input(ModItems.FLOUR)
@@ -114,7 +110,6 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipePro
                 .criterion("has_straw", RecipeProvider.conditionsFromItem(ModItems.STRAW))
                 .offerTo(exporter);
 
-
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.MELON_SEEDS)
                 .input(ModItems.MASHED_MELON)
                 .criterion("has_mashed_melon", RecipeProvider.conditionsFromItem(ModItems.MASHED_MELON))
@@ -125,19 +120,51 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipePro
                 .criterion("has_melon", RecipeProvider.conditionsFromItem(Items.MELON))
                 .offerTo(exporter);
 
-    }
-    public static void generateShapedRecipes(RecipeExporter exporter)
-    {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.FLOUR,3).input('#', Items.WHEAT).pattern("###").criterion("has_wheat", RecipeProvider.conditionsFromItem(Items.WHEAT)).offerTo(exporter);
-        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.BREAD_DOUGH).input('#', ModItems.FLOUR).pattern("# ").pattern("##").criterion("has_flour", RecipeProvider.conditionsFromItem(ModItems.FLOUR)).offerTo(exporter);
-        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_CAKE).input('E', Items.EGG).input('F', ModItems.FLOUR).input('M', Items.MILK_BUCKET).input('S', Items.SUGAR).pattern("SSS").pattern("MEM").pattern("FFF").criterion("has_egg", RecipeProvider.conditionsFromItem(Items.EGG)).offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.FLOUR,3)
+                .input('#', Items.WHEAT)
+                .pattern("###")
+                .criterion("has_wheat", RecipeProvider.conditionsFromItem(Items.WHEAT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.BREAD_DOUGH)
+                .input('#', ModItems.FLOUR).pattern("# ")
+                .pattern("##")
+                .criterion("has_flour", RecipeProvider.conditionsFromItem(ModItems.FLOUR))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.PASTRY_UNCOOKED_CAKE)
+                .input('E', Items.EGG)
+                .input('F', ModItems.FLOUR)
+                .input('M', Items.MILK_BUCKET)
+                .input('S', Items.SUGAR)
+                .pattern("SSS")
+                .pattern("MEM")
+                .pattern("FFF")
+                .criterion("has_egg", RecipeProvider.conditionsFromItem(Items.EGG))
+                .offerTo(exporter);
+
+        offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new,
+                200, Items.CARROT, ModItems.COOKED_CARROT, 0.2f);
+        offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new,
+                600, Items.CARROT, ModItems.COOKED_CARROT, 0.2f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, Items.POTATO, ModItems.BOILED_POTATO, 0.3f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, Items.CARROT, ModItems.COOKED_CARROT, 0.3f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100 , ModItems.BREAD_DOUGH, Items.BREAD, 0.15f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, ModItems.PASTRY_UNCOOKED_COOKIES, Items.COOKIE, 0.15f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, ModItems.PASTRY_UNCOOKED_CAKE, Items.CAKE, 0.15f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new,
+                100, ModItems.PASTRY_UNCOOKED_PUMPKIN_PIE, Items.PUMPKIN_PIE, 0.15f);
     }
 
     public static <T extends AbstractCookingRecipe> void offerFoodCookingRecipe(RecipeExporter exporter, String cooker, RecipeSerializer<T> serializer, AbstractCookingRecipe.RecipeFactory<T> recipeFactory, int cookingTime, ItemConvertible items, ItemConvertible output, float experience) {
-        CookingRecipeJsonBuilder.create(Ingredient.ofItems(items), RecipeCategory.FOOD, output, experience, cookingTime, serializer, recipeFactory).criterion(RecipeProvider.hasItem(items), RecipeProvider.conditionsFromItem(items)).offerTo(exporter, output + "_from_" + cooker);
+        CookingRecipeJsonBuilder.create(Ingredient.ofItems(items), RecipeCategory.FOOD, output, experience, cookingTime, serializer, recipeFactory)
+                .criterion(RecipeProvider.hasItem(items), RecipeProvider.conditionsFromItem(items))
+                .offerTo(exporter, output + "_from_" + cooker);
     }
-
-
-
 
 }

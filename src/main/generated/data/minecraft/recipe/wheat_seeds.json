@@ -1,0 +1,20 @@
+{
+  "type": "btwr_sl:crafting_shapeless_extended",
+  "additional_drops": [
+    {
+      "count": 1,
+      "id": "vegehenna:straw"
+    }
+  ],
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "minecraft:wheat_seeds"
+  },
+  "tool_damage": 0
+}
