@@ -4,8 +4,8 @@ import net.fabricmc.api.ModInitializer;
 import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.ivangeevo.vegehenna.entity.block.ModBlockEntities;
 import org.ivangeevo.vegehenna.item.ModItems;
-import org.ivangeevo.vegehenna.util.GourdBlockHandler;
-import org.ivangeevo.vegehenna.util.HasCropGrownHandler;
+import org.ivangeevo.vegehenna.util.handler.GourdBlockHandler;
+import org.ivangeevo.vegehenna.util.handler.HasCropGrownHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

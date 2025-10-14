@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.util;
+package org.ivangeevo.vegehenna.util.handler;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.BlockState;

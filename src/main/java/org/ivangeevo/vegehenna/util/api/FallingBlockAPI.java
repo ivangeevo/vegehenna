@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.util;
+package org.ivangeevo.vegehenna.util.api;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

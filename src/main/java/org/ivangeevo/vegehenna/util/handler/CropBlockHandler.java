@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.util;
+package org.ivangeevo.vegehenna.util.handler;
 
 import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.fabricmc.loader.api.FabricLoader;
@@ -14,13 +14,13 @@ import org.ivangeevo.vegehenna.block.interfaces.CropBlockAdded;
 import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 
 
-public class CropBlockHelper {
+public class CropBlockHandler {
 
-    final static CropBlockHelper INSTANCE = new CropBlockHelper();
-    private CropBlockHelper() {
+    final static CropBlockHandler INSTANCE = new CropBlockHandler();
+    private CropBlockHandler() {
 
     }
-    public static CropBlockHelper getInstance() {
+    public static CropBlockHandler getInstance() {
         return INSTANCE;
     }
 

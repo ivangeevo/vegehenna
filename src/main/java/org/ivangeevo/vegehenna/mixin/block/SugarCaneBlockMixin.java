@@ -6,7 +6,7 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldView;
-import org.ivangeevo.vegehenna.util.SugarCaneHelper;
+import org.ivangeevo.vegehenna.util.handler.SugarCaneBlockHandler;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,13 +27,13 @@ public abstract class SugarCaneBlockMixin extends Block
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void onRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        SugarCaneHelper.getInstance().randomTick(state, world, pos);
+        SugarCaneBlockHandler.getInstance().randomTick(state, world, pos);
         ci.cancel();
     }
 
     @Inject(method = "canPlaceAt", at = @At("HEAD"), cancellable = true)
     private void onCanPlaceAt(BlockState state, WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(SugarCaneHelper.getInstance().canPlaceAt(world, pos));
+        cir.setReturnValue(SugarCaneBlockHandler.getInstance().canPlaceAt(world, pos));
     }
 
 }

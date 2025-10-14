@@ -1,5 +1,3 @@
-// FCMOD
-
 package org.ivangeevo.vegehenna.util;
 
 

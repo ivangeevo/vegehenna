@@ -2,12 +2,11 @@ package org.ivangeevo.vegehenna.block.interfaces;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.CropBlock;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
-import org.ivangeevo.vegehenna.util.CropBlockHelper;
+import org.ivangeevo.vegehenna.util.handler.CropBlockHandler;
 
 public interface DailyGrowthCrop extends CropBlockAdded {
 
@@ -15,7 +14,7 @@ public interface DailyGrowthCrop extends CropBlockAdded {
 
     default void attemptToGrow(World world, BlockPos pos, BlockState state) {
         // Use CropBlockHelper for common growth logic
-        CropBlockHelper.getInstance().handleCropGrowth(world, pos, state, world.getRandom(), state.getBlock());
+        CropBlockHandler.getInstance().handleCropGrowth(world, pos, state, world.getRandom(), state.getBlock());
     }
 
     /** The new default age-to-shape outline for crop blocks **/

@@ -44,13 +44,11 @@ public abstract class SweetBerryBushBlockMixin extends PlantBlock
 
         Hand hand = player.getActiveHand();
 
-        if (!bl && player.getStackInHand(hand).isOf(Items.BONE_MEAL))
-        {
-            cir.setReturnValue( ActionResult.PASS );
+        if (!bl && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) {
+            cir.setReturnValue(ActionResult.PASS);
         }
 
-        if (i > 1)
-        {
+        if (i > 1) {
             SweetBerryBushBlock.dropStack(world, pos, new ItemStack(Items.SWEET_BERRIES, 1));
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
             BlockState blockState = state.with(AGE, 1);

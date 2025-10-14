@@ -10,8 +10,7 @@ import org.ivangeevo.vegehenna.VegehennaMod;
 public class ModTags
 {
 
-    public static class Items
-    {
+    public static class Items {
 
         /** These tags don't generate using datagen.
          *  Instead, the items should be added manually and
@@ -28,8 +27,7 @@ public class ModTags
         }
     }
 
-    public static class Blocks
-    {
+    public static class Blocks {
 
         public static final TagKey<Block> REEDS_CAN_PLANT_ON =  createTag("reeds_can_plant_on");
 

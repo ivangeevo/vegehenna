@@ -16,7 +16,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.ivangeevo.vegehenna.tag.ModTags;
-import org.ivangeevo.vegehenna.util.SugarCaneHelper;
+import org.ivangeevo.vegehenna.util.handler.SugarCaneBlockHandler;
 
 public class SugarCaneRootsBlock extends Block
 {
@@ -34,22 +34,22 @@ public class SugarCaneRootsBlock extends Block
 
     @Override
     public void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        SugarCaneHelper.getInstance().appendProperties(builder);
+        SugarCaneBlockHandler.getInstance().appendProperties(builder);
     }
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SugarCaneHelper.SHAPE;
+        return SugarCaneBlockHandler.SHAPE;
     }
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        SugarCaneHelper.getInstance().randomTick(state, world, pos);
+        SugarCaneBlockHandler.getInstance().randomTick(state, world, pos);
     }
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        SugarCaneHelper.getInstance().scheduledTick(world, pos);
+        SugarCaneBlockHandler.getInstance().scheduledTick(world, pos);
     }
 
     @Override
@@ -81,6 +81,6 @@ public class SugarCaneRootsBlock extends Block
         Block blockBelow = stateBelow.getBlock();
 
         return blockBelow == this.asBlock() || (blockBelow != null && stateBelow.isIn(ModTags.Blocks.REEDS_CAN_PLANT_ON) &&
-                SugarCaneHelper.getInstance().isConsideredNeighbouringWaterForReedGrowthOn(world, pos.down()));
+                SugarCaneBlockHandler.getInstance().isConsideredNeighbouringWaterForReedGrowthOn(world, pos.down()));
     }
 }

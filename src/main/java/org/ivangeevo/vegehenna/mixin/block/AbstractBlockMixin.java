@@ -8,7 +8,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import org.ivangeevo.vegehenna.util.FallingBlockAPI;
+import org.ivangeevo.vegehenna.util.api.FallingBlockAPI;
 import org.ivangeevo.vegehenna.util.FallingBlockSupport;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.util;
+package org.ivangeevo.vegehenna.util.handler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,13 +14,13 @@ import net.minecraft.world.dimension.DimensionTypes;
 import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.ivangeevo.vegehenna.tag.ModTags;
 
-public class SugarCaneHelper {
+public class SugarCaneBlockHandler {
 
-    final static SugarCaneHelper INSTANCE = new SugarCaneHelper();
-    private SugarCaneHelper() {
+    final static SugarCaneBlockHandler INSTANCE = new SugarCaneBlockHandler();
+    private SugarCaneBlockHandler() {
 
     }
-    public static SugarCaneHelper getInstance() {
+    public static SugarCaneBlockHandler getInstance() {
         return INSTANCE;
     }
 

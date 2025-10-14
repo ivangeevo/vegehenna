@@ -12,11 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockItem.class)
 public abstract class BlockItemMixin {
 
-    // removing these blockitem's ability to be placed as blocks in the world.
     // PASS to allow other functionality besides placing, FAIL to remove all.
     @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
-    private void injectedUseOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir)
-    {
+    private void injectedUseOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
 
         if (context.getStack().isOf(Items.SWEET_BERRIES)) {
             cir.setReturnValue(ActionResult.PASS);
