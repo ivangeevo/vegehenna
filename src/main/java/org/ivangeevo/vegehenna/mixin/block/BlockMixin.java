@@ -41,25 +41,4 @@ public abstract class BlockMixin extends AbstractBlock implements BlockAdded, La
         }
     }
 
-    @Inject(method = "randomDisplayTick", at = @At("HEAD"))
-    private void onRandomDisplayTick(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (state.isOf(Blocks.MELON) || state.isOf(Blocks.PUMPKIN)) {
-            if (random.nextInt(16) == 0) {
-                BlockPos blockPos = pos.down();
-                // Do we even need a particle for falling gourds?
-                if (canFallThrough(world.getBlockState(blockPos))) {
-                    //ParticleUtil.spawnParticle(world, pos, random, new BlockStateParticleEffect(ParticleTypes.FALLING_DUST, state));
-                }
-            }
-
-        }
-    }
-
-    @Unique
-    private static boolean canFallThrough(BlockState state) {
-        return state.isAir() || state.isIn(BlockTags.FIRE) || state.isLiquid() || state.isReplaceable();
-    }
-
-
-
 }

@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.util;
+package org.ivangeevo.vegehenna.util.falling_blocks;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FallingBlock;

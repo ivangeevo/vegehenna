@@ -1,6 +1,7 @@
 ## 0.5(dev)
-+ Changed the recipe for wheat seeds from wheat to use the new ExtendedShapelessRecipe from BTWR:SL 0.60
-+ Updated the mod to Fabric API 0.116.6, Fabric Loader 0.17.2 & BTWR: Shared Library 0.60
++ Changed the recipe for wheat seeds from wheat to use the new ExtendedShapelessRecipe from BTWR:SL 0.60–0.61
++ Fixed a bug with falling particles being able to spawn from falling gourd blocks
++ Updated the mod to Fabric API 0.116.6, Fabric Loader 0.17.2 & BTWR: Shared Library 0.61
 
 ## 0.4.2
 + Fixed the pumpkin to actually fall as a falling block
