@@ -1,7 +1,8 @@
 ## 0.5(dev)
 + Changed the recipe for wheat seeds from wheat to use the new ExtendedShapelessRecipe from BTWR:SL 0.60–0.61
++ Changed brown and red mushrooms to grow exactly like they do in BTW. This means that brown mushrooms now will grow only in the overworld and in total darkness or if placed on mycelium. Red mushrooms have been changed to not be able to grow in The End, but besides that, they work pretty much the same way as in vanilla. Also when growing on mycelium they have a chance to sprout into big mushrooms. 
 + Fixed a bug with falling particles being able to spawn from falling gourd blocks
-+ Updated the mod to Fabric API 0.116.6, Fabric Loader 0.17.2 & BTWR: Shared Library 0.61
++ Updated the mod to Fabric API 0.116.6, Fabric Loader 0.17.3 & BTWR: Shared Library 0.62
 
 ## 0.4.2
 + Fixed the pumpkin to actually fall as a falling block

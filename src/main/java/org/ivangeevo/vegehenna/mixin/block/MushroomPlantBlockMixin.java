@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MushroomPlantBlock.class)
 public abstract class MushroomPlantBlockMixin extends PlantBlock
 {
-    @Shadow protected abstract boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos);
+    @Shadow public abstract boolean trySpawningBigMushroom(ServerWorld world, BlockPos pos, BlockState state, Random random);
 
     protected MushroomPlantBlockMixin(Settings settings) {
         super(settings);
@@ -31,30 +31,51 @@ public abstract class MushroomPlantBlockMixin extends PlantBlock
         return false;
     }
 
-    @Inject(method = "randomTick", at = @At("HEAD"))
+    @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     void onRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (!state.isOf(Blocks.BROWN_MUSHROOM)) return;
-        if (world.getDimensionEntry().matchesId(DimensionTypes.OVERWORLD_ID)) {
-            checkForSpread(world, pos);
-        }
+        BlockState defaultState = this.getDefaultState();
+        boolean isBrownMushroom = defaultState.isOf(Blocks.BROWN_MUSHROOM);
+        boolean isRedMushroom = defaultState.isOf(Blocks.BROWN_MUSHROOM);
 
+        if (isBrownMushroom || isRedMushroom) {
+            if (isBrownMushroom) {
+                // only allow growth in the overworld
+                if (world.getDimensionEntry().matchesId(DimensionTypes.OVERWORLD_ID)) {
+                    this.onTickMushroom(state, world, pos, ci);
+                }
+            }
+
+            if (isRedMushroom) {
+                // Don't allow growing in the end
+                if (!world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID)) {
+                    this.onTickMushroom(state, world, pos, ci);
+                }
+            }
+
+            ci.cancel();
+        }
     }
 
-    // Causing issues atm. Look for enabling later on. Seem like the logic is pretty much the same as
-    // vanilla, but it also it seems to add the isReplaceable check to allow placing over those too.
-    //@Inject(method = "canPlaceAt", at = @At("HEAD"), cancellable = true)
-    void modifyCanPlaceAt(BlockState state, WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(state.isAir() || state.isReplaceable() && extractedCanPlaceAt(world, pos));
+    @Unique
+    private void onTickMushroom(BlockState state, ServerWorld world, BlockPos pos, CallbackInfo ci) {
+        if (world.getBlockState(pos.down()).isOf(Blocks.MYCELIUM) && world.getRandom().nextInt(50) == 0) {
+            // mushrooms growing on mycelium have a chance of sprouting into giant mushrooms
+            trySpawningBigMushroom(world, pos, state, world.getRandom());
+        } else {
+            if (state.isOf(Blocks.BROWN_MUSHROOM))  {
+                checkForSpreadBrownMushroom(world, pos, state, world.getRandom());
+            } else if (state.isOf(Blocks.RED_MUSHROOM)) {
+                checkForSpreadRedMushroom(world, pos, state, world.getRandom());
+            }
+        }
     }
 
     @Unique // Extracted from the same class for calling again
-    boolean extractedCanPlaceAt(WorldView world, BlockPos pos) {
-        BlockPos posDown = pos.down();
-        BlockState blockState = world.getBlockState(posDown);
+    protected boolean extractedCanPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        BlockPos blockPos = pos.down();
+        BlockState blockState = world.getBlockState(blockPos);
         return blockState.isIn(BlockTags.MUSHROOM_GROW_BLOCK)
-                || (world.getBaseLightLevel(pos, 0) < 13
-                && blockState.isSolidBlock(world, posDown));
-
+                || world.getBaseLightLevel(pos, 0) <= 0 && this.canPlantOnTop(blockState, world, blockPos);
     }
 
     @Unique
@@ -63,63 +84,66 @@ public abstract class MushroomPlantBlockMixin extends PlantBlock
         return blockBelow == Blocks.MYCELIUM || world.getLightLevel(pos) == 0;
     }
 
+    // basically a copy/paste of the tick method with additional requirements that brown mushrooms can only grow in complete darkness
     @Unique
-    void checkForSpread(World world, BlockPos pos) {
-        Random rand = world.getRandom();
+    void checkForSpreadBrownMushroom(World world, BlockPos pos, BlockState state, Random random) {
+        if (random.nextInt(25) == 0 && canSpreadToOrFromLocation(world, pos)) {
+            int i = 5;
+            int j = 4;
 
-        if (rand.nextInt(25) == 0 && canSpreadToOrFromLocation(world, pos)) {
-            int horizontalSpreadRange = 4;
-            int neighbouringMushroomsCountdown = 5;
-            int x = pos.getX();
-            int y = pos.getY();
-            int z = pos.getZ();
-
-            for(int tempX = pos.getX() - horizontalSpreadRange; tempX <= pos.getX() + horizontalSpreadRange; tempX++)
-            {
-                for (int tempZ = z - horizontalSpreadRange; tempZ <= z + horizontalSpreadRange; ++tempZ)
-                {
-                    for (int tempY = y - 1; tempY <= y + 1; ++tempY) {
-                        BlockPos finalPos = new BlockPos(x, y, z);
-                        if (world.getBlockState(finalPos) == this.getDefaultState()) {
-                            --neighbouringMushroomsCountdown;
-
-                            if (neighbouringMushroomsCountdown <= 0) {
-                                return;
-                            }
-                        }
+            for (BlockPos blockPos : BlockPos.iterate(pos.add(-4, -1, -4), pos.add(4, 1, 4))) {
+                if (world.getBlockState(blockPos).isOf(this)) {
+                    if (--i <= 0) {
+                        return;
                     }
                 }
             }
 
-            int spreadX = x + rand.nextInt(3) - 1;
-            int spreadY = y + rand.nextInt(2) - rand.nextInt(2);
-            int spreadZ = z + rand.nextInt(3) - 1;
-            BlockPos spreadPos = new BlockPos(spreadX, spreadY, spreadZ);
-            BlockState spreadPosState = world.getBlockState(spreadPos);
+            BlockPos blockPos2 = pos.add(random.nextInt(3) - 1, random.nextInt(2) - random.nextInt(2), random.nextInt(3) - 1);
 
-            for (int iTempCount = 0; iTempCount < 4; ++iTempCount) {
-                if (world.isAir(spreadPos) && canPlaceAt(spreadPosState, world, pos) &&
-                        canSpreadToOrFromLocation(world, spreadPos))
-                {
-                    x = spreadX;
-                    y = spreadZ;
-                    z = spreadY;
+            for (int k = 0; k < 4; k++) {
+                if (world.isAir(blockPos2) && extractedCanPlaceAt(state, world, blockPos2)) {
+                    pos = blockPos2;
                 }
 
-                spreadX = x + rand.nextInt(3) - 1;
-                spreadZ = y + rand.nextInt(2) - rand.nextInt(2);
-                spreadY = z + rand.nextInt(3) - 1;
+                blockPos2 = pos.add(random.nextInt(3) - 1, random.nextInt(2) - random.nextInt(2), random.nextInt(3) - 1);
             }
 
-            if (world.isAir(spreadPos) && canPlaceAt(spreadPosState, world, spreadPos) &&
-                    canSpreadToOrFromLocation(world, spreadPos))
-            {
-                world.setBlockState(spreadPos, Blocks.BROWN_MUSHROOM.getDefaultState());
+            if (world.isAir(blockPos2) && extractedCanPlaceAt(state, world, blockPos2) && canSpreadToOrFromLocation(world, pos)) {
+                world.setBlockState(blockPos2, state, Block.NOTIFY_LISTENERS);
             }
-
         }
-
     }
 
+    // Basically the same as the vanilla tick method code
+    @Unique
+    void checkForSpreadRedMushroom(World world, BlockPos pos, BlockState state, Random random) {
+        if (random.nextInt(25) == 0) {
+            int i = 5;
+            int j = 4;
+
+            for (BlockPos blockPos : BlockPos.iterate(pos.add(-4, -1, -4), pos.add(4, 1, 4))) {
+                if (world.getBlockState(blockPos).isOf(this)) {
+                    if (--i <= 0) {
+                        return;
+                    }
+                }
+            }
+
+            BlockPos blockPos2 = pos.add(random.nextInt(3) - 1, random.nextInt(2) - random.nextInt(2), random.nextInt(3) - 1);
+
+            for (int k = 0; k < 4; k++) {
+                if (world.isAir(blockPos2) && state.canPlaceAt(world, blockPos2)) {
+                    pos = blockPos2;
+                }
+
+                blockPos2 = pos.add(random.nextInt(3) - 1, random.nextInt(2) - random.nextInt(2), random.nextInt(3) - 1);
+            }
+
+            if (world.isAir(blockPos2) && state.canPlaceAt(world, blockPos2)) {
+                world.setBlockState(blockPos2, state, Block.NOTIFY_LISTENERS);
+            }
+        }
+    }
 
 }
