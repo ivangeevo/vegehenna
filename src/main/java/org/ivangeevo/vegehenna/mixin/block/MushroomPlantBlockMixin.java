@@ -32,9 +32,8 @@ public abstract class MushroomPlantBlockMixin extends PlantBlock
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     void onRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        BlockState defaultState = this.getDefaultState();
-        boolean isBrownMushroom = defaultState.isOf(Blocks.BROWN_MUSHROOM);
-        boolean isRedMushroom = defaultState.isOf(Blocks.BROWN_MUSHROOM);
+        boolean isBrownMushroom = state.isOf(Blocks.BROWN_MUSHROOM);
+        boolean isRedMushroom = state.isOf(Blocks.RED_MUSHROOM);
 
         if (isBrownMushroom || isRedMushroom) {
             if (isBrownMushroom) {
