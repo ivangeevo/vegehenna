@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MushroomPlantBlock.class)
 public abstract class MushroomPlantBlockMixin extends PlantBlock
@@ -70,8 +69,8 @@ public abstract class MushroomPlantBlockMixin extends PlantBlock
         }
     }
 
-    @Unique // Extracted from the same class for calling again
-    protected boolean extractedCanPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+    @Unique // Extracted canPlaceAt() from the same class for calling again
+    protected boolean canPlaceBrownAt(BlockState state, WorldView world, BlockPos pos) {
         BlockPos blockPos = pos.down();
         BlockState blockState = world.getBlockState(blockPos);
         return blockState.isIn(BlockTags.MUSHROOM_GROW_BLOCK)
@@ -102,14 +101,14 @@ public abstract class MushroomPlantBlockMixin extends PlantBlock
             BlockPos blockPos2 = pos.add(random.nextInt(3) - 1, random.nextInt(2) - random.nextInt(2), random.nextInt(3) - 1);
 
             for (int k = 0; k < 4; k++) {
-                if (world.isAir(blockPos2) && extractedCanPlaceAt(state, world, blockPos2)) {
+                if (world.isAir(blockPos2) && canPlaceBrownAt(state, world, blockPos2)) {
                     pos = blockPos2;
                 }
 
                 blockPos2 = pos.add(random.nextInt(3) - 1, random.nextInt(2) - random.nextInt(2), random.nextInt(3) - 1);
             }
 
-            if (world.isAir(blockPos2) && extractedCanPlaceAt(state, world, blockPos2) && canSpreadToOrFromLocation(world, pos)) {
+            if (world.isAir(blockPos2) && canPlaceBrownAt(state, world, blockPos2) && canSpreadToOrFromLocation(world, pos)) {
                 world.setBlockState(blockPos2, state, Block.NOTIFY_LISTENERS);
             }
         }
