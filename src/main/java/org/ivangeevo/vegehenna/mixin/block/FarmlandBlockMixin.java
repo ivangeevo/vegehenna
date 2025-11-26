@@ -10,15 +10,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import static net.minecraft.block.FarmlandBlock.MOISTURE;
 
 @Mixin(FarmlandBlock.class)
-public abstract class FarmlandBlockMixin extends Block
-{
+public abstract class FarmlandBlockMixin extends Block {
 
     public FarmlandBlockMixin(Settings settings) {
         super(settings);
     }
 
     @Override
-    public boolean isBlockHydratedForPlantGrowthOn(World world, BlockPos pos) {
+    public boolean btwr$isBlockHydratedForPlantGrowthOn(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         return state.contains(MOISTURE) && state.get(MOISTURE) > 0;
     }

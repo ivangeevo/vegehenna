@@ -32,8 +32,8 @@ public abstract class TorchFlowerBlockMixin extends CropBlock {
         // Sets the random to times 4 to effectively make it x4 slower.
         int growthChance = random.nextInt(3);
         BlockState belowState = world.getBlockState(pos.down());
-        if (belowState.getBlock().getIsFertilizedForPlantGrowth(world, pos.down())) {
-            growthChance += belowState.getBlock().getPlantGrowthOnMultiplier(world, pos.down(), this);
+        if (belowState.getBlock().btwr$getIsFertilizedForPlantGrowth(world, pos.down())) {
+            growthChance += (int) belowState.getBlock().btwr$getPlantGrowthOnMultiplier(world, pos.down(), this);
         }
 
         if (growthChance * 4 != 0) {

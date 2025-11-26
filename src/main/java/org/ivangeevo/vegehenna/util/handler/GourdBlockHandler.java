@@ -34,14 +34,14 @@ public class GourdBlockHandler {
                 boolean canBreak = fallDistance >= 5 && canChanceBreak;
                 boolean shouldBreak = fallDistance >= 15 || canBreak;
 
-                // Early destruction if landing block isn't solid enough
-                if (!shouldBreak) {
-                    if (!state.isSolidBlock(world, checkPos) || landingState.getCollisionShape(world, checkPos).getMax(Direction.Axis.Y) < 1.0f) {
-                        Block.dropStacks(state, world, checkPos);
+                boolean isUnevenLandingSurface = !state.isSolidBlock(world, checkPos) || landingState.getCollisionShape(world, checkPos).getMax(Direction.Axis.Y) < 1.0f;
+
+                if (!isUnevenLandingSurface) {
+                    if (shouldBreak) {
+                        entity.setDestroyedOnLanding();
                     }
-                    // Otherwise, apply normal fall break logic
                 } else {
-                    entity.setDestroyedOnLanding();
+                    //Block.dropStacks(state, world, checkPos);
                 }
 
             });

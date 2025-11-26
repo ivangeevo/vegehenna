@@ -24,7 +24,7 @@ public abstract class AbstractBlockMixin {
             BlockState belowState = world.getBlockState(pos.down());
             Block blockBelow = belowState.getBlock();
             if (blockBelow != null) {
-                blockBelow.notifyOfFullStagePlantGrowthOn(world, pos.down(), state.getBlock());
+                blockBelow.btwr$notifyOfFullStagePlantGrowthOn(world, pos.down(), state.getBlock());
             }
         }
 

@@ -7,7 +7,7 @@
 <p> 3. When growing on Mycelium they have a chance to sprout into big mushrooms. 
 
 + Fixed a bug with falling particles being able to spawn from falling gourd blocks
-+ Updated the mod to Fabric API 0.116.6, Fabric Loader 0.17.3 & BTWR: Shared Library 1.0
++ Updated the mod to Fabric API 0.116.7, Fabric Loader 0.17.3 & BTWR: Shared Library 1.0
 
 ## 0.4.2
 + Fixed the pumpkin to actually fall as a falling block

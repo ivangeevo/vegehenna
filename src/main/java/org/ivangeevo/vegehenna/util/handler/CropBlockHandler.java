@@ -1,6 +1,5 @@
 package org.ivangeevo.vegehenna.util.handler;
 
-import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
@@ -10,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.btwr.shared_library.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.block.interfaces.CropBlockAdded;
 import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 
@@ -42,7 +42,7 @@ public class CropBlockHandler {
             if (this.hasViableSoilBelow(world, pos)) {
                 float growthChance = ((CropBlockAdded)cropBlock).vegehenna$getBaseGrowthChance();
 
-                if (blockBelow.getIsFertilizedForPlantGrowth(world, pos.down())) {
+                if (blockBelow.btwr$getIsFertilizedForPlantGrowth(world, pos.down())) {
                     growthChance *= 2F;
                 }
 
@@ -56,7 +56,7 @@ public class CropBlockHandler {
 
     private boolean hasViableSoilBelow(World world, BlockPos pos) {
         Block blockBelow = world.getBlockState(pos.down()).getBlock();
-        boolean isHydratedSoil = blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down());
+        boolean isHydratedSoil = blockBelow.btwr$isBlockHydratedForPlantGrowthOn(world, pos.down());
         boolean isAlwaysHydratedSoil = blockBelow.getDefaultState().isIn(BTWRConventionalTags.Blocks.ALWAYS_FERTILE_SOIL);
         return isHydratedSoil || isAlwaysHydratedSoil;
     }
@@ -87,7 +87,7 @@ public class CropBlockHandler {
         Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
         if ( blockBelow != null ) {
-            if (!blockBelow.getIsFertilizedForPlantGrowth(world, pos.down()) || ((CropBlock)cropBlock).getAge(world.getBlockState(pos)) % 2 == 0 ) {
+            if (!blockBelow.btwr$getIsFertilizedForPlantGrowth(world, pos.down()) || ((CropBlock)cropBlock).getAge(world.getBlockState(pos)) % 2 == 0 ) {
                 setHasGrownToday(world, pos, true);
             }
         }

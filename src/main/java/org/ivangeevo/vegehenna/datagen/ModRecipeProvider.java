@@ -1,7 +1,5 @@
 package org.ivangeevo.vegehenna.datagen;
 
-import btwr.btwr_sl.lib.recipe.ExtendedShapelessRecipe;
-import btwr.btwr_sl.lib.util.utils.RecipeProviderUtils;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.*;
@@ -11,11 +9,13 @@ import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
+import org.btwr.shared_library.recipe.ExtendedShapelessRecipe;
+import org.btwr.shared_library.util.utils.RecipeUtils;
 import org.ivangeevo.vegehenna.item.ModItems;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModRecipeProvider extends FabricRecipeProvider implements RecipeProviderUtils {
+public class ModRecipeProvider extends FabricRecipeProvider implements RecipeUtils {
 
     public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);

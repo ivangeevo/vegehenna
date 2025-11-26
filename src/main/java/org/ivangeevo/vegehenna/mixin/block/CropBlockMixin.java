@@ -1,6 +1,5 @@
 package org.ivangeevo.vegehenna.mixin.block;
 
-import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -10,6 +9,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.world.dimension.DimensionTypes;
+import org.btwr.shared_library.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -92,7 +92,7 @@ public abstract class CropBlockMixin extends PlantBlock implements Fertilizable,
             BlockState belowState = world.getBlockState(pos.down());
 
             if (belowState != null) {
-                belowState.getBlock().notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+                belowState.getBlock().btwr$notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
             }
         }
     }

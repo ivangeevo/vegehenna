@@ -1,6 +1,5 @@
 package org.ivangeevo.vegehenna.mixin.block;
 
-import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -16,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
+import org.btwr.shared_library.tag.BTWRConventionalTags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -65,11 +65,11 @@ public abstract class StemBlockMixin extends PlantBlock
 
     @Unique
     private void checkForGrowth(World world, BlockPos pos, BlockState state, Random rand) {
-        if (this.getWeedsGrowthLevel(world, pos) == 0 && world.getLightLevel( pos.up() ) >= 9) {
+        if (this.btwr$getWeedsGrowthLevel(world, pos) == 0 && world.getLightLevel( pos.up() ) >= 9) {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
-            if (blockBelow != null && blockBelow.isBlockHydratedForPlantGrowthOn(world, pos.down())) {
-                float fGrowthChance = 0.2F * blockBelow.getPlantGrowthOnMultiplier(world, pos.down(), this);
+            if (blockBelow != null && blockBelow.btwr$isBlockHydratedForPlantGrowthOn(world, pos.down())) {
+                float fGrowthChance = 0.2F * blockBelow.btwr$getPlantGrowthOnMultiplier(world, pos.down(), this);
 
                 if (rand.nextFloat() <= fGrowthChance) {
 
@@ -106,7 +106,7 @@ public abstract class StemBlockMixin extends PlantBlock
                                     world.setBlockState(pos, optional2.get().getDefaultState().with(HorizontalFacingBlock.FACING, direction));
                                 }
 
-                                blockBelow.notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+                                blockBelow.btwr$notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
                             }
                         }
                     }
@@ -133,7 +133,7 @@ public abstract class StemBlockMixin extends PlantBlock
     protected boolean canGrowFruitAt(World world, BlockPos pos, BlockState state) {
 
         if (state.isReplaceable() ||
-                ( state.getBlock() != null /** &&  state.getBlock() instanceof  **/ &&
+                (state.getBlock() != null /** &&  state.getBlock() instanceof  **/ &&
                         state != Blocks.COCOA.getDefaultState() ) )
         {
             return hasLargeCenterHardPointToFacing(world, pos.down(), Direction.UP) ||
@@ -148,8 +148,7 @@ public abstract class StemBlockMixin extends PlantBlock
         return blockAccess.getBlockState(pos).isSideSolidFullSquare(blockAccess, pos, facing);
     }
 
-    private static boolean hasLargeCenterHardPointToFacing(WorldAccess blockAccess, BlockPos pos, Direction facing )
-    {
+    private static boolean hasLargeCenterHardPointToFacing(WorldAccess blockAccess, BlockPos pos, Direction facing) {
         return hasLargeCenterHardPointToFacing(blockAccess, pos, facing, false);
     }
 

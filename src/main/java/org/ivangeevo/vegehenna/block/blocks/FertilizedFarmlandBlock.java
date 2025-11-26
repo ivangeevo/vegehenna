@@ -14,19 +14,19 @@ public class FertilizedFarmlandBlock extends FarmlandBlock
     }
 
     @Override
-    public void notifyOfFullStagePlantGrowthOn(World world, BlockPos pos, Block plantBlock) {
+    public void btwr$notifyOfFullStagePlantGrowthOn(World world, BlockPos pos, Block plantBlock) {
         // revert back to unfertilized soil
         BlockState newState = Blocks.FARMLAND.getDefaultState().with(MOISTURE, world.getBlockState(pos).get(MOISTURE));
         world.setBlockState(pos, newState);
     }
 
     @Override
-    public float getPlantGrowthOnMultiplier(World world, BlockPos pos, Block plantBlock) {
+    public float btwr$getPlantGrowthOnMultiplier(World world, BlockPos pos, Block plantBlock) {
         return 2F;
     }
 
     @Override
-    public boolean getIsFertilizedForPlantGrowth(World world, BlockPos pos) {
+    public boolean btwr$getIsFertilizedForPlantGrowth(World world, BlockPos pos) {
         return true;
     }
 

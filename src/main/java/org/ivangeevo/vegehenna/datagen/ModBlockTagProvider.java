@@ -1,13 +1,13 @@
 package org.ivangeevo.vegehenna.datagen;
 
-import btwr.btwr_sl.lib.util.utils.RecipeProviderUtils;
-import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.Identifier;
+import org.btwr.shared_library.tag.BTWRConventionalTags;
+import org.btwr.shared_library.util.utils.IdUtils;
 import org.ivangeevo.vegehenna.block.ModBlocks;
 import org.ivangeevo.vegehenna.tag.ModTags;
 
@@ -55,7 +55,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .forceAddTag(BlockTags.SAND)
                 .add(Blocks.GRASS_BLOCK)
                 .add(Blocks.GRAVEL)
-                .addOptional(RecipeProviderUtils.ID.ofBWT("grass_planter"));
+                .addOptional(IdUtils.ofBWT("grass_planter"));
 
         getOrCreateTagBuilder(ModTags.Blocks.GOURD_BLOCKS)
                 .add(Blocks.MELON)

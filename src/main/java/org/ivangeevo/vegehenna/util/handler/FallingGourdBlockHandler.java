@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 public class FallingGourdBlockHandler {
 
-    private static FallingGourdBlockHandler INSTANCE = new FallingGourdBlockHandler();
+    private static final FallingGourdBlockHandler INSTANCE = new FallingGourdBlockHandler();
 
     private FallingGourdBlockHandler() {}
 
@@ -53,4 +53,5 @@ public class FallingGourdBlockHandler {
             }
         }
     }
+
 }

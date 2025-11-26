@@ -1,6 +1,5 @@
 package org.ivangeevo.vegehenna.util.falling_blocks;
 
-import btwr.btwr_sl.tag.BTWRConventionalTags;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,6 +11,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
+import org.btwr.shared_library.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.item.ModItems;
 import org.ivangeevo.vegehenna.tag.ModTags;
 import org.spongepowered.asm.mixin.Unique;
