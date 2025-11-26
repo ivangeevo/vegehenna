@@ -14,15 +14,9 @@ public class VegehennaMod implements ModInitializer {
     public static final String MOD_ID = "vegehenna";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    //public BTWRSettings settings;
-    private static VegehennaMod instance;
-
-    public static VegehennaMod getInstance() {
-        return instance;
-    }
-
     @Override
     public void onInitialize() {
+
         ModBlockEntities.registerBlockEntities();
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
