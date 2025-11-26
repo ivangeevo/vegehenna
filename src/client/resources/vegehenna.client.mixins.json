@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.btwr.vegehenna.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

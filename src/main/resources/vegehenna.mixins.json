@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.ivangeevo.vegehenna.mixin",
+  "package": "org.btwr.vegehenna.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CraftingResultSlotMixin",

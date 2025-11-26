@@ -12,15 +12,9 @@
   "icon": "assets/vegehenna/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "org.ivangeevo.vegehenna.VegehennaModClient"
-    ],
-    "main": [
-      "org.ivangeevo.vegehenna.VegehennaMod"
-    ],
-    "fabric-datagen": [
-      "org.ivangeevo.vegehenna.VegehennaDataGenerator"
-    ]
+    "client": ["org.btwr.vegehenna.VegehennaModClient"],
+    "main": ["org.btwr.vegehenna.VegehennaMod"],
+    "fabric-datagen": ["org.btwr.vegehenna.VegehennaDataGenerator"]
   },
   "mixins": [
     "vegehenna.mixins.json"
@@ -31,11 +25,9 @@
     "minecraft": "${minecraft_version}",
     "btwr_sl": ">=${btwr_sl_version}"
   },
-
   "custom": {
     "loom:injected_interfaces": {
-      "net/minecraft/class_2302": ["org/ivangeevo/vegehenna/block/interfaces/CropBlockAdded"]
-
+      "net/minecraft/class_2302": ["org/btwr/vegehenna/block/interfaces/CropBlockAdded"]
     }
   }
 }
