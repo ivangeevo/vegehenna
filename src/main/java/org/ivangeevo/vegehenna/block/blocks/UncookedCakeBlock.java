@@ -66,4 +66,5 @@ public class UncookedCakeBlock extends Block {
     private void dropBlockAsItem(World world, BlockPos pos) {
         ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), ModBlocks.UNCOOKED_CAKE.asItem().getDefaultStack());
     }
+
 }

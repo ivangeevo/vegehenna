@@ -9,10 +9,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.item.ModItems;
 
-public class VegehennaItemGroup
-{
+public class VegehennaItemGroup {
 
-    public static final ItemGroup GROUP_BTWR = Registry.register(Registries.ITEM_GROUP,
+    public static final ItemGroup GROUP_VEGEHENNA = Registry.register(Registries.ITEM_GROUP,
             Identifier.of(VegehennaMod.MOD_ID, "group_vegehenna"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.group_vegehenna"))
                     .icon(() -> new ItemStack(ModItems.GROUP_VEGEHENNA))
@@ -49,4 +48,5 @@ public class VegehennaItemGroup
         });
          **/
     }
+
 }

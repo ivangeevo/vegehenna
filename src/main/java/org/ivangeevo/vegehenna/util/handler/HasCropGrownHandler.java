@@ -8,8 +8,7 @@ import net.minecraft.world.chunk.ChunkStatus;
 import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 
 /** Handles resetting the growth flag for daily growth crops if the time is wrapped around for some reason **/
-public class HasCropGrownHandler
-{
+public class HasCropGrownHandler {
 
     private static long lastTime = 0;
 
@@ -60,7 +59,5 @@ public class HasCropGrownHandler
             }
         });
     }
-
-
 
 }

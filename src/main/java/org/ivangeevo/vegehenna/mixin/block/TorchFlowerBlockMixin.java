@@ -39,6 +39,7 @@ public abstract class TorchFlowerBlockMixin extends CropBlock {
         if (growthChance * 4 != 0) {
             this.grow(state, world, pos, random);
         }
+
         ci.cancel();
     }
 
@@ -49,4 +50,5 @@ public abstract class TorchFlowerBlockMixin extends CropBlock {
             world.setBlockState(pos, this.withAge(i + 1), Block.NOTIFY_LISTENERS);
         }
     }
+
 }

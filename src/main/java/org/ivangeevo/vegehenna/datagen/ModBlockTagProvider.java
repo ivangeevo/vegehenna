@@ -68,8 +68,6 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         getOrCreateTagBuilder(BTWRConventionalTags.Blocks.ALWAYS_FERTILE_SOIL)
                 .addOptional(Identifier.of("bwt", "soil_planter"));
-
     }
-
 
 }

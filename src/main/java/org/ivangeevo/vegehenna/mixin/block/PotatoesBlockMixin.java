@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-
 @Mixin(PotatoesBlock.class)
 public abstract class PotatoesBlockMixin extends CropBlock implements DailyGrowthCrop {
 

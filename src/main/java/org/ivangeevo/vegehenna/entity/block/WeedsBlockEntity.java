@@ -8,8 +8,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import org.ivangeevo.vegehenna.block.ModBlocks;
 
-public class WeedsBlockEntity extends BlockEntity
-{
+public class WeedsBlockEntity extends BlockEntity {
 
     public WeedsBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.WEEDS, pos, state);

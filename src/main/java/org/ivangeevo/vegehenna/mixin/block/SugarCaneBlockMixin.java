@@ -16,10 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SugarCaneBlock.class)
-public abstract class SugarCaneBlockMixin extends Block
-{
-
-    @Shadow @Final public static IntProperty AGE;
+public abstract class SugarCaneBlockMixin extends Block {
 
     public SugarCaneBlockMixin(Settings settings) {
         super(settings);
@@ -37,4 +34,3 @@ public abstract class SugarCaneBlockMixin extends Block
     }
 
 }
-

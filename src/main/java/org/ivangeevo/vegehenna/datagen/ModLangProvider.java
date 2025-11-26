@@ -11,7 +11,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModLangProvider extends FabricLanguageProvider {
 
-
     public ModLangProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
     }
@@ -47,7 +46,6 @@ public class ModLangProvider extends FabricLanguageProvider {
         tb.add(ModItems.CHOCOLATE_MILK, "Chocolate Milk");
     }
 
-
     private void addItemGroup(String entryPath, String translation, TranslationBuilder tb) {
         tb.add("itemgroup." + entryPath, translation);
     }
@@ -67,4 +65,5 @@ public class ModLangProvider extends FabricLanguageProvider {
     private void addConfigTooltip(String configPath, String translation, TranslationBuilder tb) {
         tb.add("config." + VegehennaMod.MOD_ID + ".tooltip." + configPath, translation);
     }
+
 }

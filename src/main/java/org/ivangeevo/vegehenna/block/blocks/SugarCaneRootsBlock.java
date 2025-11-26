@@ -18,8 +18,7 @@ import net.minecraft.world.WorldView;
 import org.ivangeevo.vegehenna.tag.ModTags;
 import org.ivangeevo.vegehenna.util.handler.SugarCaneBlockHandler;
 
-public class SugarCaneRootsBlock extends Block
-{
+public class SugarCaneRootsBlock extends Block {
 
     public static final MapCodec<SugarCaneRootsBlock> CODEC = Block.createCodec(SugarCaneRootsBlock::new);
 
@@ -53,8 +52,7 @@ public class SugarCaneRootsBlock extends Block
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos)
-    {
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
         return blockBelow != null &&
@@ -83,4 +81,5 @@ public class SugarCaneRootsBlock extends Block
         return blockBelow == this.asBlock() || (blockBelow != null && stateBelow.isIn(ModTags.Blocks.REEDS_CAN_PLANT_ON) &&
                 SugarCaneBlockHandler.getInstance().isConsideredNeighbouringWaterForReedGrowthOn(world, pos.down()));
     }
+
 }

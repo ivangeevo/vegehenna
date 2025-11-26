@@ -21,8 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlantBlock.class)
-public abstract class PlantBlockMixin extends Block
-{
+public abstract class PlantBlockMixin extends Block {
 
     public PlantBlockMixin(Settings settings) {
         super(settings);
@@ -60,4 +59,5 @@ public abstract class PlantBlockMixin extends Block
            blockBelow.btwr$removeWeeds(world, pos.down());
         }
     }
+
 }

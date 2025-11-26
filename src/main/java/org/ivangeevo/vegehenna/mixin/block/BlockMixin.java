@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.btwr.shared_library.interfaces.added.BlockAdded;
 import org.btwr.shared_library.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.util.WorldUtils;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,6 +1,5 @@
 package org.ivangeevo.vegehenna.block.blocks;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -8,16 +7,12 @@ import net.minecraft.block.PlantBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
-import java.util.function.Function;
+public class WeedsBlock extends PlantBlock {
 
-public class WeedsBlock extends PlantBlock
-{
     public static final MapCodec<WeedsBlock> CODEC = createCodec(WeedsBlock::new);
 
     public static final IntProperty WEEDS_LEVEL = IntProperty.of("weeds_level", 0, 3);

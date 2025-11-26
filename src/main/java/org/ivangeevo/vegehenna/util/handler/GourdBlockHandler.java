@@ -3,7 +3,6 @@ package org.ivangeevo.vegehenna.util.handler;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.ivangeevo.vegehenna.util.api.FallingBlockAPI;
@@ -46,7 +45,6 @@ public class GourdBlockHandler {
 
             });
         }
-
 
     }
 

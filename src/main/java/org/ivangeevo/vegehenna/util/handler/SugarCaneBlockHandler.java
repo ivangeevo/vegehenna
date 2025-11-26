@@ -17,12 +17,12 @@ import org.ivangeevo.vegehenna.tag.ModTags;
 public class SugarCaneBlockHandler {
 
     final static SugarCaneBlockHandler INSTANCE = new SugarCaneBlockHandler();
-    private SugarCaneBlockHandler() {
 
-    }
     public static SugarCaneBlockHandler getInstance() {
         return INSTANCE;
     }
+
+    private SugarCaneBlockHandler() {}
 
     public static final IntProperty AGE = Properties.AGE_15;
     public static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
@@ -52,7 +52,8 @@ public class SugarCaneBlockHandler {
                     if (age == 15) {
                         world.setBlockState(pos.up(), Blocks.SUGAR_CANE.getDefaultState());
                         world.setBlockState(pos, state.with(AGE, 0), 4);
-                    } else {
+                    }
+                    else {
                         world.setBlockState(pos, state.with(AGE, age + 1), 4);
                     }
                 }
@@ -93,4 +94,5 @@ public class SugarCaneBlockHandler {
      return block.getDefaultState().isOf(ModBlocks.SUGAR_CANE_ROOTS)
              || block.getDefaultState().isOf(Blocks.SUGAR_CANE);
      }
+
 }

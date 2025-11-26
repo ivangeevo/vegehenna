@@ -10,8 +10,7 @@ import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.VegehennaMod;
 import org.ivangeevo.vegehenna.block.ModBlocks;
 
-public class ModItems
-{
+public class ModItems {
 
     public static final Item GROUP_VEGEHENNA = registerItem( "group_vegehenna", asSimpleItem());
 
@@ -34,18 +33,14 @@ public class ModItems
     public static final Item CARROT_SEEDS = registerItem("carrot_seeds", new AliasedBlockItem(Blocks.CARROTS, new Item.Settings()));
     public static final Item SUGAR_CANE_ROOTS = registerItem("sugar_cane_roots", new AliasedBlockItem(ModBlocks.SUGAR_CANE_ROOTS, new Item.Settings()));
 
-
-
     private static Item asSimpleItem() { return new Item( new Item.Settings() ); }
 
-
-    private static Item registerItem(String name, Item item)
-    {
+    private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(VegehennaMod.MOD_ID,name), item);
     }
-    public static void registerModItems()
-    {
+    public static void registerModItems() {
         VegehennaMod.LOGGER.info("Registering Mod Items for " + VegehennaMod.MOD_ID);
         //ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(BTWR_Items::addItemsToIngredientItemGroup);
     }
+
 }

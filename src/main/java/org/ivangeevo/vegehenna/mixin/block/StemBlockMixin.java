@@ -32,11 +32,8 @@ public abstract class StemBlockMixin extends PlantBlock
 {
     @Shadow @Final public static IntProperty AGE;
     @Shadow public abstract boolean canGrow(World world, Random random, BlockPos pos, BlockState state);
-
     @Shadow @Final private RegistryKey<Block> gourdBlock;
-
     @Shadow @Final private RegistryKey<Block> attachedStemBlock;
-
     @Shadow @Final public static int MAX_AGE;
 
     public StemBlockMixin(Settings settings) {
@@ -75,11 +72,11 @@ public abstract class StemBlockMixin extends PlantBlock
 
                     if (state.get(AGE) < MAX_AGE) {
                         world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
-                    } else if (state.get(AGE) == MAX_AGE) {
+                    }
+                    else if (state.get(AGE) == MAX_AGE) {
                         int iTargetFacing = 0;
 
-                        if ( hasSpaceToGrow(world, pos, state) )
-                        {
+                        if (hasSpaceToGrow(world, pos, state)) {
                             // if the plant doesn't have space around it to grow,
                             // the fruit will crush its own stem
 
@@ -88,9 +85,7 @@ public abstract class StemBlockMixin extends PlantBlock
                             pos.offset(Direction.byId(iTargetFacing));
                         }
 
-                        if ( canGrowFruitAt(world, pos, state) )
-                        {
-
+                        if (canGrowFruitAt(world, pos, state)) {
                             Direction direction = Direction.Type.HORIZONTAL.random(rand);
                             BlockPos blockPos = pos.offset(direction);
                             BlockState blockState = world.getBlockState(blockPos.down());
@@ -134,7 +129,7 @@ public abstract class StemBlockMixin extends PlantBlock
 
         if (state.isReplaceable() ||
                 (state.getBlock() != null /** &&  state.getBlock() instanceof  **/ &&
-                        state != Blocks.COCOA.getDefaultState() ) )
+                        state != Blocks.COCOA.getDefaultState()))
         {
             return hasLargeCenterHardPointToFacing(world, pos.down(), Direction.UP) ||
                     canGrow(world, world.getRandom(), pos.down(), state);
@@ -151,7 +146,5 @@ public abstract class StemBlockMixin extends PlantBlock
     private static boolean hasLargeCenterHardPointToFacing(WorldAccess blockAccess, BlockPos pos, Direction facing) {
         return hasLargeCenterHardPointToFacing(blockAccess, pos, facing, false);
     }
-
-
 
 }

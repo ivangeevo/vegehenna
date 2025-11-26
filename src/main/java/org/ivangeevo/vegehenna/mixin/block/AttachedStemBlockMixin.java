@@ -17,4 +17,5 @@ public abstract class AttachedStemBlockMixin extends PlantBlock {
     private int injected(int value) {
         return 4;
     }
+
 }

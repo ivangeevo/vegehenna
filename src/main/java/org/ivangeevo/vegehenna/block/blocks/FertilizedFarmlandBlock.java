@@ -7,8 +7,8 @@ import net.minecraft.block.FarmlandBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class FertilizedFarmlandBlock extends FarmlandBlock
-{
+public class FertilizedFarmlandBlock extends FarmlandBlock {
+
     public FertilizedFarmlandBlock(Settings settings) {
         super(settings);
     }

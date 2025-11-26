@@ -8,9 +8,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 
-
-public class FloweringCarrotBlock extends CarrotsBlock
-{
+public class FloweringCarrotBlock extends CarrotsBlock {
 
     public FloweringCarrotBlock(Settings settings) {
         super(settings);

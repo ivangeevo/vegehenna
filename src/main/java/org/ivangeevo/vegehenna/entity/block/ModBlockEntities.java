@@ -17,9 +17,6 @@ public class ModBlockEntities {
                 Identifier.of(VegehennaMod.MOD_ID, "weeds"),
                 BlockEntityType.Builder.create(WeedsBlockEntity::new, ModBlocks.WEEDS).build(null)
         );
-
-
     }
-
 
 }

@@ -21,8 +21,8 @@ import net.minecraft.world.WorldView;
 import org.ivangeevo.vegehenna.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
-public class BreadDoughBlock extends Block
-{
+public class BreadDoughBlock extends Block {
+
     public static final float BRICK_HEIGHT = (4F / 16F );
     public static final float BRICK_WIDTH = (6F / 16F );
     public static final float BRICK_HALF_WIDTH = (BRICK_WIDTH / 2F );
@@ -32,7 +32,6 @@ public class BreadDoughBlock extends Block
     private static final VoxelShape BRICK_SHAPE_HORIZONTAL = VoxelShapes.cuboid((0.5F - BRICK_HALF_LENGTH), 0D, (0.5F - BRICK_HALF_WIDTH), (0.5F + BRICK_HALF_LENGTH), BRICK_HEIGHT, (0.5F + BRICK_HALF_WIDTH));
 
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-
 
     public BreadDoughBlock(Settings settings) {
         super(settings);
@@ -96,4 +95,5 @@ public class BreadDoughBlock extends Block
     private void dropBlockAsItem(World world, BlockPos pos) {
         ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), ModItems.BREAD_DOUGH.getDefaultStack());
     }
+
 }

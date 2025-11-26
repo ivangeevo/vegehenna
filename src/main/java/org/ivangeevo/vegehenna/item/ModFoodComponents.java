@@ -4,8 +4,8 @@ package org.ivangeevo.vegehenna.item;
 import net.minecraft.component.type.FoodComponent;
 
 /** Contains all the default food components used in Vegehenna food items. **/
-public class ModFoodComponents
-{
+public class ModFoodComponents {
+
     public static final FoodComponent CHOCOLATE =
             new FoodComponent.Builder().nutrition(3).saturationModifier(0.15f).build();
 

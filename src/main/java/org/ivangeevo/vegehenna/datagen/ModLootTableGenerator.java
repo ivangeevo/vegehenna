@@ -35,15 +35,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModLootTableGenerator extends FabricBlockLootTableProvider {
 
-
     public ModLootTableGenerator(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
     @Override
-    public void generate()
-    {
-
+    public void generate() {
         this.addDrop(ModBlocks.CARROT_FLOWERING, (block -> onMaxAgeDrops(block, ModItems.CARROT_SEEDS,2, Properties.AGE_3, 3)));
         this.addDrop(ModBlocks.BREAD_DOUGH, drops(ModItems.BREAD_DOUGH));
         this.addDrop(ModBlocks.UNCOOKED_CAKE, drops(ModItems.PASTRY_UNCOOKED_CAKE));
@@ -97,9 +94,9 @@ public class ModLootTableGenerator extends FabricBlockLootTableProvider {
                                         .properties(StatePredicate.Builder.create().exactMatch(property, age))));
     }
 
-
     @Override
     public String getName() {
         return "BTWR Block Loot Tables";
     }
+
 }

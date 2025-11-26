@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MushroomPlantBlock.class)
-public abstract class MushroomPlantBlockMixin extends PlantBlock
-{
+public abstract class MushroomPlantBlockMixin extends PlantBlock {
+
     @Shadow public abstract boolean trySpawningBigMushroom(ServerWorld world, BlockPos pos, BlockState state, Random random);
 
     protected MushroomPlantBlockMixin(Settings settings) {
@@ -59,10 +59,12 @@ public abstract class MushroomPlantBlockMixin extends PlantBlock
         if (world.getBlockState(pos.down()).isOf(Blocks.MYCELIUM) && world.getRandom().nextInt(50) == 0) {
             // mushrooms growing on mycelium have a chance of sprouting into giant mushrooms
             trySpawningBigMushroom(world, pos, state, world.getRandom());
-        } else {
+        }
+        else {
             if (state.isOf(Blocks.BROWN_MUSHROOM))  {
                 checkForSpreadBrownMushroom(world, pos, state, world.getRandom());
-            } else if (state.isOf(Blocks.RED_MUSHROOM)) {
+            }
+            else if (state.isOf(Blocks.RED_MUSHROOM)) {
                 checkForSpreadRedMushroom(world, pos, state, world.getRandom());
             }
         }

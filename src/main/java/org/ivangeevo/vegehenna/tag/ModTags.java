@@ -7,8 +7,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.ivangeevo.vegehenna.VegehennaMod;
 
-public class ModTags
-{
+public class ModTags {
 
     public static class Items {
 
@@ -42,4 +41,5 @@ public class ModTags
             return TagKey.of(RegistryKeys.BLOCK, Identifier.of(VegehennaMod.MOD_ID, name));
         }
     }
+
 }

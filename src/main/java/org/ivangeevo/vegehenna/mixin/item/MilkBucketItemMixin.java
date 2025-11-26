@@ -15,8 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MilkBucketItem.class)
-public abstract class MilkBucketItemMixin extends Item
-{
+public abstract class MilkBucketItemMixin extends Item {
 
     public MilkBucketItemMixin(Settings settings) {
         super(settings);
@@ -32,6 +31,5 @@ public abstract class MilkBucketItemMixin extends Item
         }
 
     }
-
 
 }

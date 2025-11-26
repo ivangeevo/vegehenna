@@ -1,4 +1,4 @@
-package org.ivangeevo.vegehenna.mixin.block;
+package org.ivangeevo.vegehenna.mixin;
 
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;

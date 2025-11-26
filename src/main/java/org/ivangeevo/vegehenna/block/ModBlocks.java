@@ -58,30 +58,22 @@ public class ModBlocks {
                     .sounds(BlockSoundGroup.SLIME)
                     .pistonBehavior(PistonBehavior.NORMAL)));
 
-
-
-
-    private static Block registerBlock(String name, Block block)
-    {
+    private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, Identifier.of(VegehennaMod.MOD_ID, name), block);
     }
 
-    private static Block registerBlockWithoutItem(String name, Block block)
-    {
+    private static Block registerBlockWithoutItem(String name, Block block) {
         return Registry.register(Registries.BLOCK, Identifier.of(VegehennaMod.MOD_ID, name), block);
     }
 
-    private static Item registerBlockItem(String name, Block block)
-    {
+    private static Item registerBlockItem(String name, Block block) {
         return Registry.register(Registries.ITEM, Identifier.of(VegehennaMod.MOD_ID, name),
                 new BlockItem(block, new Item.Settings()));
     }
 
-    public static void registerModBlocks()
-    {
+    public static void registerModBlocks() {
         VegehennaMod.LOGGER.debug("Registering ModBlocks for " + VegehennaMod.MOD_ID);
     }
-
 
 }

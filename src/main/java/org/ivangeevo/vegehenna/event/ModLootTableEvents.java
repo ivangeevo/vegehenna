@@ -14,22 +14,18 @@ import org.ivangeevo.vegehenna.mixin.accessor.LootPoolBuilderAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ModLootTableEvents
-{
+public abstract class ModLootTableEvents {
 
     // Register loot table changes
-    public static void initialize()
-    {
+    public static void initialize() {
         // didn't work last time I tried
         //replaceSpecificItem(Blocks.SHORT_GRASS.getLootTableKey(), Items.WHEAT_SEEDS, Items.AIR);
         
         // tall grass is modified manually via this mod's datapack for now
         //replaceSpecificItem(Blocks.TALL_GRASS.getLootTableKey(), Items.WHEAT_SEEDS, Items.AIR);
-
     }
 
-    private static void replaceSpecificItem(RegistryKey<LootTable> registryKey, Item target, Item toReplace)
-    {
+    private static void replaceSpecificItem(RegistryKey<LootTable> registryKey, Item target, Item toReplace) {
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
 
             // Check if the key is for target's loot table

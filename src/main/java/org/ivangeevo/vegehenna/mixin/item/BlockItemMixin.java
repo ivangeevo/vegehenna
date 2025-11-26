@@ -15,7 +15,6 @@ public abstract class BlockItemMixin {
     // PASS to allow other functionality besides placing, FAIL to remove all.
     @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
     private void injectedUseOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
-
         if (context.getStack().isOf(Items.SWEET_BERRIES)) {
             cir.setReturnValue(ActionResult.PASS);
         }
@@ -23,8 +22,6 @@ public abstract class BlockItemMixin {
         if (context.getStack().isOf(Items.SUGAR_CANE)) {
             cir.setReturnValue(ActionResult.PASS);
         }
-
     }
-
 
 }

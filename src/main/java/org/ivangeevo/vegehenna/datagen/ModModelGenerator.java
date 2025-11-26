@@ -12,13 +12,9 @@ public class ModModelGenerator extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {}
 
+    @Override
+    public void generateItemModels(ItemModelGenerator itemModelGenerator) {}
 
-    }
-
-    // @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-
-    }
 }

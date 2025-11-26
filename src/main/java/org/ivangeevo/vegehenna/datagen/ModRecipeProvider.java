@@ -21,10 +21,6 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipeUti
         super(output, registriesFuture);
     }
 
-    // kept as example on how to add lists lol
-    //private static final List<ItemConvertible> NORMAL_LEATHERS = List.of(Items.LEATHER,BTWR_Items.LEATHER_CUT);
-
-
     @Override
     protected Identifier getRecipeIdentifier(Identifier identifier) {
         return identifier;
@@ -37,7 +33,6 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipeUti
     }
 
     private void generateForVanilla(RecipeExporter exporter) {
-
         disableVanilla(exporter, "cake");
         disableVanilla(exporter, "baked_potato_from_smoking");
 
@@ -58,7 +53,6 @@ public class ModRecipeProvider extends FabricRecipeProvider implements RecipeUti
     }
 
     private void generateForMod(RecipeExporter exporter) {
-
         ExtendedShapelessRecipe.JsonBuilder.create(RecipeCategory.MISC, Items.WHEAT_SEEDS, 2)
                 .additionalDrop(ModItems.STRAW)
                 .input(Items.WHEAT)

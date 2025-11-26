@@ -11,7 +11,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.btwr.shared_library.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
@@ -22,11 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(CropBlock.class)
 public abstract class CropBlockMixin extends PlantBlock implements Fertilizable, DailyGrowthCrop {
 
-    @Shadow @Final public static IntProperty AGE;
     @Shadow public abstract int getAge(BlockState state);
-
     @Shadow protected abstract IntProperty getAgeProperty();
-
     @Shadow public abstract int getMaxAge();
 
     public CropBlockMixin(Settings settings) {

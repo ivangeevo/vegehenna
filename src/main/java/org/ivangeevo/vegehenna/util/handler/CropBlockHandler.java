@@ -13,7 +13,6 @@ import org.btwr.shared_library.tag.BTWRConventionalTags;
 import org.ivangeevo.vegehenna.block.interfaces.CropBlockAdded;
 import org.ivangeevo.vegehenna.block.interfaces.DailyGrowthCrop;
 
-
 public class CropBlockHandler {
 
     final static CropBlockHandler INSTANCE = new CropBlockHandler();
@@ -35,7 +34,8 @@ public class CropBlockHandler {
             if (state.get(DailyGrowthCrop.HAS_GROWN_TODAY)) {
                 setHasGrownToday(world, pos, false);
             }
-        } else
+        }
+        else
             if (!state.get(DailyGrowthCrop.HAS_GROWN_TODAY) /**&& getWeedsGrowthLevel(world, pos) == 0**/ && canGrowAtCurrentLightLevel(world, pos, cropBlock)) {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
