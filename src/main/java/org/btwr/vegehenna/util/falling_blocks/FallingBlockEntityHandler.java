@@ -3,7 +3,6 @@ package org.btwr.vegehenna.util.falling_blocks;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -12,27 +11,41 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import org.btwr.shared_library.tag.BTWRConventionalTags;
-import org.btwr.vegehenna.item.ModItems;
 import org.btwr.vegehenna.tag.ModTags;
-import org.spongepowered.asm.mixin.Unique;
 
-public class FallingGourdBEHandler {
+public class FallingBlockEntityHandler {
 
-    private static FallingGourdBEHandler INSTANCE = new FallingGourdBEHandler();
+    private static final FallingBlockEntityHandler INSTANCE = new FallingBlockEntityHandler();
 
-    private FallingGourdBEHandler() {}
-
-    public static FallingGourdBEHandler getInstance() {
+    public static FallingBlockEntityHandler getInstance() {
         return INSTANCE;
     }
 
-    public void onBeforeLanding(World world, BlockState state, Box boundingBox) {
+    /**
+     * Keeps track if the falling entity is registered with {@link org.btwr.vegehenna.util.api.FallingBlockEntityAPI} and has
+     * special falling behavior for what item to drop when onDestroyedOnLanding() is called.
+     * **/
+    private boolean preventNormalOnLandingDrop = false;
+
+    public FallingBlockEntityHandler() {
+
+    }
+
+    public boolean isPreventNormalOnLandingDrop() {
+        return preventNormalOnLandingDrop;
+    }
+
+    public void setPreventNormalOnLandingDrop(boolean value) {
+        preventNormalOnLandingDrop = value;
+    }
+
+    public void beforeDestroyedOnLanding(World world, BlockState state, Box boundingBox) {
         if (state.isOf(Blocks.MELON)) {
-            onGourdFallDestroyed(world, state, boundingBox, ModItems.MASHED_MELON, 2);
+            //onGourdFallDestroyed(world, state, boundingBox, ModItems.MASHED_MELON, 2);
         }
 
         if (state.isOf(Blocks.PUMPKIN)) {
-            onGourdFallDestroyed(world, state, boundingBox, Items.PUMPKIN_SEEDS, 4);
+            //onGourdFallDestroyed(world, state, boundingBox, Items.PUMPKIN_SEEDS, 4);
         }
     }
 
@@ -53,7 +66,6 @@ public class FallingGourdBEHandler {
         }
     }
 
-    @Unique
     private void onGourdFallDestroyed(World world, BlockState state, Box boundingBox, Item drop, int count) {
         Vec3d pos = boundingBox.getCenter();
         BlockPos dropPos = BlockPos.ofFloored(pos);
@@ -68,9 +80,6 @@ public class FallingGourdBEHandler {
                 SoundCategory.BLOCKS, 0.1F, 0.40F + (world.getRandom().nextFloat() * 0.25F)
         );
         //world.emitGameEvent(this, GameEvent.BLOCK_DESTROY, pos);
-
     }
-
-
 
 }

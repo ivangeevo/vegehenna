@@ -12,13 +12,13 @@ import org.btwr.vegehenna.util.falling_blocks.FallingBlockSupport;
 import org.btwr.vegehenna.util.api.FallingBlockAPI;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-public class FallingGourdBlockHandler {
+public class FallingBlockHandler {
 
-    private static final FallingGourdBlockHandler INSTANCE = new FallingGourdBlockHandler();
+    private static final FallingBlockHandler INSTANCE = new FallingBlockHandler();
 
-    private FallingGourdBlockHandler() {}
+    private FallingBlockHandler() {}
 
-    public static FallingGourdBlockHandler getInstance() {
+    public static FallingBlockHandler getInstance() {
         return INSTANCE;
     }
 

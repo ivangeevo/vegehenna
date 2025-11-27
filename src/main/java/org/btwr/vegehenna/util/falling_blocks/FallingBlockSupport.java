@@ -27,8 +27,9 @@ public class FallingBlockSupport {
             FallingBlockEntity.spawnFromBlock(world, pos, state);
         } else {
             // Unsupported surface → break instantly
-            world.breakBlock(pos, true);
+            //world.breakBlock(pos, !FallingBlockAPI.isSpecialDropping());
         }
+
         return true;
     }
 

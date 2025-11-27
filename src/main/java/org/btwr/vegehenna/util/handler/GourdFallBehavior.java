@@ -4,17 +4,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import org.btwr.vegehenna.util.api.FallingBlockAPI;
 
 import java.util.List;
 
-public class GourdBlockHandler {
+public class GourdFallBehavior {
 
     private static final List<Block> GOURD_BLOCKS = List.of(Blocks.MELON, Blocks.PUMPKIN);
 
     public static void registerFallingBehavior() {
-
         for (var entry : GOURD_BLOCKS) {
             FallingBlockAPI.registerFallingBlock(entry, (world, pos, state, entity) -> {
                 int fallDistance = 0;
@@ -33,19 +31,15 @@ public class GourdBlockHandler {
                 boolean canBreak = fallDistance >= 5 && canChanceBreak;
                 boolean shouldBreak = fallDistance >= 15 || canBreak;
 
-                boolean isUnevenLandingSurface = !state.isSolidBlock(world, checkPos) || landingState.getCollisionShape(world, checkPos).getMax(Direction.Axis.Y) < 1.0f;
-
-                if (!isUnevenLandingSurface) {
+                if (!FallingBlockAPI.isUnevenLandingSurface(world, checkPos, state, landingState)) {
                     if (shouldBreak) {
-                        entity.setDestroyedOnLanding();
+                        //entity.setDestroyedOnLanding();
                     }
                 } else {
                     //Block.dropStacks(state, world, checkPos);
                 }
-
             });
         }
-
     }
 
 }
