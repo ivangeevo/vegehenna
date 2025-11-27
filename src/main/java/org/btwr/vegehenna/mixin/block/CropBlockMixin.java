@@ -15,6 +15,7 @@ import org.btwr.vegehenna.block.interfaces.DailyGrowthCrop;
 import org.btwr.vegehenna.tag.ModTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -26,6 +27,8 @@ public abstract class CropBlockMixin extends PlantBlock implements CropBlockAdde
     @Shadow protected abstract IntProperty getAgeProperty();
     @Shadow public abstract int getMaxAge();
 
+    @Unique private boolean isDailyGrowthCrop = false;
+
     public CropBlockMixin(Settings settings) {
         super(settings);
     }
@@ -33,6 +36,7 @@ public abstract class CropBlockMixin extends PlantBlock implements CropBlockAdde
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(Settings settings, CallbackInfo ci) {
         if (this.getDefaultState().isIn(ModTags.Blocks.DAILY_GROWTH_CROPS)) {
+            this.isDailyGrowthCrop = true;
             this.setDefaultState(
                     this.getStateManager().getDefaultState()
                             .with(this.getAgeProperty(), 0)
@@ -43,7 +47,9 @@ public abstract class CropBlockMixin extends PlantBlock implements CropBlockAdde
 
     @Inject(method = "appendProperties", at = @At("HEAD"))
     private void onAppendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo ci) {
-        builder.add(HAS_GROWN_TODAY);
+        if (this.isDailyGrowthCrop) {
+            builder.add(HAS_GROWN_TODAY);
+        }
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
