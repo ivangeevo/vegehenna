@@ -28,6 +28,10 @@ public class ModTags {
 
     public static class Blocks {
 
+        /** Common block tag for blocks that have a HAS_GROWN_TODAY blockstate property attached. **/
+        public static final TagKey<Block> DAILY_GROWTH_CROPS = createTag("daily_growth_crops");
+
+
         public static final TagKey<Block> REEDS_CAN_PLANT_ON =  createTag("reeds_can_plant_on");
 
         /** Common block tag for gourd blocks. Normally used to mark them for falling block modification behavior. **/
@@ -35,7 +39,6 @@ public class ModTags {
 
         /** Common block tag for blocks that need support under them to stay in place. This is mostly used for falling blocks **/
         public static final TagKey<Block> NEEDS_SUPPORT_BLOCK = createTag("needs_support_block");
-
 
         private static TagKey<Block> createTag (String name) {
             return TagKey.of(RegistryKeys.BLOCK, Identifier.of(VegehennaMod.MOD_ID, name));

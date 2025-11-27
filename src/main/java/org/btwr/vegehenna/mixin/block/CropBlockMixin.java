@@ -12,6 +12,7 @@ import net.minecraft.world.dimension.DimensionTypes;
 import org.btwr.shared_library.tag.BTWRConventionalTags;
 import org.btwr.vegehenna.block.interfaces.CropBlockAdded;
 import org.btwr.vegehenna.block.interfaces.DailyGrowthCrop;
+import org.btwr.vegehenna.tag.ModTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
@@ -31,13 +32,13 @@ public abstract class CropBlockMixin extends PlantBlock implements CropBlockAdde
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(Settings settings, CallbackInfo ci) {
-        // Don't add HAS_GROWN_TODAY property for TorchFlowerBlock
-        if ((CropBlock)(Object)this instanceof TorchflowerBlock) return;
-        this.setDefaultState(
-                this.getStateManager().getDefaultState()
-                        .with(this.getAgeProperty(), 0)
-                        .with(HAS_GROWN_TODAY, false)
-        );
+        if (this.getDefaultState().isIn(ModTags.Blocks.DAILY_GROWTH_CROPS)) {
+            this.setDefaultState(
+                    this.getStateManager().getDefaultState()
+                            .with(this.getAgeProperty(), 0)
+                            .with(HAS_GROWN_TODAY, false)
+            );
+        }
     }
 
     @Inject(method = "appendProperties", at = @At("HEAD"))

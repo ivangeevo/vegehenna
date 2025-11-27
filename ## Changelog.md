@@ -1,4 +1,6 @@
 ## 0.5(dev)
++ Added a new mod block tag "DAILY_GROWTH_CROPS" which holds all crops which grow only once a day.
++ Changed back melons and pumpkins to not be falling blocks anymore. It turns out making this work properly is more of a hassle than I originally thought, so it's getting pushed back.
 + Changed the recipe for wheat seeds from wheat to use the new ExtendedShapelessRecipe from BTWR:SL 0.60–0.61
 + Changed brown and red mushrooms to grow exactly like they do in BTW:
 <p> 1. Brown mushrooms now will grow only in the overworld.
@@ -6,8 +8,9 @@
 <p> 2. Red mushrooms have been changed to not be able to grow in The End.
 <p> 3. When growing on Mycelium they have a chance to sprout into big mushrooms. 
 
-+ Fixed a bug with falling particles being able to spawn from falling gourd blocks
-+ Updated the mod to Fabric API 0.116.7, Fabric Loader 0.17.3 & BTWR: Shared Library 1.0
++ Changed mod license in the source code to be CC-BY-4.0
++ Fixed a bug with crops from other mods crashing the game because of them not having the HAS_GROWN_TODAY flag, which is fixed by the new "DAILY_GROWTH_CROPS" block tag
++ Updated the mod to Fabric API 0.116.7, Fabric Loader 0.17.3 & BTWR: Shared Library 0.6.4
 
 ## 0.4.2
 + Fixed the pumpkin to actually fall as a falling block

@@ -50,6 +50,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     }
 
     private void addToModTags() {
+        getOrCreateTagBuilder(ModTags.Blocks.DAILY_GROWTH_CROPS)
+                .add(Blocks.WHEAT)
+                .add(Blocks.PITCHER_CROP)
+                .add(Blocks.CARROTS)
+                .add(Blocks.BEETROOTS);
+
         getOrCreateTagBuilder(ModTags.Blocks.REEDS_CAN_PLANT_ON)
                 .forceAddTag(BlockTags.DIRT)
                 .forceAddTag(BlockTags.SAND)
