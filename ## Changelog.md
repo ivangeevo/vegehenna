@@ -1,4 +1,4 @@
-## 0.5(dev)
+## 0.5
 + Added a new mod block tag "DAILY_GROWTH_CROPS" which holds all crops which grow only once a day.
 + Changed back melons and pumpkins to not be falling blocks anymore. It turns out making this work properly is more of a hassle than I originally thought, so it's getting pushed back.
 + Changed the recipe for wheat seeds from wheat to use the new ExtendedShapelessRecipe from BTWR:SL 0.60–0.61
