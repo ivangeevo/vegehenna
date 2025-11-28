@@ -1,3 +1,6 @@
+## v0.5.1(dev)
++ Updated the mod to BTWR: Shared Library 0.6.5
+
 ## 0.5
 + Added a new mod block tag "DAILY_GROWTH_CROPS" which holds all crops which grow only once a day.
 + Changed back melons and pumpkins to not be falling blocks anymore. It turns out making this work properly is more of a hassle than I originally thought, so it's getting pushed back.
