@@ -1,4 +1,5 @@
 ## v???(dev)
++ Fixed a bug where crops would crash the game because of an issue with a fix I tried to implement in the previous version
 + Updated the mod to BTWR: Shared Library 0.6.5
 
 ## 0.5

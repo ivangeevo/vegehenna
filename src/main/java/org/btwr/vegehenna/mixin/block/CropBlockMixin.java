@@ -47,9 +47,7 @@ public abstract class CropBlockMixin extends PlantBlock implements CropBlockAdde
 
     @Inject(method = "appendProperties", at = @At("HEAD"))
     private void onAppendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo ci) {
-        if (this.isDailyGrowthCrop) {
-            builder.add(HAS_GROWN_TODAY);
-        }
+        builder.add(HAS_GROWN_TODAY);
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
