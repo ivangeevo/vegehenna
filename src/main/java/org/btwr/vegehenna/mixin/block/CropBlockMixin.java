@@ -27,8 +27,6 @@ public abstract class CropBlockMixin extends PlantBlock implements CropBlockAdde
     @Shadow protected abstract IntProperty getAgeProperty();
     @Shadow public abstract int getMaxAge();
 
-    @Unique private boolean isDailyGrowthCrop = false;
-
     public CropBlockMixin(Settings settings) {
         super(settings);
     }
@@ -36,7 +34,6 @@ public abstract class CropBlockMixin extends PlantBlock implements CropBlockAdde
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(Settings settings, CallbackInfo ci) {
         if (this.getDefaultState().isIn(ModTags.Blocks.DAILY_GROWTH_CROPS)) {
-            this.isDailyGrowthCrop = true;
             this.setDefaultState(
                     this.getStateManager().getDefaultState()
                             .with(this.getAgeProperty(), 0)
