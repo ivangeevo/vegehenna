@@ -9,7 +9,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.world.dimension.DimensionTypes;
-import org.btwr.shared_library.tag.BTWRConventionalTags;
+import org.btwr.shared_library.api.tag.BTWRConventionalTags;
 import org.btwr.vegehenna.block.interfaces.CropBlockAdded;
 import org.btwr.vegehenna.block.interfaces.DailyGrowthCrop;
 import org.btwr.vegehenna.tag.ModTags;
