@@ -1,4 +1,7 @@
 ## v???(dev)
+[WIP] Added weeds!
+[WIP] Fixed sugar cane not being placeable next to waterlogged blocks like slabs or others that would normally consider that space having water
++ Updated the mod to Fabric API 0.116.9, Fabric Loader 0.18.4 & BTWR: Shared Library 0.8.2
 
 ## v0.5.2
 + Updated the mod to BTWR: Shared Library 0.7
