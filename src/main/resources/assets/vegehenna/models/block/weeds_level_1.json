@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/crop",
-  "textures": {
-    "crop": "vegehenna:block/weeds_level_1"
-  }
-}
