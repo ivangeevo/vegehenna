@@ -26,7 +26,6 @@ public class VegehennaMod implements ModInitializer {
 
         // Vanilla gourds fall like falling blocks
         //GourdFallBehavior.registerFallingBehavior();
-
     }
 
 }

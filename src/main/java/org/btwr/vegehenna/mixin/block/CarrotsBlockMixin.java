@@ -8,6 +8,8 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import org.btwr.vegehenna.block.blocks.WeedsBlock;
+import org.btwr.vegehenna.entity.block.WeedsBlockEntity;
 import org.btwr.vegehenna.item.ModItems;
 import org.btwr.vegehenna.block.interfaces.DailyGrowthCrop;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,6 +32,12 @@ public abstract class CarrotsBlockMixin extends CropBlock implements DailyGrowth
     @Inject(method = "getOutlineShape", at = @At("HEAD"), cancellable = true)
     private void injectedShapes(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir)
     {
+        if (world.getBlockEntity(pos.down()) instanceof WeedsBlockEntity weedsBE) {
+            if (weedsBE.getLevel() >= 1) {
+                cir.setReturnValue(WeedsBlock.SHAPE);
+                return;
+            }
+        }
         cir.setReturnValue(NEW_CARROTS_AGE_TO_SHAPE[this.getAge(state)]);
     }
 

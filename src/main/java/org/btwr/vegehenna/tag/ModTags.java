@@ -40,6 +40,9 @@ public class ModTags {
         /** Common block tag for blocks that need support under them to stay in place. This is mostly used for falling blocks **/
         public static final TagKey<Block> NEEDS_SUPPORT_BLOCK = createTag("needs_support_block");
 
+        /** Crop blocks that can grow weeds **/
+        public static final TagKey<Block> CAN_GROW_WEEDS = createTag("can_grow_weeds");
+
         private static TagKey<Block> createTag (String name) {
             return TagKey.of(RegistryKeys.BLOCK, Identifier.of(VegehennaMod.MOD_ID, name));
         }

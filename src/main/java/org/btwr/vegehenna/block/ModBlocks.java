@@ -44,7 +44,9 @@ public class ModBlocks {
             new WeedsBlock(Block.Settings.create()
                     .strength(0f)
                     .ticksRandomly()
-                    .sounds(BlockSoundGroup.GRASS)));
+                    .sounds(BlockSoundGroup.GRASS)
+            )
+    );
 
     public static final Block BREAD_DOUGH = registerBlockWithoutItem("bread_dough",
             new BreadDoughBlock(Block.Settings.create()

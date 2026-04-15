@@ -66,6 +66,14 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(ModTags.Blocks.GOURD_BLOCKS)
                 .add(Blocks.MELON)
                 .add(Blocks.PUMPKIN);
+
+        getOrCreateTagBuilder(ModTags.Blocks.CAN_GROW_WEEDS)
+                .add(Blocks.BEETROOTS)
+                .add(Blocks.CARROTS)
+                .add(Blocks.POTATOES)
+                .add(Blocks.WHEAT)
+                .add(Blocks.MELON_STEM)
+                .add(Blocks.PUMPKIN_STEM);
     }
 
     private void addToConventionalTags() {

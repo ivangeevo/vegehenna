@@ -10,12 +10,15 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.btwr.shared_library.api.tag.BTWRConventionalTags;
+import org.btwr.vegehenna.block.blocks.WeedsBlock;
+import org.btwr.vegehenna.entity.block.WeedsBlockEntity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,8 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Optional;
 
 @Mixin(StemBlock.class)
-public abstract class StemBlockMixin extends PlantBlock
-{
+public abstract class StemBlockMixin extends PlantBlock {
     @Shadow @Final public static IntProperty AGE;
     @Shadow public abstract boolean canGrow(World world, Random random, BlockPos pos, BlockState state);
     @Shadow @Final private RegistryKey<Block> gourdBlock;
@@ -40,9 +42,25 @@ public abstract class StemBlockMixin extends PlantBlock
         super(settings);
     }
 
+    @Inject(method = "getOutlineShape", at = @At("HEAD"), cancellable = true)
+    private void getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir) {
+        if (world.getBlockEntity(pos.down()) instanceof WeedsBlockEntity weedsBE) {
+            if (weedsBE.getLevel() > 0) {
+                cir.setReturnValue(WeedsBlock.SHAPE);
+            }
+        }
+    }
+
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID) && state.isOf(this)) {
+            // Stop ticking if weeds are present
+            BlockPos posBelow = pos.down();
+            if (world.getBlockEntity(posBelow) instanceof WeedsBlockEntity be && be.getLevel() > 0) {
+                ci.cancel();
+                return;
+            }
+
             checkForGrowth(world, pos, state, random);
         }
         ci.cancel();

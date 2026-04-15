@@ -10,8 +10,10 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.btwr.shared_library.api.tag.BTWRConventionalTags;
+import org.btwr.vegehenna.block.blocks.WeedsBlock;
 import org.btwr.vegehenna.block.interfaces.CropBlockAdded;
 import org.btwr.vegehenna.block.interfaces.DailyGrowthCrop;
+import org.btwr.vegehenna.entity.block.WeedsBlockEntity;
 import org.btwr.vegehenna.tag.ModTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -49,8 +51,15 @@ public abstract class CropBlockMixin extends PlantBlock implements CropBlockAdde
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void injectedRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if ((CropBlock)(Object)this instanceof TorchflowerBlock) return;
-        // TODO: Move the dimension check for crops only for the modpack?. idk
+
         if (!(world.getDimensionEntry().matchesId(DimensionTypes.THE_END_ID)) && state.isOf(this)) {
+            // Stop ticking if weeds are present
+            BlockPos posBelow = pos.down();
+            if (world.getBlockEntity(posBelow) instanceof WeedsBlockEntity be && be.getLevel() > 0) {
+                ci.cancel();
+                return;
+            }
+
             if (state.getBlock() instanceof DailyGrowthCrop) {
                 attemptToGrow(world, pos, state);
             }
@@ -63,6 +72,11 @@ public abstract class CropBlockMixin extends PlantBlock implements CropBlockAdde
     @Inject(method = "getOutlineShape", at = @At("HEAD"), cancellable = true)
     private void injectedGetOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir)
     {
+        if (world.getBlockEntity(pos.down()) instanceof WeedsBlockEntity weedsBE) {
+            if (weedsBE.getLevel() >= 1) {
+                cir.setReturnValue(WeedsBlock.SHAPE);
+            }
+        }
         cir.setReturnValue(NEW_DEFAULT_AGE_TO_SHAPE[this.getAge(state)]);
     }
 

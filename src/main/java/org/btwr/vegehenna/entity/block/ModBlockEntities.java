@@ -1,21 +1,20 @@
 package org.btwr.vegehenna.entity.block;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import org.btwr.vegehenna.VegehennaMod;
-import org.btwr.vegehenna.block.ModBlocks;
 
 public class ModBlockEntities {
 
-    public static BlockEntityType<WeedsBlockEntity> WEEDS;
+    public static BlockEntityType<WeedsBlockEntity> WEEDED_FARMLAND;
 
     public static void registerBlockEntities() {
-        WEEDS = Registry.register(
+        WEEDED_FARMLAND = Registry.register(
                 Registries.BLOCK_ENTITY_TYPE,
-                Identifier.of(VegehennaMod.MOD_ID, "weeds"),
-                BlockEntityType.Builder.create(WeedsBlockEntity::new, ModBlocks.WEEDS).build(null)
+                Identifier.ofVanilla("farmland"),
+                BlockEntityType.Builder.create(WeedsBlockEntity::new, Blocks.FARMLAND).build(null)
         );
     }
 
