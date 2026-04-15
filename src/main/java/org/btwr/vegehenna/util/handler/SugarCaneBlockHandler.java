@@ -14,6 +14,8 @@ import net.minecraft.world.dimension.DimensionTypes;
 import org.btwr.vegehenna.block.ModBlocks;
 import org.btwr.vegehenna.tag.ModTags;
 
+import static net.minecraft.state.property.Properties.WATERLOGGED;
+
 public class SugarCaneBlockHandler {
 
     final static SugarCaneBlockHandler INSTANCE = new SugarCaneBlockHandler();
@@ -40,7 +42,7 @@ public class SugarCaneBlockHandler {
                 int reedHeight = 1;
                 BlockPos posAtBase = pos.down();
 
-                // Calculate whole reed plant height
+                // Calculate the whole reed plant height
                 while (reedHeight < MAX_HEIGHT && isSugarCaneTypeBlock(world.getBlockState(posAtBase).getBlock())) {
                     reedHeight++;
                     posAtBase = posAtBase.down(); // Move one block down each iteration
@@ -66,7 +68,8 @@ public class SugarCaneBlockHandler {
         for (int i = pos.getX() - 1; i <= pos.getX() + 1; i++) {
             for (int j = pos.getZ() - 1; j <= pos.getZ() + 1; j++) {
                 BlockPos tempPos = new BlockPos(i, pos.getY(), j);
-                if (world.getBlockState(tempPos).getBlock() == Blocks.WATER) {
+                BlockState tempState = world.getBlockState(tempPos);
+                if (tempState.getBlock() == Blocks.WATER || tempState.get(WATERLOGGED)) {
                     return true;
                 }
             }
