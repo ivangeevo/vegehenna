@@ -69,7 +69,8 @@ public class SugarCaneBlockHandler {
             for (int j = pos.getZ() - 1; j <= pos.getZ() + 1; j++) {
                 BlockPos tempPos = new BlockPos(i, pos.getY(), j);
                 BlockState tempState = world.getBlockState(tempPos);
-                if (tempState.getBlock() == Blocks.WATER || tempState.get(WATERLOGGED)) {
+                boolean isWaterlogged = tempState.contains(WATERLOGGED) && tempState.get(WATERLOGGED);
+                if (tempState.getBlock() == Blocks.WATER || isWaterlogged) {
                     return true;
                 }
             }
