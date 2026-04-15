@@ -25,12 +25,8 @@ public class WeedsBlockEntityRenderer implements BlockEntityRenderer<WeedsBlockE
     }
 
     @Override
-    public void render(WeedsBlockEntity entity,
-                       float tickDelta,
-                       MatrixStack matrices,
-                       VertexConsumerProvider vertexConsumers,
-                       int light,
-                       int overlay
+    public void render(WeedsBlockEntity entity, float tickDelta, MatrixStack matrices,
+                       VertexConsumerProvider vertexConsumers, int light, int overlay
     )
     {
 
@@ -77,4 +73,5 @@ public class WeedsBlockEntityRenderer implements BlockEntityRenderer<WeedsBlockE
 
         matrices.pop();
     }
+
 }

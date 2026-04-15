@@ -14,7 +14,7 @@ public class FloweringCarrotBlock extends CarrotsBlock {
         super(settings);
     }
 
-    // Method is not actually identical to super since we modify the CarrotsBlock's seed item to be the Carrot Seeds
+    // Overriden from super since we modify the CarrotsBlock's seed item to be the Carrot Seeds
     @Override
     protected ItemConvertible getSeedsItem() {
         return Items.CARROT;
