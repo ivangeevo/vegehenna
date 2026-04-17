@@ -9,6 +9,7 @@ import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import org.btwr.shared_library.api.tag.BTWRConventionalTags;
 import org.btwr.vegehenna.block.ModBlocks;
+import org.btwr.vegehenna.block.blocks.WeedsBlock;
 import org.btwr.vegehenna.entity.block.WeedsBlockEntity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,10 +22,6 @@ import static net.minecraft.block.FarmlandBlock.MOISTURE;
 
 @Mixin(FarmlandBlock.class)
 public abstract class FarmlandBlockMixin extends Block implements BlockEntityProvider {
-
-    @Unique private static final int LIGHT_LEVEL_FOR_WEED_GROWTH = 11;
-    @Unique private static final long NIGHT_START = 14000L;
-    @Unique private static final long NIGHT_END = 22000L;
 
     public FarmlandBlockMixin(Settings settings) {
         super(settings);
@@ -60,39 +57,34 @@ public abstract class FarmlandBlockMixin extends Block implements BlockEntityPro
 
         int weedLevel = weedsBE.getLevel();
         long timeOfDay = world.getTimeOfDay() % 24000L;
-        boolean isNight = timeOfDay > NIGHT_START && timeOfDay < NIGHT_END;
+        boolean isNight = timeOfDay > WeedsBlock.NIGHT_START && timeOfDay < WeedsBlock.NIGHT_END;
 
         if (aboveState.isAir()) {
             if (world.getRandom().nextInt(20) == 0) {
                 world.setBlockState(cropPos, ModBlocks.WEEDS.getDefaultState());
             }
         } else if (canWeedsShareSpaceWith(aboveState)) {
-            updateForCropPresent(world, cropPos, weedsBE, isNight, weedLevel);
-        } else if (weedLevel > 0) {
-            weedsBE.removeWeeds();
-        }
-    }
-
-    @Unique
-    private void updateForCropPresent(ServerWorld world, BlockPos pos, WeedsBlockEntity weedsBE, boolean isNight, int weedLevel) {
-        if (isNight) {
-            if (weedLevel == 0) {
-                if (world.getRandom().nextInt(20) == 0
-                        && world.getLightLevel(LightType.SKY, pos) >= LIGHT_LEVEL_FOR_WEED_GROWTH) {
-                    weedsBE.setLevel(1);
-                }
-            } else if (weedLevel % 2 == 0) {
-                weedsBE.setLevel(weedLevel + 1);
-            }
-        } else {
-            if (world.getLightLevel(LightType.SKY, pos) >= LIGHT_LEVEL_FOR_WEED_GROWTH) {
-                if (weedLevel == 7) {
-                    weedsBE.removeWeeds();
-                    world.setBlockState(pos, Blocks.SHORT_GRASS.getDefaultState());
-                } else if (weedLevel % 2 == 1) {
+            if (isNight) {
+                if (weedLevel == 0) {
+                    if (world.getRandom().nextInt(20) == 0
+                            && world.getLightLevel(LightType.SKY, pos) >= WeedsBlock.LIGHT_LEVEL_FOR_WEED_GROWTH) {
+                        weedsBE.setLevel(1);
+                    }
+                } else if (weedLevel % 2 == 0) {
                     weedsBE.setLevel(weedLevel + 1);
                 }
+            } else {
+                if (world.getLightLevel(LightType.SKY, pos) >= WeedsBlock.LIGHT_LEVEL_FOR_WEED_GROWTH) {
+                    if (weedLevel == 7) {
+                        weedsBE.removeWeeds();
+                        world.setBlockState(pos, Blocks.SHORT_GRASS.getDefaultState());
+                    } else if (weedLevel % 2 == 1) {
+                        weedsBE.setLevel(weedLevel + 1);
+                    }
+                }
             }
+        } else if (weedLevel > 0) {
+            weedsBE.removeWeeds();
         }
     }
 
@@ -103,5 +95,4 @@ public abstract class FarmlandBlockMixin extends Block implements BlockEntityPro
                 || block instanceof StemBlock
                 || block instanceof AttachedStemBlock;
     }
-
 }
