@@ -1,5 +1,10 @@
 {
   "block.vegehenna.farmland_fertilized": "Fertilized Farmland",
+  "config.vegehenna.category.general": "General",
+  "config.vegehenna.text.clientSettingsText": "Client Settings:",
+  "config.vegehenna.text.emptyClientConfigText": "§eNote:§r There are currently no client config settings.",
+  "config.vegehenna.text.serverSettingsNoAccessText": "§eNote:§r Server settings are not accessible in menus.\nThey can only be changed by editing the config file manually and require a world reload to take effect.",
+  "config.vegehenna.text.serverSettingsText": "Server Settings:",
   "item.vegehenna.boiled_potato": "Boiled Potato",
   "item.vegehenna.bread_dough": "Bread Dough",
   "item.vegehenna.carrot_seeds": "Carrot Seeds",
@@ -14,5 +19,6 @@
   "item.vegehenna.pastry_uncooked_pumpkin_pie": "Oven Ready Pumpkin Pie",
   "item.vegehenna.straw": "Straw",
   "item.vegehenna.sugar_cane_roots": "Sugar Cane Roots",
-  "itemgroup.group_vegehenna": "Vegehenna"
+  "itemgroup.group_vegehenna": "Vegehenna",
+  "title.vegehenna.config": "Vegehenna Configuration Menu"
 }

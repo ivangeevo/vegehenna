@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import org.btwr.shared_library.api.tag.BTWRConventionalTags;
 import org.btwr.vegehenna.block.ModBlocks;
 import org.btwr.vegehenna.block.blocks.WeedsBlock;
+import org.btwr.vegehenna.config.VGModConfig;
 import org.btwr.vegehenna.entity.block.WeedsBlockEntity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,7 +38,9 @@ public abstract class FarmlandBlockMixin extends Block implements BlockEntityPro
 
     @Inject(method = "randomTick", at = @At("TAIL"))
     private void onRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        updateWeedGrowth(world, pos);
+        if (VGModConfig.canWeedsGrow.get()) {
+            updateWeedGrowth(world, pos);
+        }
     }
 
     @Override

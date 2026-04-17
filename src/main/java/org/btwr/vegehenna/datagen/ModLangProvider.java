@@ -15,11 +15,16 @@ public class ModLangProvider extends FabricLanguageProvider {
         super(dataOutput, registryLookup);
     }
 
+    private String configBasePath() {
+        return "config." + VegehennaMod.MOD_ID + ".";
+    }
+
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder tb) {
         addItemGroup("group_vegehenna", "Vegehenna", tb);
         this.addBlockTranslations(tb);
         this.addItemTranslations(tb);
+        this.addConfigTranslations(tb);
     }
 
     private void addBlockTranslations(TranslationBuilder tb) {
@@ -46,6 +51,23 @@ public class ModLangProvider extends FabricLanguageProvider {
         tb.add(ModItems.CHOCOLATE_MILK, "Chocolate Milk");
     }
 
+    private void addConfigTranslations(TranslationBuilder tb) {
+        this.addConfigMenuDefaults(tb);
+        this.addConfigMenuTitle("Vegehenna Configuration Menu", tb);
+        this.addConfigCategory("general", "General", tb);
+        //this.addConfig("canWeedsGrow", "Enable weeds growing", tb);
+        //this.addConfigTooltip("canWeedsGrow", "Toggles whether weeds can grow on crops/farmland", tb);
+    }
+
+    private void addConfigMenuDefaults(TranslationBuilder tb) {
+        this.addSimpleText("clientSettingsText", "Client Settings:", tb);
+        this.addSimpleText("emptyClientConfigText", "§eNote:§r There are currently no client config settings.", tb);
+        this.addSimpleText("serverSettingsText", "Server Settings:", tb);
+        this.addSimpleText("serverSettingsNoAccessText", "§eNote:§r Server settings are not accessible in menus." +
+                "\nThey can only be changed by editing the config file manually and require a world reload to take effect.", tb
+        );
+    }
+
     private void addItemGroup(String entryPath, String translation, TranslationBuilder tb) {
         tb.add("itemgroup." + entryPath, translation);
     }
@@ -66,4 +88,7 @@ public class ModLangProvider extends FabricLanguageProvider {
         tb.add("config." + VegehennaMod.MOD_ID + ".tooltip." + configPath, translation);
     }
 
+    private void addSimpleText(String path, String translation, TranslationBuilder tb) {
+        tb.add(configBasePath() + "text." + path, translation);
+    }
 }

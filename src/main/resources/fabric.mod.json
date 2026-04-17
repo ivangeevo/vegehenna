@@ -14,7 +14,8 @@
   "entrypoints": {
     "client": ["org.btwr.vegehenna.VegehennaModClient"],
     "main": ["org.btwr.vegehenna.VegehennaMod"],
-    "fabric-datagen": ["org.btwr.vegehenna.VegehennaDataGenerator"]
+    "fabric-datagen": ["org.btwr.vegehenna.VegehennaDataGenerator"],
+    "modmenu": ["org.btwr.vegehenna.config.VGModMenu"]
   },
   "mixins": [
     "vegehenna.mixins.json"
