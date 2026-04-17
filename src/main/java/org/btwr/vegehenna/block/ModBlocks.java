@@ -20,7 +20,8 @@ public class ModBlocks {
                     .strength(0.6f)
                     .sounds(BlockSoundGroup.GRAVEL)
                     .blockVision(Blocks::always)
-                    .suffocates(Blocks::always)));
+                    .suffocates(Blocks::always))
+    );
 
     public static final Block CARROT_FLOWERING = registerBlockWithoutItem("carrot_flowering",
             new FloweringCarrotBlock(Block.Settings.create()
@@ -29,7 +30,8 @@ public class ModBlocks {
                     .ticksRandomly()
                     .breakInstantly()
                     .sounds(BlockSoundGroup.CROP)
-                    .pistonBehavior(PistonBehavior.DESTROY)));
+                    .pistonBehavior(PistonBehavior.DESTROY))
+    );
 
     public static final Block SUGAR_CANE_ROOTS = registerBlockWithoutItem("sugar_cane_roots",
             new SugarCaneRootsBlock(Block.Settings.create()
@@ -38,7 +40,8 @@ public class ModBlocks {
                     .ticksRandomly()
                     .breakInstantly()
                     .sounds(BlockSoundGroup.GRASS)
-                    .pistonBehavior(PistonBehavior.DESTROY)));
+                    .pistonBehavior(PistonBehavior.DESTROY))
+    );
 
     public static final Block WEEDS = registerBlockWithoutItem("weeds",
             new WeedsBlock(Block.Settings.create()
@@ -52,13 +55,15 @@ public class ModBlocks {
             new BreadDoughBlock(Block.Settings.create()
                     .strength(0f)
                     .sounds(BlockSoundGroup.SLIME)
-                    .pistonBehavior(PistonBehavior.NORMAL)));
+                    .pistonBehavior(PistonBehavior.NORMAL))
+    );
 
     public static final Block UNCOOKED_CAKE = registerBlockWithoutItem("uncooked_cake",
             new UncookedCakeBlock(Block.Settings.create()
                     .strength(0f)
                     .sounds(BlockSoundGroup.SLIME)
-                    .pistonBehavior(PistonBehavior.NORMAL)));
+                    .pistonBehavior(PistonBehavior.NORMAL))
+    );
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
