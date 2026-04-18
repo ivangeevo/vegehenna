@@ -35,7 +35,7 @@ public class ModUsageEvents {
 
         if (canWeedsShareSpaceWith(state)) {
             if (world.isClient) {
-                return ActionResult.PASS;
+                return ActionResult.SUCCESS;
             }
 
             if (world.getBlockEntity(pos.down()) instanceof WeedsBlockEntity weedsBE) {
