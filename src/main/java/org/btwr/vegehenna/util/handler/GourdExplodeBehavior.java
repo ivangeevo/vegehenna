@@ -5,6 +5,8 @@ import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -22,68 +24,13 @@ import org.btwr.vegehenna.util.api.FallingBlockAPI;
 
 import java.util.List;
 
-public class GourdFallBehavior {
+public class GourdExplodeBehavior {
 
     private static final List<Block> GOURD_BLOCKS = List.of(Blocks.MELON, Blocks.PUMPKIN);
 
     public static void register() {
         for (var entry : GOURD_BLOCKS) {
             FallingBlockAPI.registerFallingBlock(entry, ((world, pos, state, entity) -> {}));
-            /**
-            FallingBlockAPI.registerLandingBlock(entry, (world, pos, state, entity, blocksFallen) -> {
-                BlockState atPos = world.getBlockState(pos);
-                BlockState above = world.getBlockState(pos.up());
-
-                boolean isPlantAbove = above.getBlock() instanceof PlantBlock;
-                boolean isPlantAtPos = atPos.getBlock() instanceof PlantBlock;
-                boolean isPlant = isPlantAtPos || isPlantAbove;
-                BlockPos plantPos = isPlantAbove ? pos.up() : pos;
-
-                boolean isUnevenSurface = atPos.getCollisionShape(world, pos)
-                        .getMax(Direction.Axis.Y) < 1.0f && !FallingBlock.canFallThrough(atPos);
-
-                boolean canChanceBreak = world.random.nextFloat() < (blocksFallen - 5) / 10f;
-                boolean shouldBreak = blocksFallen >= 15 || (blocksFallen >= 5 && canChanceBreak);
-
-                if (isPlant) {
-                    Block.dropStacks(world.getBlockState(plantPos), world, plantPos);
-                    world.setBlockState(plantPos, Blocks.AIR.getDefaultState());
-
-                    BlockState underCrop = world.getBlockState(plantPos.down());
-                    if (underCrop.isIn(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS)) {
-                        WorldUtils.setFarmlandToDirt(entity, state, world, plantPos.down());
-                    }
-
-                    if (shouldBreak) {
-                        if (state.isOf(Blocks.MELON)) {
-                            onGourdFallDestroyed(world, state, entity.getBoundingBox(), ModItems.MASHED_MELON, 2);
-                        }
-                        if (state.isOf(Blocks.PUMPKIN)) {
-                            onGourdFallDestroyed(world, state, entity.getBoundingBox(), Items.PUMPKIN_SEEDS, 2);
-                        }
-                        entity.discard();
-                    } else {
-                        world.setBlockState(plantPos, state);
-                        entity.discard();
-                    }
-                } else if (shouldBreak) {
-                    if (state.isOf(Blocks.MELON)) {
-                        onGourdFallDestroyed(world, state, entity.getBoundingBox(), ModItems.MASHED_MELON, 2);
-                    }
-                    if (state.isOf(Blocks.PUMPKIN)) {
-                        onGourdFallDestroyed(world, state, entity.getBoundingBox(), Items.PUMPKIN_SEEDS, 2);
-                    }
-                    entity.discard();
-                } else if (isUnevenSurface) {
-                    // Couldn't place on uneven surface, not enough fall to break — drop as normal item
-                    entity.dropItem(state.getBlock());
-                    entity.discard();
-                } else {
-                    world.setBlockState(pos, state);
-                    entity.discard();
-                }
-            });
-             **/
             FallingBlockAPI.registerLandingBlock(entry, (world, pos, state, entity, blocksFallen) -> {
                 BlockState atPos = world.getBlockState(pos);
                 BlockState above = world.getBlockState(pos.up());
@@ -134,22 +81,71 @@ public class GourdFallBehavior {
 
     private static void smashGourd(ServerWorld world, BlockState state, FallingBlockEntity entity) {
         Item drop = state.isOf(Blocks.MELON) ? ModItems.MASHED_MELON : Items.PUMPKIN_SEEDS;
-        onGourdFallDestroyed(world, state, entity.getBoundingBox(), drop, 2);
+        explode(world, state, entity.getBoundingBox(), drop);
         entity.discard();
     }
 
-    private static void onGourdFallDestroyed(World world, BlockState state, Box boundingBox, Item drop, int count) {
+    public static void explode(World world, BlockState state, Box boundingBox, Item drop) {
         Vec3d pos = boundingBox.getCenter();
         BlockPos dropPos = BlockPos.ofFloored(pos);
 
-        // Drops on fall break
-        Block.dropStack(world, dropPos, new ItemStack(drop, count));
+        if (world instanceof ServerWorld serverWorld) {
+            for (int i = 0; i < 150; i++) {
+                double particleX = dropPos.getX() + world.getRandom().nextDouble() - 0.5D;
+                double particleY = dropPos.getY() - 0.45D;
+                double particleZ = dropPos.getZ() + world.getRandom().nextDouble() - 0.5D;
 
-        world.addBlockBreakParticles(BlockPos.ofFloored(pos), state);
+                double particleVelX = (world.getRandom().nextDouble() - 0.5D) * 0.5D;
+                double particleVelY = world.getRandom().nextDouble() * 0.7D;
+                double particleVelZ = (world.getRandom().nextDouble() - 0.5D) * 0.5D;
+
+                serverWorld.spawnParticles(
+                        new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(getGourdParticleItem(state))),
+                        particleX, particleY, particleZ,
+                        1, // count — set to 1 since we're looping manually
+                        particleVelX, particleVelY, particleVelZ,
+                        0 // speed
+                );
+            }
+        }
+
         world.emitGameEvent(ModEvents.GOURD_EXPLODE, dropPos, GameEvent.Emitter.of(state));
-        world.playSound(null, dropPos, ModSoundEvents.GOURD_EXPLODE, SoundCategory.BLOCKS, 0.1F,
-                0.40F + (world.getRandom().nextFloat() * 0.25F)
+        world.playSound(null, dropPos, ModSoundEvents.GOURD_EXPLODE, SoundCategory.BLOCKS,
+                0.2F, 0.60F + (world.getRandom().nextFloat() * 0.25F)
         );
+        world.playSound(null, dropPos, ModSoundEvents.GOURD_EXPLODE_LAYER, SoundCategory.BLOCKS,
+                1.0F, (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.2F + 0.6F
+        );
+
+        Block.dropStack(world, dropPos, new ItemStack(drop, getGourdDropItemCount(state)));
+    }
+
+    public static void onProjectileHit(World world, BlockState state, BlockPos blockPos) {
+        world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
+        explode(world, state, new Box(blockPos), getGourdDrop(state));
+    }
+
+    public static void onProjectileWeakHit(World world, BlockPos blockPos) {
+        world.playSound(null, blockPos, ModSoundEvents.GOURD_IMPACT, SoundCategory.BLOCKS,
+                0.1F, 0.40F + (world.getRandom().nextFloat() * 0.25F));
+    }
+
+    private static Item getGourdDrop(BlockState state) {
+        if (state.isOf(Blocks.MELON)) return ModItems.MASHED_MELON;
+        if (state.isOf(Blocks.PUMPKIN)) return Items.PUMPKIN_SEEDS;
+        return ModItems.MASHED_MELON;
+    }
+
+    private static Item getGourdParticleItem(BlockState state) {
+        if (state.isOf(Blocks.MELON)) return ModItems.MASHED_MELON;
+        if (state.isOf(Blocks.PUMPKIN)) return ModItems.COOKED_CARROT;
+        return ModItems.MASHED_MELON;
+    }
+
+    private static int getGourdDropItemCount(BlockState state) {
+        if (state.isOf(Blocks.MELON)) return 2;
+        if (state.isOf(Blocks.PUMPKIN)) return 4;
+        return 2;
     }
 
 }

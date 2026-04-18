@@ -8,6 +8,8 @@ import org.btwr.shared_library.util.utils.IdUtils;
 
 public class ModSoundEvents {
     public static final SoundEvent GOURD_EXPLODE = register("gourd_explode");
+    public static final SoundEvent GOURD_EXPLODE_LAYER = register("gourd_explode_layer");
+    public static final SoundEvent GOURD_IMPACT = register("gourd_impact");
 
     private static SoundEvent register(String name) {
         Identifier id = IdUtils.ofVG(name);

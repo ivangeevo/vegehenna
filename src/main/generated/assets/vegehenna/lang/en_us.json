@@ -24,5 +24,6 @@
   "item.vegehenna.sugar_cane_roots": "Sugar Cane Roots",
   "itemgroup.group_vegehenna": "Vegehenna",
   "subtitles.vegehenna.gourd_explode": "Gourd explodes",
+  "subtitles.vegehenna.gourd_impact": "Gourd hit with something",
   "title.vegehenna.config": "Vegehenna Configuration Menu"
 }

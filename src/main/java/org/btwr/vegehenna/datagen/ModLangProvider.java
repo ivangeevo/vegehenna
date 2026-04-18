@@ -27,6 +27,7 @@ public class ModLangProvider extends FabricLanguageProvider {
         this.addConfigTranslations(tb);
         this.addEmiTranslations(tb);
         tb.add("subtitles.vegehenna.gourd_explode", "Gourd explodes");
+        tb.add("subtitles.vegehenna.gourd_impact", "Gourd hit with something");
     }
 
     private void addBlockTranslations(TranslationBuilder tb) {

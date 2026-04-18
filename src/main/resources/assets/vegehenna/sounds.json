@@ -7,5 +7,22 @@
         "type": "event"
       }
     ]
+  },
+  "gourd_explode_layer": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.slime.attack",
+        "type": "event"
+      }
+    ]
+  },
+  "gourd_impact": {
+    "subtitle": "subtitles.vegehenna.gourd_impact",
+    "sounds": [
+      {
+        "name": "minecraft:entity.zombie.attack_wooden_door",
+        "type": "event"
+      }
+    ]
   }
 }
