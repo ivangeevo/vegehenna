@@ -4,11 +4,11 @@ import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FallingBlockEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import org.btwr.vegehenna.util.falling_blocks.FallingBlockEntityHandler;
+import org.btwr.vegehenna.util.api.FallingBlockAPI;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -18,20 +18,46 @@ public abstract class FallingBlockEntityMixin extends Entity {
 
     @Shadow public abstract BlockState getBlockState();
 
-    @Unique private final FallingBlockEntityHandler handler = FallingBlockEntityHandler.getInstance();
-
     public FallingBlockEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/FallingBlockEntity;onDestroyedOnLanding(Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V"))
-    private void onBeforeLanding(CallbackInfo ci) {
-        handler.beforeDestroyedOnLanding(this.getWorld(), this.getBlockState(), this.getBoundingBox());
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"), cancellable = true)
+    private void onBeforePlacement(CallbackInfo ci) {
+        if (this.getWorld().isClient) return;
+        BlockState state = this.getBlockState();
+        if (!FallingBlockAPI.hasLandHandler(state)) return;
+
+        FallingBlockEntity self = (FallingBlockEntity)(Object) this;
+        int blocksFallen = self.getFallingBlockPos().getY() - this.getBlockPos().getY();
+
+        FallingBlockAPI.applyLandHandler(
+                (ServerWorld) this.getWorld(),
+                this.getBlockPos(),
+                state,
+                self,
+                blocksFallen
+        );
+        ci.cancel();
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/FallingBlockEntity;isOnGround()Z"))
-    private void checkUnsafeGourdLanding(CallbackInfo ci) {
-        FallingBlockEntityHandler.getInstance().checkUnsafeGourdLanding(this.getWorld(), this.getBlockPos(), this.getBlockState());
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/FallingBlockEntity;onDestroyedOnLanding(Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V"), cancellable = true)
+    private void onDestroyedOnLandingInject(CallbackInfo ci) {
+        if (this.getWorld().isClient) return;
+        BlockState state = this.getBlockState();
+        if (!FallingBlockAPI.hasLandHandler(state)) return;
+
+        FallingBlockEntity self = (FallingBlockEntity)(Object) this;
+        int blocksFallen = self.getFallingBlockPos().getY() - this.getBlockPos().getY();
+
+        FallingBlockAPI.applyLandHandler(
+                (ServerWorld) this.getWorld(),
+                this.getBlockPos(),
+                state,
+                self,
+                blocksFallen
+        );
+        ci.cancel();
     }
 
 }

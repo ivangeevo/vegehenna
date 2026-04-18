@@ -5,6 +5,9 @@
   "config.vegehenna.text.emptyClientConfigText": "§eNote:§r There are currently no client config settings.",
   "config.vegehenna.text.serverSettingsNoAccessText": "§eNote:§r Server settings are not accessible in menus.\nThey can only be changed by editing the config file manually and require a world reload to take effect.",
   "config.vegehenna.text.serverSettingsText": "Server Settings:",
+  "emi.category.vegehenna.gourd_fall_breaking": "Fall breaking",
+  "emi.vegehenna.tooltip.gourd_fall_breaking.chance": "Must fall 5+ blocks, chance increases with height",
+  "emi.vegehenna.tooltip.gourd_fall_breaking.guaranteed": "Guaranteed to break at 15+ blocks",
   "item.vegehenna.boiled_potato": "Boiled Potato",
   "item.vegehenna.bread_dough": "Bread Dough",
   "item.vegehenna.carrot_seeds": "Carrot Seeds",
@@ -20,5 +23,6 @@
   "item.vegehenna.straw": "Straw",
   "item.vegehenna.sugar_cane_roots": "Sugar Cane Roots",
   "itemgroup.group_vegehenna": "Vegehenna",
+  "subtitles.vegehenna.gourd_explode": "Gourd explodes",
   "title.vegehenna.config": "Vegehenna Configuration Menu"
 }

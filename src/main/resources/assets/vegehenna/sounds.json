@@ -1,0 +1,11 @@
+{
+  "gourd_explode": {
+    "subtitle": "subtitles.vegehenna.gourd_explode",
+    "sounds": [
+      {
+        "name": "minecraft:entity.zombie.attack_wooden_door",
+        "type": "event"
+      }
+    ]
+  }
+}

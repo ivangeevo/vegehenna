@@ -1,5 +1,8 @@
 ## v0.6(dev)
 + Added weeds! Crops have and farmland can grow weeds around them and need to be cleaned up regularly to not consume your produce. Disabled by default as it's an unfinished system by itself, but you can enable it if you'd like to.
++ Added EMI support for falling gourd recipes (Melon → mashed melon; Pumpkin → pumpkin seeds)
++ Added a custom sound event for gourds exploding when falling
++ Reintroduced falling gourd blocks
 + Fixed sugar cane roots not being placeable next to waterlogged blocks like slabs or others that would normally consider that space having water
 + Changed some mixin modifications to use Fabric events instead
 + Updated the mod to Fabric API 0.116.9, Fabric Loader 0.18.4 & BTWR: Shared Library 0.8.3

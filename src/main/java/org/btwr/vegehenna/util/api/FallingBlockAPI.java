@@ -16,6 +16,8 @@ public class FallingBlockAPI {
     /** Falling-like block registrations **/
     private static final Map<Block, FallHandler> FALLING_BLOCKS = new HashMap<>();
 
+    private static final Map<Block, LandHandler> LAND_HANDLERS = new HashMap<>();
+
     /**
      * Register a block as falling-like with a custom fall handler.
      */
@@ -23,11 +25,19 @@ public class FallingBlockAPI {
         FALLING_BLOCKS.put(block, handler);
     }
 
+    public static void registerLandingBlock(Block block, LandHandler handler) {
+        LAND_HANDLERS.put(block, handler);
+    }
+
     /**
      * Is the block registered as falling-like?
      */
     public static boolean isFallingLike(BlockState state) {
         return FALLING_BLOCKS.containsKey(state.getBlock());
+    }
+
+    public static boolean hasLandHandler(BlockState state) {
+        return LAND_HANDLERS.containsKey(state.getBlock());
     }
 
     /**
@@ -38,6 +48,15 @@ public class FallingBlockAPI {
         if (handler != null) {
             handler.onFall(world, pos, state, entity);
         }
+    }
+
+    public static boolean applyLandHandler(ServerWorld world, BlockPos pos, BlockState state, FallingBlockEntity entity, int blocksFallen) {
+        LandHandler handler = LAND_HANDLERS.get(state.getBlock());
+        if (handler != null) {
+            handler.onLand(world, pos, state, entity, blocksFallen);
+            return true;
+        }
+        return false;
     }
 
     /** Check if the position a falling block is about to land is considered uneven, aka not a full block **/
@@ -57,6 +76,11 @@ public class FallingBlockAPI {
          * @param entity The spawned FallingBlockEntity
          */
         void onFall(ServerWorld world, BlockPos pos, BlockState state, FallingBlockEntity entity);
+    }
+
+    @FunctionalInterface
+    public interface LandHandler {
+        void onLand(ServerWorld world, BlockPos landedPos, BlockState state, FallingBlockEntity entity, int blocksFallen);
     }
 
 }

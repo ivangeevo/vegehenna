@@ -25,6 +25,8 @@ public class ModLangProvider extends FabricLanguageProvider {
         this.addBlockTranslations(tb);
         this.addItemTranslations(tb);
         this.addConfigTranslations(tb);
+        this.addEmiTranslations(tb);
+        tb.add("subtitles.vegehenna.gourd_explode", "Gourd explodes");
     }
 
     private void addBlockTranslations(TranslationBuilder tb) {
@@ -49,6 +51,12 @@ public class ModLangProvider extends FabricLanguageProvider {
         tb.add(ModItems.COCOA_POWDER, "Cocoa Powder");
         tb.add(ModItems.CHOCOLATE, "Chocolate");
         tb.add(ModItems.CHOCOLATE_MILK, "Chocolate Milk");
+    }
+
+    protected void addEmiTranslations(TranslationBuilder tb) {
+        addEmiCategory("gourd_fall_breaking", "Fall breaking", tb);
+        addEmiTooltip("gourd_fall_breaking.chance", "Must fall 5+ blocks, chance increases with height", tb);
+        addEmiTooltip("gourd_fall_breaking.guaranteed", "Guaranteed to break at 15+ blocks", tb);
     }
 
     private void addConfigTranslations(TranslationBuilder tb) {
@@ -86,6 +94,14 @@ public class ModLangProvider extends FabricLanguageProvider {
 
     private void addConfigTooltip(String configPath, String translation, TranslationBuilder tb) {
         tb.add("config." + VegehennaMod.MOD_ID + ".tooltip." + configPath, translation);
+    }
+
+    protected void addEmiCategory(String key, String name, TranslationBuilder tb) {
+        tb.add("emi.category.vegehenna." + key, name);
+    }
+
+    protected void addEmiTooltip(String key, String name, TranslationBuilder tb) {
+        tb.add("emi.vegehenna.tooltip." + key, name);
     }
 
     private void addSimpleText(String path, String translation, TranslationBuilder tb) {

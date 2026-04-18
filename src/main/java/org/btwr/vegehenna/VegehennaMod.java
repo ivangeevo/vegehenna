@@ -6,6 +6,7 @@ import org.btwr.vegehenna.config.VGModConfig;
 import org.btwr.vegehenna.entity.block.ModBlockEntities;
 import org.btwr.vegehenna.event.ModEvents;
 import org.btwr.vegehenna.item.ModItems;
+import org.btwr.vegehenna.sound.ModSoundEvents;
 import org.btwr.vegehenna.util.handler.GourdFallBehavior;
 import org.btwr.vegehenna.util.handler.HasCropGrownHandler;
 import org.slf4j.Logger;
@@ -22,15 +23,15 @@ public class VegehennaMod implements ModInitializer {
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
         VegehennaItemGroup.registerItemGroups();
+        ModSoundEvents.register();
         ModEvents.register();
         VGModConfig.register();
 
         // Resets growth flag for daily growth crops when night is skipped forcefully
         HasCropGrownHandler.register();
 
-
         // Vanilla gourds fall like falling blocks
-        GourdFallBehavior.registerFallingBehavior();
+        GourdFallBehavior.register();
     }
 
 }

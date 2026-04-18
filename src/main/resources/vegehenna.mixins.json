@@ -14,7 +14,6 @@
     "block.CocoaBlockMixin",
     "block.CropBlockMixin",
     "FallingBlockEntityMixin",
-    "block.FallingBlockMixin",
     "block.FarmlandBlockMixin",
     "block.MushroomPlantBlockMixin",
     "block.PlantBlockMixin",

@@ -15,7 +15,8 @@
     "client": ["org.btwr.vegehenna.VegehennaModClient"],
     "main": ["org.btwr.vegehenna.VegehennaMod"],
     "fabric-datagen": ["org.btwr.vegehenna.VegehennaDataGenerator"],
-    "modmenu": ["org.btwr.vegehenna.config.VGModMenu"]
+    "modmenu": ["org.btwr.vegehenna.config.VGModMenu"],
+    "emi": ["org.btwr.vegehenna.emi.VGEmiPlugin"]
   },
   "mixins": [
     "vegehenna.mixins.json"
