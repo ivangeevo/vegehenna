@@ -10,7 +10,6 @@
     "block.AbstractBlockMixin",
     "block.AttachedStemBlockMixin",
     "block.BeetrootsBlockMixin",
-    "block.BlockMixin",
     "block.CarrotsBlockMixin",
     "block.CocoaBlockMixin",
     "block.CropBlockMixin",
@@ -25,9 +24,7 @@
     "block.SweetBerryBushBlockMixin",
     "block.TorchFlowerBlockMixin",
     "item.AliasedBlockItemMixin",
-    "item.BlockItemMixin",
-    "item.BoneMealItemMixin",
-    "item.MilkBucketItemMixin"
+    "item.BlockItemMixin"
   ],
   "client": [
   ],
