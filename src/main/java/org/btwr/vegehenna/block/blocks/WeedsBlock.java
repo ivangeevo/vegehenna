@@ -76,10 +76,8 @@ public class WeedsBlock extends PlantBlock {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient) {
             breakWeeds(world, pos, state, player, false);
-            return ActionResult.SUCCESS;
         }
-
-        return super.onUse(state, world, pos, player, hit);
+        return ActionResult.SUCCESS;
     }
 
     public static void breakWeeds(World world, BlockPos pos, BlockState state, PlayerEntity player, boolean hasCrop) {

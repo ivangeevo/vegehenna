@@ -70,17 +70,17 @@ public abstract class FarmlandBlockMixin extends Block implements BlockEntityPro
             if (isNight) {
                 if (weedLevel == 0) {
                     if (world.getRandom().nextInt(20) == 0
-                            && world.getLightLevel(LightType.SKY, pos) >= WeedsBlock.LIGHT_LEVEL_FOR_WEED_GROWTH) {
+                            && world.getLightLevel(LightType.SKY, cropPos) >= WeedsBlock.LIGHT_LEVEL_FOR_WEED_GROWTH) {
                         weedsBE.setLevel(1);
                     }
                 } else if (weedLevel % 2 == 0) {
                     weedsBE.setLevel(weedLevel + 1);
                 }
             } else {
-                if (world.getLightLevel(LightType.SKY, pos) >= WeedsBlock.LIGHT_LEVEL_FOR_WEED_GROWTH) {
+                if (world.getLightLevel(LightType.SKY, cropPos) >= WeedsBlock.LIGHT_LEVEL_FOR_WEED_GROWTH) {
                     if (weedLevel == 7) {
                         weedsBE.removeWeeds();
-                        world.setBlockState(pos, Blocks.SHORT_GRASS.getDefaultState());
+                        world.setBlockState(cropPos, Blocks.SHORT_GRASS.getDefaultState());
                     } else if (weedLevel % 2 == 1) {
                         weedsBE.setLevel(weedLevel + 1);
                     }

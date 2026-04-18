@@ -4,7 +4,9 @@ import net.fabricmc.api.ModInitializer;
 import org.btwr.vegehenna.block.ModBlocks;
 import org.btwr.vegehenna.config.VGModConfig;
 import org.btwr.vegehenna.entity.block.ModBlockEntities;
+import org.btwr.vegehenna.event.ModEvents;
 import org.btwr.vegehenna.item.ModItems;
+import org.btwr.vegehenna.util.handler.GourdFallBehavior;
 import org.btwr.vegehenna.util.handler.HasCropGrownHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +22,15 @@ public class VegehennaMod implements ModInitializer {
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
         VegehennaItemGroup.registerItemGroups();
-        //ModLootTableEvents.initialize();
+        ModEvents.register();
+        VGModConfig.register();
 
         // Resets growth flag for daily growth crops when night is skipped forcefully
         HasCropGrownHandler.register();
 
-        VGModConfig.register();
 
         // Vanilla gourds fall like falling blocks
-        //GourdFallBehavior.registerFallingBehavior();
+        GourdFallBehavior.registerFallingBehavior();
     }
 
 }
