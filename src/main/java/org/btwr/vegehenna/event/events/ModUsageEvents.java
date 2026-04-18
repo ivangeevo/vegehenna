@@ -39,13 +39,11 @@ public class ModUsageEvents {
             }
 
             if (world.getBlockEntity(pos.down()) instanceof WeedsBlockEntity weedsBE) {
-                if (weedsBE.getLevel() <= 0) {
-                    return ActionResult.PASS;
+                if (weedsBE.getLevel() > 0) {
+                    WeedsBlock.breakWeeds(world, pos, state, player, true);
+                    weedsBE.removeWeeds();
+                    return ActionResult.SUCCESS;
                 }
-
-                WeedsBlock.breakWeeds(world, pos, state, player, true);
-                weedsBE.removeWeeds();
-                return ActionResult.SUCCESS;
             }
         }
 
