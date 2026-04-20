@@ -32,6 +32,7 @@ public class ModLangProvider extends FabricLanguageProvider {
 
     private void addBlockTranslations(TranslationBuilder tb) {
         tb.add(ModBlocks.FARMLAND_FERTILIZED, "Fertilized Farmland");
+        tb.add(ModBlocks.WEEDS, "Weeds");
     }
 
     private void addItemTranslations(TranslationBuilder tb) {

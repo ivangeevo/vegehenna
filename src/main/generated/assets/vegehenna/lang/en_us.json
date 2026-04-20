@@ -1,5 +1,6 @@
 {
   "block.vegehenna.farmland_fertilized": "Fertilized Farmland",
+  "block.vegehenna.weeds": "Weeds",
   "config.vegehenna.category.general": "General",
   "config.vegehenna.text.clientSettingsText": "Client Settings:",
   "config.vegehenna.text.emptyClientConfigText": "§eNote:§r There are currently no client config settings.",

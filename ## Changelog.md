@@ -1,4 +1,5 @@
 ## v???(dev)
++ Fixed/added block translation text for the weeds block
 
 ## v0.6
 + The mod is now officially in Beta release versioning!
