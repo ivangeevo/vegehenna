@@ -33,11 +33,7 @@ public class ModUsageEvents {
         BlockPos pos = hit.getBlockPos();
         BlockState state = world.getBlockState(pos);
 
-        if (canWeedsShareSpaceWith(state)) {
-            if (world.isClient) {
-                return ActionResult.SUCCESS;
-            }
-
+        if (!world.isClient && canWeedsShareSpaceWith(state)) {
             if (world.getBlockEntity(pos.down()) instanceof WeedsBlockEntity weedsBE) {
                 if (weedsBE.getLevel() > 0) {
                     WeedsBlock.breakWeeds(world, pos, state, player, true);
