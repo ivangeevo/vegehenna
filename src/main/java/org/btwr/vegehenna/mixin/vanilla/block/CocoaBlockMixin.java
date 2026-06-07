@@ -1,4 +1,4 @@
-package org.btwr.vegehenna.mixin.block;
+package org.btwr.vegehenna.mixin.vanilla.block;
 
 import net.minecraft.block.CocoaBlock;
 import org.spongepowered.asm.mixin.Mixin;

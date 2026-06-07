@@ -1,4 +1,4 @@
-package org.btwr.vegehenna.mixin.accessor;
+package org.btwr.vegehenna.mixin.vanilla.accessor;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.loot.LootPool;

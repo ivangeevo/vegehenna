@@ -1,4 +1,4 @@
-package org.btwr.vegehenna.mixin.item;
+package org.btwr.vegehenna.mixin.vanilla.item;
 
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemUsageContext;
