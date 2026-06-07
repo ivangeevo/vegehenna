@@ -55,6 +55,10 @@ dependencies {
     modCompileOnly "dev.emi:emi-fabric:${project.emi_version}"
 
     modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
+
+    // Better With Time (for weeds compatibility)
+    modCompileOnly "maven.modrinth:better-with-time:${project.bwt_version}"
+
 }
 
 processResources {
