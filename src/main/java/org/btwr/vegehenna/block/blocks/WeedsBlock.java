@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
@@ -14,8 +15,8 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldEvents;
 import net.minecraft.world.event.GameEvent;
+import org.btwr.vegehenna.block.ModBlocks;
 
 
 public class WeedsBlock extends PlantBlock {
@@ -82,7 +83,10 @@ public class WeedsBlock extends PlantBlock {
 
     public static void breakWeeds(World world, BlockPos pos, BlockState state, PlayerEntity player, boolean hasCrop) {
         // Break particles + sound
-        world.syncWorldEvent(WorldEvents.BLOCK_BROKEN, pos, Block.getRawIdFromState(state));
+        BlockState weedsState = ModBlocks.WEEDS.getDefaultState();
+        world.playSound(null, pos, weedsState.getSoundGroup().getBreakSound(), SoundCategory.BLOCKS);
+        world.addBlockBreakParticles(pos, weedsState);
+        //world.syncWorldEvent(WorldEvents.BLOCK_BROKEN, pos, Block.getRawIdFromState(state));
 
         // Remove the block
         if (!hasCrop) {
