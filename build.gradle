@@ -59,6 +59,11 @@ dependencies {
     // Better With Time (for weeds compatibility)
     modCompileOnly "maven.modrinth:better-with-time:${project.bwt_version}"
 
+    // Tough Environment(for testing)
+    modImplementation "maven.modrinth:tough-environment:${project.tough_environment_version}"
+    //modImplementation files("libs/tough_environment-${project.tough_environment_version}-1.21.1.jar")
+
+
 }
 
 processResources {
