@@ -13,12 +13,12 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.btwr.shared_library.api.tag.BTWRConventionalTags;
 import org.btwr.vegehenna.block.blocks.WeedsBlock;
 import org.btwr.vegehenna.entity.block.WeedsBlockEntity;
+import org.btwr.vegehenna.tag.ModTags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -80,7 +80,7 @@ public abstract class StemBlockMixin extends PlantBlock {
 
     @Unique
     private void checkForGrowth(World world, BlockPos pos, BlockState state, Random rand) {
-        if (this.btwr$getWeedsGrowthLevel(world, pos) == 0 && world.getLightLevel( pos.up() ) >= 9) {
+        if (this.btwr$getWeedsGrowthLevel(world, pos) == 0 && world.getLightLevel(pos.up()) >= 9) {
             Block blockBelow = world.getBlockState(pos.down()).getBlock();
 
             if (blockBelow != null && blockBelow.btwr$isBlockHydratedForPlantGrowthOn(world, pos.down())) {
@@ -91,35 +91,35 @@ public abstract class StemBlockMixin extends PlantBlock {
                     if (state.get(AGE) < MAX_AGE) {
                         world.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
                     }
-                    else if (state.get(AGE) == MAX_AGE) {
-                        int iTargetFacing = 0;
+                    else {
+                        // Default target is the stem's own position (fruit crushes stem)
+                        BlockPos targetPos = pos;
+                        Direction targetFacing = null;
 
                         if (hasSpaceToGrow(world, pos, state)) {
-                            // if the plant doesn't have space around it to grow,
-                            // the fruit will crush its own stem
-
-                            iTargetFacing = rand.nextInt( 4 ) + 2;
-
-                            pos.offset(Direction.byId(iTargetFacing));
+                            // Only pick a random offset if there's actually space
+                            targetFacing = Direction.Type.HORIZONTAL.random(rand);
+                            targetPos = pos.offset(targetFacing);
                         }
 
-                        if (canGrowFruitAt(world, pos, state)) {
-                            Direction direction = Direction.Type.HORIZONTAL.random(rand);
-                            BlockPos blockPos = pos.offset(direction);
-                            BlockState blockState = world.getBlockState(blockPos.down());
+                        if (canGrowFruitAt(world, targetPos, state)) {
+                            Registry<Block> registry = world.getRegistryManager().get(RegistryKeys.BLOCK);
+                            Optional<Block> optionalFruit = registry.getOrEmpty(this.gourdBlock);
+                            Optional<Block> optionalAttached = registry.getOrEmpty(this.attachedStemBlock);
 
-                            if (world.getBlockState(blockPos).isAir() && ( blockState.isIn(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS) || blockState.isIn(BlockTags.DIRT) ))
-                            {
-                                Registry<Block> registry = world.getRegistryManager().get(RegistryKeys.BLOCK);
-                                Optional<Block> optional = registry.getOrEmpty(this.gourdBlock);
-                                Optional<Block> optional2 = registry.getOrEmpty(this.attachedStemBlock);
-
-                                if (optional.isPresent() && optional2.isPresent()) {
-                                    world.setBlockState(blockPos, optional.get().getDefaultState());
-                                    world.setBlockState(pos, optional2.get().getDefaultState().with(HorizontalFacingBlock.FACING, direction));
-                                }
-
+                            if (optionalFruit.isPresent() && optionalAttached.isPresent()) {
+                                // Notify block below stem before placing fruit
                                 blockBelow.btwr$notifyOfFullStagePlantGrowthOn(world, pos.down(), this);
+
+                                // Place the fruit at the target position
+                                world.setBlockState(targetPos, optionalFruit.get().getDefaultState());
+
+                                // Only convert stem to attached stem if fruit grew to a neighbor
+                                if (targetFacing != null) {
+                                    world.setBlockState(pos, optionalAttached.get().getDefaultState()
+                                            .with(HorizontalFacingBlock.FACING, targetFacing));
+                                }
+                                // else: fruit replaced the stem itself, no stem state to set
                             }
                         }
                     }
@@ -127,42 +127,34 @@ public abstract class StemBlockMixin extends PlantBlock {
             }
         }
     }
-
     @Unique
     protected boolean hasSpaceToGrow(World world, BlockPos pos, BlockState state) {
-        for (int iTargetFacing = 2; iTargetFacing <= 5; iTargetFacing++ ) {
-
-            pos.offset(Direction.byId(iTargetFacing));
-
-            if (canGrowFruitAt(world, pos, state)) {
+        for (Direction direction : Direction.Type.HORIZONTAL) {
+            if (canGrowFruitAt(world, pos.offset(direction), state)) {
                 return true;
             }
         }
-
         return false;
     }
 
     @Unique
-    protected boolean canGrowFruitAt(World world, BlockPos pos, BlockState state) {
+    protected boolean canGrowFruitAt(World world, BlockPos targetPos, BlockState state) {
+        BlockState targetState = world.getBlockState(targetPos);
+        Block targetBlock = targetState.getBlock();
 
-        if (state.isReplaceable() ||
-                (state.getBlock() != null /** &&  state.getBlock() instanceof  **/ &&
-                        state != Blocks.COCOA.getDefaultState()))
-        {
-            return hasLargeCenterHardPointToFacing(world, pos.down(), Direction.UP) ||
-                    canGrow(world, world.getRandom(), pos.down(), state);
+        boolean targetIsValid = targetState.isReplaceable() ||
+                (targetBlock != Blocks.COCOA &&
+                        (targetBlock instanceof PlantBlock || targetState.isIn(BlockTags.REPLACEABLE_BY_TREES))
+                );
+
+        if (targetIsValid) {
+            BlockPos groundPos = targetPos.down();
+            BlockState groundState = world.getBlockState(groundPos);
+            boolean isFullSolidSide = groundState.isSideSolidFullSquare(world, groundPos, Direction.UP);
+
+            return isFullSolidSide || groundState.isIn(ModTags.Blocks.CAN_DOMESTICATED_CROPS_GROW_ON);
         }
 
         return false;
     }
-
-    private static boolean hasLargeCenterHardPointToFacing(WorldAccess blockAccess, BlockPos pos, Direction facing, boolean bIgnoreTransparency)
-    {
-        return blockAccess.getBlockState(pos).isSideSolidFullSquare(blockAccess, pos, facing);
-    }
-
-    private static boolean hasLargeCenterHardPointToFacing(WorldAccess blockAccess, BlockPos pos, Direction facing) {
-        return hasLargeCenterHardPointToFacing(blockAccess, pos, facing, false);
-    }
-
 }
