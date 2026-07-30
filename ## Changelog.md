@@ -8,7 +8,7 @@
 + Fixed crops being clickable all the time (weeds code implementation issue)
 + Fixed crops not being fertilizable when right clicked on the crop (weeds code implementation issue)
 + Reworked all Stem block crops (gourds) growth code to work more similarly to how it is in retail BTW
-+ Updated the mod to Fabric API 0.116.12, Fabric Loader 0.19.3 & BTWR: Shared Library 0.8.4
++ Updated the mod to Fabric API 0.116.15, Fabric Loader 0.19.3 & BTWR: Shared Library 0.8.5
 
 ## v0.6
 + The mod is now officially in Beta release versioning!
