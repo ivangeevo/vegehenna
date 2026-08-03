@@ -1,4 +1,4 @@
-## v???(dev)
+## v0.7
 + Added a new mod block tag "CAN_DOMESTICATED_CROPS_GROW_ON" that defines which blocks can grow vegehenna modified crops on.
 + Added compatibility for Better With Time's hemp plant and weeds to work together properly. This means that they won't grow while having weeds and now the proper outline shape for weeds is present when it has them
 + Fixed/added block translation text for the weeds block
