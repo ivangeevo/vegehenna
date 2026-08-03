@@ -1,4 +1,4 @@
-package org.btwr.vegehenna.mixin.block;
+package org.btwr.vegehenna.mixin.vanilla.block;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.block.*;

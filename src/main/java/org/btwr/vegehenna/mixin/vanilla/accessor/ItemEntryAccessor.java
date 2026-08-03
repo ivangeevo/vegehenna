@@ -1,4 +1,4 @@
-package org.btwr.vegehenna.mixin.accessor;
+package org.btwr.vegehenna.mixin.vanilla.accessor;
 
 import net.minecraft.item.Item;
 import net.minecraft.loot.entry.ItemEntry;

@@ -8,8 +8,8 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
-import org.btwr.vegehenna.mixin.accessor.ItemEntryAccessor;
-import org.btwr.vegehenna.mixin.accessor.LootPoolBuilderAccessor;
+import org.btwr.vegehenna.mixin.vanilla.accessor.ItemEntryAccessor;
+import org.btwr.vegehenna.mixin.vanilla.accessor.LootPoolBuilderAccessor;
 
 import java.util.ArrayList;
 import java.util.List;

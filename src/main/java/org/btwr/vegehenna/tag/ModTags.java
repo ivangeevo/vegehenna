@@ -43,6 +43,9 @@ public class ModTags {
         /** Crop blocks that can grow weeds **/
         public static final TagKey<Block> CAN_GROW_WEEDS = createTag("can_grow_weeds");
 
+        /** Defines which blocks can grow vegehenna modified crops on them **/
+        public static final TagKey<Block> CAN_DOMESTICATED_CROPS_GROW_ON = createTag("can_domesticated_crops_grow_on");
+
         private static TagKey<Block> createTag (String name) {
             return TagKey.of(RegistryKeys.BLOCK, Identifier.of(VegehennaMod.MOD_ID, name));
         }

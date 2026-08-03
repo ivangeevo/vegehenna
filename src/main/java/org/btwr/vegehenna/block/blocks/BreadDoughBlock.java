@@ -11,6 +11,7 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -47,6 +48,11 @@ public class BreadDoughBlock extends Block {
     }
 
     @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return super.getCollisionShape(state, world, pos, context);
+    }
+
+    @Override
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing());
@@ -55,10 +61,21 @@ public class BreadDoughBlock extends Block {
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (entity instanceof LivingEntity) {
-            world.playSound(null, pos, SoundEvents.ENTITY_SLIME_ATTACK, SoundCategory.BLOCKS, ( 0.5F + 1.0F ) / 2.0F, 0.1F * 0.8F );
-            world.addBlockBreakParticles(pos, state);
-            dropBlockAsItem(world, pos);
-            world.removeBlock(pos, false);
+            VoxelShape shape = getOutlineShape(state, world, pos, ShapeContext.of(entity));
+            Box shapeBox = shape.getBoundingBox().offset(pos);
+            Box entityBox = entity.getBoundingBox();
+
+            boolean horizontalOverlap = entityBox.maxX > shapeBox.minX && entityBox.minX < shapeBox.maxX
+                    && entityBox.maxZ > shapeBox.minZ && entityBox.minZ < shapeBox.maxZ;
+            boolean onTop = entityBox.minY >= shapeBox.minY && entityBox.minY <= shapeBox.maxY;
+
+            if (horizontalOverlap && onTop) {
+                // break block
+                world.playSound(null, pos, SoundEvents.ENTITY_SLIME_ATTACK, SoundCategory.BLOCKS, (0.5F + 1.0F) / 2.0F, 0.1F * 0.8F);
+                world.addBlockBreakParticles(pos, state);
+                dropBlockAsItem(world, pos);
+                world.removeBlock(pos, false);
+            }
         }
 
         super.onEntityCollision(state, world, pos, entity);

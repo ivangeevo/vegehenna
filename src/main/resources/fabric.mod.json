@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "Vegehenna!",
   "description": "'It's a feature. It's a way of life. It's a revolution. Vegehenna.' -FlowerChild",
-  "authors": [],
+  "authors": ["ivangeevo"],
   "contact": {
     "repo": "https://github.com/ivangeevo/vegehenna"
   },

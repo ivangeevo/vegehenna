@@ -1,4 +1,4 @@
-package org.btwr.vegehenna.mixin;
+package org.btwr.vegehenna.mixin.vanilla;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.RecipeInputInventory;

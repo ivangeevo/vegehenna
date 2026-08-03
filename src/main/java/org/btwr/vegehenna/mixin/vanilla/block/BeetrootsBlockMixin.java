@@ -1,8 +1,10 @@
-package org.btwr.vegehenna.mixin.block;
+package org.btwr.vegehenna.mixin.vanilla.block;
 
 import net.minecraft.block.*;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import org.btwr.vegehenna.block.blocks.WeedsBlock;
@@ -37,6 +39,16 @@ public abstract class BeetrootsBlockMixin extends CropBlock implements DailyGrow
     @Inject(method = "appendProperties", at = @At("TAIL"))
     private void onAppendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo ci) {
         builder.add(HAS_GROWN_TODAY);
+    }
+
+    // Stops random ticks when it has weeds
+    @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
+    private void onRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+        if (world.getBlockEntity(pos.down()) instanceof WeedsBlockEntity weedsBE) {
+            if (weedsBE.getLevel() <= 0) {
+                ci.cancel();
+            }
+        }
     }
 
 }

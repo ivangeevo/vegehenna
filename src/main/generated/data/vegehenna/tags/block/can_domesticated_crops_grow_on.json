@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#c:farmland_blocks",
+    {
+      "id": "bwt:soil_planter",
+      "required": false
+    }
+  ]
+}

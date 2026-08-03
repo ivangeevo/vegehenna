@@ -74,6 +74,10 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.WHEAT)
                 .add(Blocks.MELON_STEM)
                 .add(Blocks.PUMPKIN_STEM);
+
+        getOrCreateTagBuilder(ModTags.Blocks.CAN_DOMESTICATED_CROPS_GROW_ON)
+                .addTag(BTWRConventionalTags.Blocks.FARMLAND_BLOCKS)
+                .addOptional(Identifier.of("bwt", "soil_planter"));
     }
 
     private void addToConventionalTags() {

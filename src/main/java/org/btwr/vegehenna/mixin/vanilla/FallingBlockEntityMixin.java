@@ -1,4 +1,4 @@
-package org.btwr.vegehenna.mixin;
+package org.btwr.vegehenna.mixin.vanilla;
 
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;

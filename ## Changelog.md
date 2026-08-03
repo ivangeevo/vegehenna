@@ -1,3 +1,15 @@
+## v0.7
++ Added a new mod block tag "CAN_DOMESTICATED_CROPS_GROW_ON" that defines which blocks can grow vegehenna modified crops on.
++ Added compatibility for Better With Time's hemp plant and weeds to work together properly. This means that they won't grow while having weeds and now the proper outline shape for weeds is present when it has them
++ Fixed/added block translation text for the weeds block
++ Fixed crops making incorrect weeds removal sounds
++ Fixed bread dough block to only break when an entity collides on the exact shape of the block instead of when entering the full shape of the block space it's standing on
++ Fixed beetroots still growing while having weeds
++ Fixed crops being clickable all the time (weeds code implementation issue)
++ Fixed crops not being fertilizable when right clicked on the crop (weeds code implementation issue)
++ Reworked all Stem block crops (gourds) growth code to work more similarly to how it is in retail BTW
++ Updated the mod to Fabric API 0.116.15, Fabric Loader 0.19.3 & BTWR: Shared Library 0.8.5
+
 ## v0.6
 + The mod is now officially in Beta release versioning!
 + Added weeds! Crops have and farmland can grow weeds around them and need to be cleaned up regularly to not consume your produce. Disabled by default as it's an unfinished system by itself, but you can enable it if you'd like to.

@@ -1,4 +1,4 @@
-package org.btwr.vegehenna.mixin.block;
+package org.btwr.vegehenna.mixin.vanilla.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -49,7 +49,10 @@ public abstract class SweetBerryBushBlockMixin extends PlantBlock {
 
         if (i > 1) {
             SweetBerryBushBlock.dropStack(world, pos, new ItemStack(Items.SWEET_BERRIES, 1));
-            world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
+            world.playSound(
+                    null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES,
+                    SoundCategory.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f
+            );
             BlockState blockState = state.with(AGE, 1);
             world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);
             world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, blockState));
